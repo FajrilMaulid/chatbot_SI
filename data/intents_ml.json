@@ -20,9 +20,9 @@
         "p"
       ],
       "responses": [
-        "Halo. Ada yang bisa saya bantu seputar program studi Sistem Informasi?",
-        "Hai. Silakan ajukan pertanyaan Anda tentang prodi Sistem Informasi.",
-        "Halo, dengan chatbot SI di sini. Ada yang ingin Anda tanyakan?"
+        "Halo! Ada yang bisa saya bantu seputar Program Studi Sistem Informasi Institut Pendidikan Indonesia (IPI) Garut?",
+        "Hai! Silakan ajukan pertanyaan Anda tentang Prodi Sistem Informasi IPI Garut.",
+        "Halo, dengan chatbot SI IPI Garut di sini. Ada yang ingin Anda tanyakan?"
       ]
     },
     {
@@ -36,9 +36,9 @@
         "saya bicara sama siapa?"
       ],
       "responses": [
-        "Saya adalah chatbot virtual yang dilatih untuk menjawab pertanyaan seputar program studi Sistem Informasi.",
-        "Benar, saya adalah bot. Saya bisa membantu Anda dengan info mata kuliah, dosen, akreditasi, dan pertanyaan umum lainnya.",
-        "Saya bot SI. Tanyakan apa saja tentang prodi kita!"
+        "Saya adalah chatbot virtual yang dilatih untuk menjawab pertanyaan seputar Program Studi Sistem Informasi Institut Pendidikan Indonesia (IPI) Garut.",
+        "Benar, saya adalah bot. Saya bisa membantu Anda dengan info mata kuliah, dosen, akreditasi, dan pertanyaan umum lainnya tentang Prodi SI IPI Garut.",
+        "Saya bot SI IPI Garut. Tanyakan apa saja tentang prodi kita!"
       ]
     },
     {
@@ -54,7 +54,7 @@
         "kasih tau dong si itu apa",
         "apa yang dimaksud sistem informasi",
         "jelasin si",
-        "sistim informasi itu apa"
+        "sistem informasi itu apa"
       ],
       "responses": [
         "Sistem Informasi (SI) adalah bidang studi yang menggabungkan ilmu komputer dengan bisnis dan manajemen.",
@@ -206,22 +206,14 @@
     },
     {
       "intent": "tanya_visi",
-      "patterns": [
-        "apa visi sistem informasi?",
-        "visi prodi si",
-        "visi si"
-      ],
+      "patterns": ["apa visi sistem informasi?", "visi prodi si", "visi si"],
       "responses": [
         "Visi kami adalah [Salin dan tempel Visi program studi Anda di sini]."
       ]
     },
     {
       "intent": "tanya_misi",
-      "patterns": [
-        "apa misi sistem informasi?",
-        "misi prodi si",
-        "misi si"
-      ],
+      "patterns": ["apa misi sistem informasi?", "misi prodi si", "misi si"],
       "responses": [
         "Misi kami adalah: 1. [Misi poin 1]. 2. [Misi poin 2]. 3. [Misi poin 3]."
       ]
@@ -239,9 +231,9 @@
         "bayar per semester berapa?"
       ],
       "responses": [
-        "Informasi detail mengenai biaya kuliah (UKT) bisa dicek di website resmi universitas.",
-        "Biaya kuliah tergantung jalur masuk dan kategori UKT. Silakan cek di [Link Website Keuangan/Pendaftaran].",
-        "Untuk rincian biaya, Anda bisa langsung merujuk ke halaman penerimaan mahasiswa baru di website resmi kami."
+        "Informasi detail mengenai biaya kuliah (UKT) bisa dicek di website resmi Institut Pendidikan Indonesia (IPI) Garut.",
+        "Biaya kuliah tergantung jalur masuk dan kategori UKT. Silakan hubungi bagian keuangan IPI Garut atau cek website resmi untuk informasi terkini.",
+        "Untuk rincian biaya, Anda bisa langsung merujuk ke halaman penerimaan mahasiswa baru di website resmi IPI Garut atau menghubungi bagian pendaftaran."
       ]
     },
     {
@@ -254,9 +246,9 @@
         "kapan pendaftaran dibuka?"
       ],
       "responses": [
-        "Informasi pendaftaran lengkap ada di website penerimaan mahasiswa baru universitas di [Link Website Pendaftaran].",
-        "Anda bisa mendaftar melalui jalur [Sebutkan Jalur Masuk, misal: SNMPTN, SBMPTN, Mandiri].",
-        "Semua info pendaftaran, jadwal, dan syarat ada di [Link Website Pendaftaran]."
+        "Informasi pendaftaran lengkap ada di website penerimaan mahasiswa baru Institut Pendidikan Indonesia (IPI) Garut.",
+        "Anda bisa mendaftar ke Prodi SI IPI Garut melalui jalur penerimaan yang tersedia. Silakan cek website resmi IPI untuk informasi jalur masuk terbaru.",
+        "Semua info pendaftaran, jadwal, dan syarat bisa Anda dapatkan di website resmi IPI Garut atau hubungi bagian pendaftaran kampus."
       ]
     },
     {
@@ -348,8 +340,8 @@
         "ruang tu si"
       ],
       "responses": [
-        "Kantor Program Studi (Sekretariat) Sistem Informasi berada di [Nama Gedung, Lantai, dan Ruangan].",
-        "Lokasi kami ada di [Nama Gedung]. Silakan kunjungi Tata Usaha di [Nama Ruangan] jika ada keperluan administrasi."
+        "Kantor Program Studi (Sekretariat) Sistem Informasi berada di Perpustakaan Institut Pendidikan Indonesia (IPI) Garut.",
+        "Lokasi kampus IPI berada di Garut, Jawa Barat. Silakan kunjungi sekretariat Prodi SI untuk keperluan administrasi."
       ]
     },
     {
@@ -389,6 +381,44 @@
         "Ada 7 Departemen yaitu Kaderisasi, PSDO, Advokasi, Sosial Agama, Minat Bakat, dan Kominfo",
         "Kabinet Neoterix",
         "Wakil Ketua Umum periode 2025/2026 yaitu Izaz Muhamad Fauzi."
+      ]
+    },
+    {
+      "intent": "tanya_universitas",
+      "patterns": [
+        "apa itu ipi?",
+        "ipi singkatan dari apa?",
+        "institut pendidikan indonesia itu apa?",
+        "apa kepanjangan ipi?",
+        "ipi garut",
+        "si nya ada di universitas mana?",
+        "kampus apa?",
+        "nama kampusnya apa?",
+        "prodi si di kampus apa?"
+      ],
+      "responses": [
+        "IPI adalah Institut Pendidikan Indonesia, kampus tempat Program Studi Sistem Informasi berada.",
+        "Institut Pendidikan Indonesia (IPI) Garut adalah institusi pendidikan tinggi yang menyelenggarakan Program Studi Sistem Informasi.",
+        "Prodi Sistem Informasi berada di Institut Pendidikan Indonesia (IPI) yang berlokasi di Garut, Jawa Barat."
+      ]
+    },
+    {
+      "intent": "tanya_lokasi_garut",
+      "patterns": [
+        "ipi di mana?",
+        "kampus ipi dimana?",
+        "lokasi ipi garut",
+        "alamat ipi",
+        "ipi ada di kota apa?",
+        "garut dimana?",
+        "kampusnya di garut?",
+        "si ipi garut alamatnya",
+        "si ipi lokasinya dimana?"
+      ],
+      "responses": [
+        "Institut Pendidikan Indonesia (IPI) berlokasi di Garut, Jawa Barat.",
+        "Kampus IPI berada di Kabupaten Garut, Jawa Barat. Prodi Sistem Informasi kami juga ada di kampus ini.",
+        "Lokasi Institut Pendidikan Indonesia (IPI) ada di Garut, Jawa Barat. Anda bisa mengunjungi kampus kami untuk informasi lebih lanjut."
       ]
     }
   ]
