@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Chatbot Sistem Informasi - Asisten virtual untuk menjawab pertanyaan seputar Program Studi Sistem Informasi"
+    />
+    <meta name="keywords" content="chatbot, sistem informasi, AI, assistant" />
+    <title>Chatbot SI - Asisten Virtual Sistem Informasi</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="chat-header">
+        <div class="header-content">
+          <div class="bot-avatar">
+            <img src="/static/images/robot-icon.svg" alt="Bot Avatar" />
+          </div>
+          <div class="header-text">
+            <h1>Chatbot Sistem Informasi</h1>
+            <p class="status">
+              <span class="status-indicator"></span>
+              Online
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Chat Container -->
+      <main class="chat-container" id="chatContainer">
+        <div class="chat-messages" id="chatMessages">
+          <!-- Welcome Message -->
+          <div class="message bot-message" data-animate="true">
+            <div class="message-avatar">
+              <img src="/static/images/robot-icon.svg" alt="Bot Avatar" />
+            </div>
+            <div class="message-content">
+              <div class="message-bubble">
+                <p>Hai! Selamat datang di Chatbot Sistem Informasi. 👋</p>
+                <p>
+                  Saya siap membantu menjawab pertanyaan Anda seputar Program
+                  Studi Sistem Informasi.
+                </p>
+                <p><strong>Apa yang bisa saya bantu?</strong></p>
+              </div>
+              <span class="message-time">Sekarang</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Input Form -->
+      <footer class="chat-input-container">
+        <form class="chat-input-form" id="chatForm">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="userInput"
+              placeholder="Ketik pertanyaan Anda di sini..."
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="send-button" id="sendButton">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <p class="input-hint">
+          Tanyakan tentang mata kuliah, prospek kerja, dosen, akreditasi, dan
+          lainnya
+        </p>
+      </footer>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="typing-indicator" id="typingIndicator" style="display: none">
+      <div class="message bot-message">
+        <div class="message-avatar">
+          <img src="/static/images/robot-icon.svg" alt="Bot Avatar" />
+        </div>
+        <div class="message-content">
+          <div class="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>

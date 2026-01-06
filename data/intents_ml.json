@@ -1,0 +1,395 @@
+{
+  "intents": [
+    {
+      "intent": "sapaan",
+      "patterns": [
+        "hai",
+        "hallo",
+        "hello",
+        "helo",
+        "halo",
+        "pagi",
+        "siang",
+        "malam",
+        "permisi",
+        "assalamualaikum",
+        "selamat pagi",
+        "selamat siang",
+        "bro",
+        "min",
+        "p"
+      ],
+      "responses": [
+        "Halo. Ada yang bisa saya bantu seputar program studi Sistem Informasi?",
+        "Hai. Silakan ajukan pertanyaan Anda tentang prodi Sistem Informasi.",
+        "Halo, dengan chatbot SI di sini. Ada yang ingin Anda tanyakan?"
+      ]
+    },
+    {
+      "intent": "tanya_bot",
+      "patterns": [
+        "kamu siapa?",
+        "ini bot ya?",
+        "apa yang bisa kamu lakukan?",
+        "kamu bisa apa aja?",
+        "ini siapa",
+        "saya bicara sama siapa?"
+      ],
+      "responses": [
+        "Saya adalah chatbot virtual yang dilatih untuk menjawab pertanyaan seputar program studi Sistem Informasi.",
+        "Benar, saya adalah bot. Saya bisa membantu Anda dengan info mata kuliah, dosen, akreditasi, dan pertanyaan umum lainnya.",
+        "Saya bot SI. Tanyakan apa saja tentang prodi kita!"
+      ]
+    },
+    {
+      "intent": "tanya_definisi_si",
+      "patterns": [
+        "apa itu sistem informasi?",
+        "jelaskan tentang prodi si",
+        "si itu program studi apa?",
+        "definisi sistem informasi",
+        "sistem informasi adalah",
+        "si itu apa sih?",
+        "maksudnya si itu gimana?",
+        "kasih tau dong si itu apa",
+        "apa yang dimaksud sistem informasi",
+        "jelasin si",
+        "sistim informasi itu apa"
+      ],
+      "responses": [
+        "Sistem Informasi (SI) adalah bidang studi yang menggabungkan ilmu komputer dengan bisnis dan manajemen.",
+        "Di prodi SI, Anda belajar cara merancang, membangun, dan mengelola sistem teknologi informasi untuk memenuhi kebutuhan organisasi dan bisnis.",
+        "Singkatnya, SI adalah jembatan antara tim teknis (IT) dan tim manajemen (Bisnis)."
+      ]
+    },
+    {
+      "intent": "tanya_mata_kuliah",
+      "patterns": [
+        "sistem informasi belajar apa?",
+        "di si belajar apa saja?",
+        "mata kuliah sistem informasi apa saja?",
+        "sebutkan contoh matkul di si",
+        "apa yang dipelajari di prodi si?",
+        "pelajaran si apa aja?",
+        "belajar database gak?",
+        "ada manajemen proyek?",
+        "kasih tau matkul si",
+        "dapet matkul apa aja",
+        "list mata kuliah si"
+      ],
+      "responses": [
+        "Anda akan belajar mata kuliah teknis dan manajemen. Contohnya: Basis Data, Analisis dan Desain Sistem, Manajemen Proyek IT, Tata Kelola TI, dan E-Business.",
+        "Ya, Anda akan belajar Basis Data, Pemrograman, Jaringan Komputer, sekaligus Analisis Proses Bisnis dan Manajemen.",
+        "Mata kuliah utamanya berfokus pada analisis sistem, manajemen data, dan strategi bisnis berbasis teknologi."
+      ]
+    },
+    {
+      "intent": "tanya_coding",
+      "patterns": [
+        "apakah di si ada pemrograman?",
+        "apakah sistem informasi belajar coding?",
+        "banyak coding di si?",
+        "belajar coding apa aja di si?",
+        "ada ngoding ga di si?",
+        "belajar bahasa pemrograman apa?",
+        "banyak praktek coding?"
+      ],
+      "responses": [
+        "Ya, ada mata kuliah pemrograman. Namun, fokusnya lebih ke penerapan untuk solusi bisnis, bukan pada teori komputasi mendalam seperti di Teknik Informatika.",
+        "Anda akan belajar coding, tapi porsinya seimbang dengan mata kuliah manajemen dan analisis bisnis.",
+        "Tentu, ada coding. Tapi Anda juga akan kuat di sisi analisis sistem dan manajemen proyeknya."
+      ]
+    },
+    {
+      "intent": "tanya_prospek_kerja",
+      "patterns": [
+        "lulusan si kerja jadi apa?",
+        "prospek karir sistem informasi?",
+        "pekerjaan untuk lulusan si?",
+        "setelah lulus si bisa kerja di mana?",
+        "peluang kerja si",
+        "kalau lulus si jadi apa?",
+        "gampang cari kerja gak?",
+        "lulusan si kerjanya ngapain?",
+        "kerja apa setelah lulus si?",
+        "gaji lulusan si"
+      ],
+      "responses": [
+        "Lulusan SI bisa menjadi System Analyst, IT Consultant, Project Manager, Data Analyst, IT Auditor, atau UI/UX Designer.",
+        "Prospek kerjanya sangat luas karena setiap perusahaan modern membutuhkan ahli sistem untuk menjembatani tim teknis dan bisnis.",
+        "Karirnya sangat cerah. Anda bisa masuk sebagai Analis Sistem, Konsultan IT, Manajer Proyek, atau Analis Data."
+      ]
+    },
+    {
+      "intent": "tanya_perbedaan_si_ti",
+      "patterns": [
+        "apa bedanya si sama teknik informatika?",
+        "beda sistem informasi dan ilmu komputer?",
+        "lebih teknis mana si atau ti?",
+        "pilih si atau ti?",
+        "beda si dan ti",
+        "mending si atau ti?",
+        "bedanya ilmu komputer sama si apa?",
+        "si vs ti"
+      ],
+      "responses": [
+        "Sistem Informasi (SI) fokus pada 'Sistem' dan 'Bisnis'. Bagaimana teknologi diterapkan untuk solusi bisnis.",
+        "Teknik Informatika (TI) fokus pada 'Informasi' dan 'Teknologi'. Bagaimana cara membuat software dan algoritma murninya.",
+        "Singkatnya: TI adalah 'dapur' yang membuat teknologi. SI adalah 'jembatan' yang menerapkan teknologi itu ke masalah bisnis."
+      ]
+    },
+    {
+      "intent": "tanya_skill",
+      "patterns": [
+        "skill apa yang didapat dari si?",
+        "kemampuan yang dipelajari di sistem informasi?",
+        "belajar skill apa di si?",
+        "lulusan si jago apa?",
+        "dapat kemampuan apa aja?"
+      ],
+      "responses": [
+        "Anda akan menguasai 'hard skill' (analisis sistem, desain database, SQL) dan 'soft skill' (manajemen proyek, komunikasi, pemecahan masalah bisnis).",
+        "Anda akan jago dalam menganalisis kebutuhan bisnis dan menerjemahkannya menjadi solusi teknis.",
+        "Kemampuan utamanya adalah analisis dan desain sistem, manajemen proyek, dan tata kelola IT."
+      ]
+    },
+    {
+      "intent": "tanya_dosen",
+      "patterns": [
+        "siapa dosen di sistem informasi?",
+        "dosen si siapa saja?",
+        "daftar dosen prodi si",
+        "siapa pengajar di si?",
+        "dosen favorit si?",
+        "siapa dosen ahli data?",
+        "mau lihat daftar nama dosen",
+        "staf pengajar si"
+      ],
+      "responses": [
+        "Staf pengajar kami sangat kompeten. Beberapa di antaranya adalah [Nama Dosen 1], [Nama Dosen 2], dan [Nama Dosen 3].",
+        "Daftar lengkap dosen dan bidang keahlian mereka bisa Anda lihat di website resmi prodi.",
+        "Dosen kami ahli di berbagai bidang. Anda bisa melihat profil lengkap mereka di [Link Website Prodi/Dosen]."
+      ]
+    },
+    {
+      "intent": "tanya_kaprodi",
+      "patterns": [
+        "siapa kaprodi sistem informasi?",
+        "kaprodi si siapa?",
+        "ketua program studi si?",
+        "siapa kepala prodi sistem informasi?",
+        "kontak kaprodi si",
+        "mau ketemu kaprodi"
+      ],
+      "responses": [
+        "Ketua Program Studi (Kaprodi) Sistem Informasi saat ini adalah Bapak Yopi Nugraha M.Kom.",
+        "Untuk keperluan akademik, Anda bisa menghubungi Kaprodi SI, Bapak Yopi Nugraha M.Kom di kantor prodi.",
+        "Kaprodi SI saat ini adalah Bapak Yopi Nugraha M.Kom."
+      ]
+    },
+    {
+      "intent": "tanya_akreditasi",
+      "patterns": [
+        "akreditasi sistem informasi apa?",
+        "apa akreditasi prodi si?",
+        "akreditasi si saat ini",
+        "status akreditasi si",
+        "akreditasinya apa?",
+        "prodi si sudah unggul?",
+        "akrditasi si"
+      ],
+      "responses": [
+        "Program studi Sistem Informasi saat ini terakreditasi [Nilai Akreditasi, misal: 'Unggul' atau 'A'] oleh BAN-PT.",
+        "Status akreditasi kami adalah [Nilai Akreditasi].",
+        "Akreditasi prodi SI adalah [Nilai Akreditasi] dari BAN-PT."
+      ]
+    },
+    {
+      "intent": "tanya_visi",
+      "patterns": [
+        "apa visi sistem informasi?",
+        "visi prodi si",
+        "visi si"
+      ],
+      "responses": [
+        "Visi kami adalah [Salin dan tempel Visi program studi Anda di sini]."
+      ]
+    },
+    {
+      "intent": "tanya_misi",
+      "patterns": [
+        "apa misi sistem informasi?",
+        "misi prodi si",
+        "misi si"
+      ],
+      "responses": [
+        "Misi kami adalah: 1. [Misi poin 1]. 2. [Misi poin 2]. 3. [Misi poin 3]."
+      ]
+    },
+    {
+      "intent": "tanya_biaya_kuliah",
+      "patterns": [
+        "biaya kuliah si berapa?",
+        "ukt sistem informasi",
+        "berapa bayar kuliah di si?",
+        "mahal gak kuliah si?",
+        "info biaya si",
+        "spp si berapa?",
+        "duit kuliah si",
+        "bayar per semester berapa?"
+      ],
+      "responses": [
+        "Informasi detail mengenai biaya kuliah (UKT) bisa dicek di website resmi universitas.",
+        "Biaya kuliah tergantung jalur masuk dan kategori UKT. Silakan cek di [Link Website Keuangan/Pendaftaran].",
+        "Untuk rincian biaya, Anda bisa langsung merujuk ke halaman penerimaan mahasiswa baru di website resmi kami."
+      ]
+    },
+    {
+      "intent": "tanya_pendaftaran",
+      "patterns": [
+        "cara daftar si",
+        "gimana masuk sistem informasi?",
+        "pendaftaran prodi si",
+        "jalur masuk si apa aja?",
+        "kapan pendaftaran dibuka?"
+      ],
+      "responses": [
+        "Informasi pendaftaran lengkap ada di website penerimaan mahasiswa baru universitas di [Link Website Pendaftaran].",
+        "Anda bisa mendaftar melalui jalur [Sebutkan Jalur Masuk, misal: SNMPTN, SBMPTN, Mandiri].",
+        "Semua info pendaftaran, jadwal, dan syarat ada di [Link Website Pendaftaran]."
+      ]
+    },
+    {
+      "intent": "tanya_lama_studi",
+      "patterns": [
+        "kuliah si berapa lama?",
+        "berapa tahun lulus dari si?",
+        "total sks si berapa?",
+        "sistem informasi berapa semester?",
+        "lama studi si"
+      ],
+      "responses": [
+        "Program S1 Sistem Informasi normalnya ditempuh dalam 8 semester atau 4 tahun.",
+        "Total SKS yang harus diselesaikan adalah [Jumlah SKS, misal: 144 SKS] untuk meraih gelar sarjana.",
+        "Lama studi normal adalah 4 tahun (8 semester)."
+      ]
+    },
+    {
+      "intent": "tanya_gelar",
+      "patterns": [
+        "lulusan si dapat gelar apa?",
+        "gelar sarjana si",
+        "gelar s1 sistem informasi"
+      ],
+      "responses": [
+        "Lulusan program studi Sistem Informasi akan mendapatkan gelar Sarjana Komputer (S.Kom).",
+        "Gelar yang didapat adalah S.Kom (Sarjana Komputer)."
+      ]
+    },
+    {
+      "intent": "tanya_peminatan",
+      "patterns": [
+        "ada peminatan apa di si?",
+        "konsentrasi di sistem informasi",
+        "penjurusan si apa aja?",
+        "bisa fokus belajar apa di si?"
+      ],
+      "responses": [
+        "Ya, kami memiliki beberapa peminatan. Anda bisa memilih fokus pada [Peminatan 1, misal: Tata Kelola TI], [Peminatan 2, misal: Analitika Data Bisnis], atau [Peminatan 3, misal: E-Business].",
+        "Peminatan bisa dipilih mulai semester [Misal: 5]."
+      ]
+    },
+    {
+      "intent": "tanya_magang",
+      "patterns": [
+        "apakah ada magang di si?",
+        "program magang si",
+        "kapan magang si?",
+        "magang wajib atau tidak?"
+      ],
+      "responses": [
+        "Ya, mahasiswa SI wajib mengikuti program magang kerja (Kerja Praktik), biasanya di semester [Misal: 6 atau 7].",
+        "Magang adalah bagian dari kurikulum untuk memberikan pengalaman kerja nyata sebelum lulus."
+      ]
+    },
+    {
+      "intent": "tanya_skripsi",
+      "patterns": [
+        "skripsi di si tentang apa?",
+        "tugas akhir si ngapain?",
+        "apakah si wajib skripsi?",
+        "contoh judul skripsi si"
+      ],
+      "responses": [
+        "Tugas Akhir di SI bisa berupa skripsi penelitian, perancangan sistem, atau proyek IT. Topiknya beragam, dari audit sistem, e-business, hingga analisis data.",
+        "Ya, mahasiswa wajib menyusun Tugas Akhir (Skripsi) sebagai syarat kelulusan."
+      ]
+    },
+    {
+      "intent": "tanya_fasilitas",
+      "patterns": [
+        "fasilitas di si apa aja?",
+        "lab komputer si ada apa aja?",
+        "ada lab apa di sistem informasi?",
+        "fasilitas pendukung si"
+      ],
+      "responses": [
+        "Kami memiliki fasilitas laboratorium seperti [Lab 1, misal: Lab Basis Data], [Lab 2, misal: Lab Analisis Desain Sistem], dan [Lab 3, misal: Lab Jaringan Komputer].",
+        "Selain ruang kelas, prodi SI didukung oleh beberapa laboratorium untuk praktikum."
+      ]
+    },
+    {
+      "intent": "tanya_lokasi_prodi",
+      "patterns": [
+        "ruang prodi si di mana?",
+        "kantor tata usaha si",
+        "sekretariat sistem informasi di mana?",
+        "lokasi si di gedung apa?",
+        "ruang tu si"
+      ],
+      "responses": [
+        "Kantor Program Studi (Sekretariat) Sistem Informasi berada di [Nama Gedung, Lantai, dan Ruangan].",
+        "Lokasi kami ada di [Nama Gedung]. Silakan kunjungi Tata Usaha di [Nama Ruangan] jika ada keperluan administrasi."
+      ]
+    },
+    {
+      "intent": "penutup",
+      "patterns": [
+        "terima kasih",
+        "thanks",
+        "makasih",
+        "oke cukup",
+        "sudah jelas",
+        "oke makasih",
+        "oke",
+        "sip",
+        "mantap",
+        "makasi ya",
+        "cukup",
+        "ok"
+      ],
+      "responses": [
+        "Sama-sama! Senang bisa membantu.",
+        "Baik. Jika ada pertanyaan lain, saya siap membantu.",
+        "Terima kasih kembali."
+      ]
+    },
+    {
+      "intent": "himpunan",
+      "patterns": [
+        "apa nama himpunan mahasiswa di sistem informasi",
+        "siapa nama ketua himpunannya",
+        "ada berapa departemen di himpunan sistem informasi",
+        "apa nama kabinet himasifor",
+        "Siapa nama wakil ketua"
+      ],
+      "responses": [
+        "HIMASIFOR Himpunan mahasiswa sistem informasi",
+        "Ketua Umum periode 2025/2026 yaitu Gilang Teguh Ananda.",
+        "Ada 7 Departemen yaitu Kaderisasi, PSDO, Advokasi, Sosial Agama, Minat Bakat, dan Kominfo",
+        "Kabinet Neoterix",
+        "Wakil Ketua Umum periode 2025/2026 yaitu Izaz Muhamad Fauzi."
+      ]
+    }
+  ]
+}
