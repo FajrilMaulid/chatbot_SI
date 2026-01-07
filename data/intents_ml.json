@@ -370,17 +370,249 @@
       "intent": "himpunan",
       "patterns": [
         "apa nama himpunan mahasiswa di sistem informasi",
-        "siapa nama ketua himpunannya",
-        "ada berapa departemen di himpunan sistem informasi",
-        "apa nama kabinet himasifor",
-        "Siapa nama wakil ketua"
+        "himpunan mahasiswa si",
+        "himasifor itu apa",
+        "apa itu himasifor",
+        "organisasi mahasiswa si"
       ],
       "responses": [
-        "HIMASIFOR Himpunan mahasiswa sistem informasi",
-        "Ketua Umum periode 2025/2026 yaitu Gilang Teguh Ananda.",
-        "Ada 7 Departemen yaitu Kaderisasi, PSDO, Advokasi, Sosial Agama, Minat Bakat, dan Kominfo",
-        "Kabinet Neoterix",
-        "Wakil Ketua Umum periode 2025/2026 yaitu Izaz Muhamad Fauzi."
+        "HIMASIFOR (Himpunan Mahasiswa Sistem Informasi) adalah organisasi mahasiswa di tingkat jurusan Sistem Informasi di lingkungan FITS IPI yang berstatus otonom dan di bawah koordinasi BEM FITS Institut Pendidikan Indonesia Garut.",
+        "Himpunan Mahasiswa Sistem Informasi (HIMASIFOR) adalah organisasi kemahasiswaan untuk mahasiswa Prodi SI IPI Garut.",
+        "HIMASIFOR adalah wadah bagi mahasiswa Sistem Informasi untuk mengembangkan potensi, baik di bidang akademik maupun non-akademik."
+      ]
+    },
+    {
+      "intent": "tanya_sejarah_himasifor",
+      "patterns": [
+        "kapan himasifor berdiri",
+        "sejarah himasifor",
+        "himasifor didirikan kapan",
+        "tanggal berdiri himasifor",
+        "dimana himasifor didirikan",
+        "sejak kapan ada himasifor"
+      ],
+      "responses": [
+        "HIMASIFOR (Himpunan Mahasiswa Sistem Informasi) berdiri pada tanggal 18 Januari 2019 di Kampus Institut Pendidikan Indonesia Garut, Jl. Terusan Pahlawan No. 32 Desa Sukagalih Tarogong Kidul Garut Jawa Barat.",
+        "Himpunan Mahasiswa Sistem Informasi didirikan pada 18 Januari 2019 di IPI Garut.",
+        "HIMASIFOR resmi berdiri sejak 18 Januari 2019 di kampus IPI Garut."
+      ]
+    },
+    {
+      "intent": "tanya_ketua_himasifor",
+      "patterns": [
+        "siapa ketua himasifor",
+        "ketua himasifor sekarang",
+        "siapa ketua himpunan si",
+        "ketua himasifor periode sekarang",
+        "daftar ketua himasifor",
+        "ketua himasifor dari dulu sampai sekarang"
+      ],
+      "responses": [
+        "Ketua Umum HIMASIFOR periode 2025/2026 adalah Gilang Teguh Ananda.",
+        "Saat ini, HIMASIFOR dipimpin oleh Gilang Teguh Ananda sebagai Ketua Umum periode 2025/2026. Ketua-ketua sebelumnya: Fauzan Abdullah Juliano (2019/2020), Muhammad Reksi Andriana (2020/2021), Ilham Septiansyah (2021/2022), Ahmad Faraz Mutaqin (2022/2023), Dendi Saputra (2023/2024), dan Muhammad Fauzan A (2024/2025).",
+        "Gilang Teguh Ananda adalah Ketua Umum HIMASIFOR saat ini untuk periode 2025/2026."
+      ]
+    },
+    {
+      "intent": "tanya_wakil_ketua_himasifor",
+      "patterns": [
+        "siapa wakil ketua himasifor",
+        "wakil ketua himasifor sekarang",
+        "waketum himasifor",
+        "siapa waketum himasifor"
+      ],
+      "responses": [
+        "Wakil Ketua Umum HIMASIFOR periode 2025/2026 adalah Izaz Muhamad Fauzi.",
+        "Izaz Muhamad Fauzi menjabat sebagai Wakil Ketua Umum HIMASIFOR periode 2025/2026.",
+        "Saat ini, Wakil Ketua Umum HIMASIFOR adalah Izaz Muhamad Fauzi."
+      ]
+    },
+    {
+      "intent": "tanya_departemen_himasifor",
+      "patterns": [
+        "departemen apa saja di himasifor",
+        "ada berapa departemen di himpunan sistem informasi",
+        "divisi di himasifor",
+        "struktur departemen himasifor",
+        "sebutkan departemen himasifor",
+        "himasifor punya departemen apa"
+      ],
+      "responses": [
+        "HIMASIFOR memiliki 7 departemen, yaitu: Kaderisasi, SOGAM (Sosial dan Agama), PSDO, Pendidikan, Minat Bakat, Kominfo, dan Advokasi.",
+        "Ada 7 departemen di HIMASIFOR: 1) Kaderisasi, 2) SOGAM, 3) PSDO, 4) Pendidikan, 5) Minat Bakat, 6) Kominfo, 7) Advokasi.",
+        "Departemen di HIMASIFOR ada 7, meliputi Kaderisasi, Sosial dan Agama (SOGAM), PSDO, Pendidikan, Minat Bakat, Kominfo, dan Advokasi."
+      ]
+    },
+    {
+      "intent": "tanya_bphi",
+      "patterns": [
+        "apa itu bphi",
+        "bphi himasifor",
+        "struktur bphi",
+        "pengurus inti himasifor",
+        "badan pengurus harian inti"
+      ],
+      "responses": [
+        "BPHI (Badan Pengurus Harian Inti) adalah unsur pimpinan tertinggi dalam HIMASIFOR yang bertanggung jawab atas perencanaan, pelaksanaan, dan pengendalian seluruh kegiatan organisasi. BPHI terdiri dari: Ketua Umum, Wakil Ketua Umum, Sekretaris Umum, dan Bendahara Umum.",
+        "Badan Pengurus Harian Inti (BPHI) merupakan pengurus inti HIMASIFOR yang terdiri dari 4 posisi: Ketua Umum (memimpin organisasi), Wakil Ketua Umum (membantu ketua), Sekretaris Umum (mengelola administrasi), dan Bendahara Umum (mengelola keuangan).",
+        "BPHI adalah struktur kepemimpinan tertinggi HIMASIFOR dengan 4 posisi kunci: Ketua, Wakil Ketua, Sekretaris, dan Bendahara Umum."
+      ]
+    },
+    {
+      "intent": "tanya_kaderisasi",
+      "patterns": [
+        "apa itu kaderisasi",
+        "departemen kaderisasi",
+        "divisi kaderisasi himasifor",
+        "tugas kaderisasi",
+        "jelaskan kaderisasi"
+      ],
+      "responses": [
+        "Divisi Kaderisasi memiliki tanggung jawab utama dalam proses perekrutan, pembinaan, dan pengembangan anggota baru. Kaderisasi bertujuan menciptakan kader yang loyal, aktif, dan siap melanjutkan estafet kepemimpinan organisasi.",
+        "Departemen Kaderisasi HIMASIFOR bertugas melakukan perekrutan dan pembinaan anggota baru. Program kerjanya mencakup open recruitment, Latihan Kader, dan pembinaan berkelanjutan.",
+        "Kaderisasi adalah divisi yang berperan penting dalam menjaga regenerasi dan kesinambungan himpunan melalui perekrutan dan pembinaan anggota baru."
+      ]
+    },
+    {
+      "intent": "tanya_sogam",
+      "patterns": [
+        "apa itu sogam",
+        "departemen sogam",
+        "sosial dan agama",
+        "divisi sosial agama himasifor",
+        "tugas sogam"
+      ],
+      "responses": [
+        "SOGAM (Sosial dan Agama) adalah divisi yang bertanggung jawab dalam membentuk karakter mahasiswa yang peduli terhadap sesama dan memiliki nilai-nilai spiritual yang baik. Kegiatannya meliputi kajian rutin, peringatan hari besar keagamaan, bakti sosial, donasi, dan respon tanggap bencana.",
+        "Departemen SOGAM berperan penting dalam membangun solidaritas dan kepekaan sosial di lingkungan himpunan melalui kegiatan keagamaan dan sosial.",
+        "Divisi Sosial dan Agama (SOGAM) menyelenggarakan kegiatan spiritual seperti kajian rutin dan kegiatan sosial seperti bakti sosial untuk membangun kepedulian mahasiswa."
+      ]
+    },
+    {
+      "intent": "tanya_psdo",
+      "patterns": [
+        "apa itu psdo",
+        "departemen psdo",
+        "divisi psdo himasifor",
+        "tugas psdo",
+        "psdo singkatan dari apa"
+      ],
+      "responses": [
+        "PSDO (Pengembangan Sumber Daya Organisasi) berfokus pada peningkatan kapasitas sumber daya manusia dalam organisasi. Tujuan utamanya adalah mengembangkan kualitas personal dan profesional anggota melalui pelatihan, upgrading, dan evaluasi internal.",
+        "Divisi PSDO berperan dalam membentuk budaya organisasi yang positif, produktif, dan berkelanjutan melalui pengembangan SDM.",
+        "Departemen PSDO bertanggung jawab untuk meningkatkan kapasitas anggota HIMASIFOR melalui pelatihan dan pengembangan personal serta profesional."
+      ]
+    },
+    {
+      "intent": "tanya_pendidikan_himasifor",
+      "patterns": [
+        "departemen pendidikan himasifor",
+        "divisi pendidikan himasifor",
+        "tugas departemen pendidikan",
+        "apa itu divisi pendidikan"
+      ],
+      "responses": [
+        "Divisi Pendidikan berfokus pada peningkatan kualitas akademik dan intelektual mahasiswa. Tugas utamanya adalah menyelenggarakan kegiatan penunjang akademik seperti seminar, pelatihan, kelas belajar bersama, maupun bimbingan akademik.",
+        "Departemen Pendidikan HIMASIFOR bertindak sebagai fasilitator untuk mendorong mahasiswa agar berprestasi, baik di tingkat internal kampus maupun eksternal.",
+        "Divisi Pendidikan menyelenggarakan berbagai kegiatan akademik seperti seminar, workshop, dan bimbingan belajar untuk meningkatkan prestasi mahasiswa."
+      ]
+    },
+    {
+      "intent": "tanya_minat_bakat",
+      "patterns": [
+        "apa itu minat bakat",
+        "departemen minat bakat",
+        "divisi minat bakat himasifor",
+        "tugas minat bakat",
+        "minat dan bakat"
+      ],
+      "responses": [
+        "Divisi Minat dan Bakat menjadi wadah bagi pengembangan potensi nonakademik mahasiswa, seperti di bidang seni, olahraga, dan hobi lainnya. Kegiatan yang diadakan meliputi lomba, pelatihan, dan pertunjukan.",
+        "Departemen Minat dan Bakat mendorong mahasiswa untuk mengekspresikan kreativitas dan menyalurkan minat mereka di luar bidang akademik.",
+        "Divisi Minat Bakat berkontribusi dalam menciptakan suasana organisasi yang dinamis dan menyenangkan melalui kegiatan seni, olahraga, dan hobi."
+      ]
+    },
+    {
+      "intent": "tanya_kominfo",
+      "patterns": [
+        "apa itu kominfo",
+        "departemen kominfo",
+        "divisi kominfo himasifor",
+        "tugas kominfo",
+        "komunikasi dan informasi"
+      ],
+      "responses": [
+        "Divisi Kominfo bertanggung jawab dalam mengelola seluruh arus informasi dan media publikasi himpunan. Perannya meliputi penyebaran informasi kegiatan, dokumentasi, serta pengelolaan media sosial dan branding organisasi.",
+        "Departemen Kominfo berperan sebagai pusat komunikasi internal dan eksternal HIMASIFOR, guna menciptakan citra positif organisasi di mata publik.",
+        "Divisi Komunikasi dan Informasi mengelola media sosial, dokumentasi kegiatan, dan publikasi untuk menyebarkan informasi tentang HIMASIFOR."
+      ]
+    },
+    {
+      "intent": "tanya_advokasi",
+      "patterns": [
+        "apa itu advokasi",
+        "departemen advokasi",
+        "divisi advokasi himasifor",
+        "tugas advokasi",
+        "jelaskan advokasi"
+      ],
+      "responses": [
+        "Divisi Advokasi berfungsi sebagai penghubung antara mahasiswa dan pihak birokrasi kampus. Tugas utamanya adalah menampung, mengolah, dan menyampaikan aspirasi atau permasalahan yang dihadapi oleh mahasiswa kepada pihak terkait.",
+        "Departemen Advokasi mengawal isu-isu kebijakan kampus, serta memberikan edukasi hak dan kewajiban mahasiswa. Perannya sangat strategis dalam menjaga hak-hak mahasiswa.",
+        "Divisi Advokasi bertugas menjembatani komunikasi antara mahasiswa dengan pihak kampus untuk menyampaikan aspirasi dan menyelesaikan permasalahan mahasiswa."
+      ]
+    },
+    {
+      "intent": "tanya_pembina_himasifor",
+      "patterns": [
+        "siapa pembina himasifor",
+        "pembina himpunan si",
+        "dosen pembina himasifor"
+      ],
+      "responses": [
+        "HIMASIFOR adalah organisasi yang menaungi mahasiswa Jurusan Sistem Informasi dan secara otomatis memiliki pembina dari Ketua Program Studi Sistem Informasi.",
+        "Pembina HIMASIFOR adalah Ketua Prodi Sistem Informasi, yaitu Bapak Yopi Nugraha M.Kom.",
+        "Ketua Prodi Sistem Informasi menjabat sebagai pembina HIMASIFOR."
+      ]
+    },
+    {
+      "intent": "tanya_kabinet_himasifor",
+      "patterns": [
+        "apa nama kabinet himasifor",
+        "kabinet himasifor sekarang",
+        "nama kabinet periode sekarang",
+        "kabinet himasifor 2025"
+      ],
+      "responses": [
+        "Kabinet HIMASIFOR periode 2025/2026 bernama Kabinet Neoterix.",
+        "Nama kabinet HIMASIFOR saat ini adalah Neoterix untuk periode 2025/2026.",
+        "HIMASIFOR periode 2025/2026 menggunakan nama Kabinet Neoterix."
+      ]
+    },
+    {
+      "intent": "tanya_prestasi_himasifor",
+      "patterns": [
+        "prestasi himasifor",
+        "penghargaan himasifor",
+        "prestasi apa yang diraih himasifor",
+        "himasifor pernah juara apa"
+      ],
+      "responses": [
+        "Untuk informasi detail mengenai prestasi yang telah diraih HIMASIFOR, Anda bisa menghubungi langsung pengurus HIMASIFOR atau mengecek media sosial resmi HIMASIFOR.",
+        "Data prestasi HIMASIFOR sedang kami kumpulkan. Silakan hubungi pengurus HIMASIFOR untuk informasi lebih lengkap."
+      ]
+    },
+    {
+      "intent": "tanya_kegiatan_himasifor",
+      "patterns": [
+        "kegiatan himasifor",
+        "program kerja himasifor",
+        "apa saja kegiatan himasifor",
+        "event himasifor"
+      ],
+      "responses": [
+        "HIMASIFOR menyelenggarakan berbagai kegiatan melalui 7 departemennya, mulai dari kegiatan akademik, sosial keagamaan, pengembangan SDM, hingga minat dan bakat. Untuk informasi kegiatan terkini, silakan hubungi pengurus HIMASIFOR atau cek media sosial resmi HIMASIFOR.",
+        "Kegiatan HIMASIFOR sangat beragam, mencakup seminar, pelatihan, bakti sosial, kajian keagamaan, lomba, dan masih banyak lagi. Untuk jadwal lengkapnya, Anda bisa menghubungi pengurus atau mengikuti akun media sosial HIMASIFOR."
       ]
     },
     {
