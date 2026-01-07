@@ -7,3 +7,4 @@ pandas
 groq
 python-dotenv
 cachetools
+gunicorn

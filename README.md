@@ -174,6 +174,28 @@ Modern dark mode interface dengan:
 - SVG icons
 - Responsive design
 
+## 🚀 Deployment
+
+Chatbot ini siap untuk di-deploy ke production!
+
+### Quick Deploy ke Railway (Recommended):
+
+Lihat panduan singkat: **[RAILWAY_QUICKSTART.md](RAILWAY_QUICKSTART.md)**
+
+### Deployment Lengkap:
+
+Untuk panduan lengkap deployment ke berbagai platform (Railway, Render, PythonAnywhere):
+
+- **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Panduan lengkap semua platform
+- **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Checklist sebelum deploy
+
+### Platform yang Didukung:
+
+- ✅ Railway.app ($5/bulan) - **Recommended**
+- ✅ Render.com (FREE tier available)
+- ✅ PythonAnywhere (FREE tier available)
+- ✅ DigitalOcean, AWS, Google Cloud
+
 ## ⚙️ API Endpoints
 
 - `GET /` - Main chat interface
@@ -187,7 +209,8 @@ Educational project untuk Program Studi Sistem Informasi.
 
 ## 🆘 Support
 
-Untuk bantuan setup Groq API, lihat [GROQ_SETUP.md](GROQ_SETUP.md)
+- **Setup Groq API:** Lihat [GROQ_SETUP.md](GROQ_SETUP.md)
+- **Deployment:** Lihat [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
 
 ---
 

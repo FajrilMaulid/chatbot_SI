@@ -50,17 +50,47 @@ response_cache = TTLCache(maxsize=100, ttl=CACHE_TTL) if ENABLE_CACHING else Non
 
 # Setup Koneksi DB & Load JSON
 def init_db_connection():
+    """
+    Initialize database connection.
+    Supports both Railway DATABASE_URL and local .env configuration.
+    """
     try:
+        # Check if Railway DATABASE_URL is available
+        database_url = os.getenv('DATABASE_URL')
+        
+        if database_url:
+            # Parse Railway DATABASE_URL format: mysql://user:password@host:port/database
+            import re
+            match = re.match(r'mysql://(.+):(.+)@(.+):(\d+)/(.+)', database_url)
+            if match:
+                user, password, host, port, database = match.groups()
+                print(f"[...] Connecting to Railway MySQL: {host}")
+                db_connection = mysql.connector.connect(
+                    host=host,
+                    user=user,
+                    password=password,
+                    database=database,
+                    port=int(port)
+                )
+                print("[OK] Railway Database Connected")
+                return db_connection
+        
+        # Fallback to local/manual environment variables
+        print("[...] Using local database configuration")
         db_connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="chatbot_si"
+            host=os.getenv('MYSQL_HOST', 'localhost'),
+            user=os.getenv('MYSQL_USER', 'root'),
+            password=os.getenv('MYSQL_PASSWORD', ''),
+            database=os.getenv('MYSQL_DATABASE', 'chatbot_si')
         )
-        print("[OK] Koneksi Database Berhasil")
+        print("[OK] Local Database Connected")
         return db_connection
+        
     except mysql.connector.Error as err:
         print(f"[ERROR] Database Error: {err}")
+        return None
+    except Exception as e:
+        print(f"[ERROR] Unexpected error: {e}")
         return None
 
 def load_chat_data_from_json(file_path):

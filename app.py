@@ -117,11 +117,27 @@ def health():
     })
 
 if __name__ == '__main__':
+    # Get port from environment (for Railway, Render, etc.) or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Check if running in production
+    is_production = os.environ.get('FLASK_ENV', 'development') == 'production'
+    
     print("\n" + "="*50)
     print("Chatbot SI Server")
     print("="*50)
-    print("Server berjalan di: http://localhost:5000")
-    print("Tekan Ctrl+C untuk menghentikan server")
+    if is_production:
+        print(f"Environment: PRODUCTION")
+        print(f"Server running on port: {port}")
+    else:
+        print(f"Environment: DEVELOPMENT")
+        print(f"Server berjalan di: http://localhost:{port}")
+        print("Tekan Ctrl+C untuk menghentikan server")
     print("="*50 + "\n")
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(
+        debug=not is_production,  # Disable debug in production
+        host='0.0.0.0', 
+        port=port
+    )
+
