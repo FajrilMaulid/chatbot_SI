@@ -22,7 +22,6 @@ const chatMessages = document.getElementById("chatMessages");
 const chatContainer = document.getElementById("chatContainer");
 const typingIndicator = document.getElementById("typingIndicator");
 const quickRepliesContainer = document.getElementById("quickReplies");
-const refreshButton = document.getElementById("refreshButton");
 
 // ==========================================
 // STATE
@@ -442,33 +441,6 @@ async function handleSubmit(e) {
   }
 }
 
-/**
- * Handle refresh button
- */
-function handleRefresh() {
-  if (
-    confirm(
-      "Apakah Anda yakin ingin memulai percakapan baru? Riwayat chat akan dihapus."
-    )
-  ) {
-    // Clear all messages except welcome
-    const messages = chatMessages.querySelectorAll(".message");
-    messages.forEach((msg, index) => {
-      if (index > 0) {
-        // Keep first welcome message
-        msg.remove();
-      }
-    });
-
-    // Reset state
-    messageCount = 0;
-    showQuickReplies();
-
-    // Focus input
-    userInput.focus();
-  }
-}
-
 // ==========================================
 // INITIALIZATION
 // ==========================================
@@ -479,10 +451,6 @@ function handleRefresh() {
 function init() {
   // Add event listeners
   chatForm.addEventListener("submit", handleSubmit);
-
-  if (refreshButton) {
-    refreshButton.addEventListener("click", handleRefresh);
-  }
 
   // Focus input on load
   userInput.focus();
