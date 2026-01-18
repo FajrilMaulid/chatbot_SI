@@ -4,6 +4,14 @@
 const API_BASE_URL = window.location.origin;
 const API_CHAT_ENDPOINT = `${API_BASE_URL}/api/chat`;
 
+// Quick reply suggestions
+const QUICK_REPLIES = [
+  "Apa saja mata kuliah di Sistem Informasi?",
+  "Bagaimana prospek kerja lulusan SI?",
+  "Siapa saja dosen di prodi SI?",
+  "Berapa lama masa studi program SI?",
+];
+
 // ==========================================
 // DOM ELEMENTS
 // ==========================================
@@ -13,11 +21,14 @@ const sendButton = document.getElementById("sendButton");
 const chatMessages = document.getElementById("chatMessages");
 const chatContainer = document.getElementById("chatContainer");
 const typingIndicator = document.getElementById("typingIndicator");
+const quickRepliesContainer = document.getElementById("quickReplies");
+const refreshButton = document.getElementById("refreshButton");
 
 // ==========================================
 // STATE
 // ==========================================
 let isProcessing = false;
+let messageCount = 0;
 
 // ==========================================
 // UTILITY FUNCTIONS
@@ -36,13 +47,16 @@ function getCurrentTime() {
 /**
  * Scroll chat to bottom with smooth animation
  */
-function scrollToBottom() {
-  setTimeout(() => {
-    chatMessages.scrollTo({
-      top: chatMessages.scrollHeight,
-      behavior: "smooth",
-    });
-  }, 100);
+function scrollToBottom(instant = false) {
+  setTimeout(
+    () => {
+      chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: instant ? "auto" : "smooth",
+      });
+    },
+    instant ? 0 : 100
+  );
 }
 
 /**
@@ -61,9 +75,112 @@ function hideTypingIndicator() {
 }
 
 /**
+ * Show quick replies
+ */
+function showQuickReplies() {
+  if (messageCount === 0) {
+    const buttonsContainer = quickRepliesContainer.querySelector(
+      ".quick-reply-buttons"
+    );
+    buttonsContainer.innerHTML = "";
+
+    QUICK_REPLIES.forEach((reply) => {
+      const button = document.createElement("button");
+      button.className = "quick-reply-btn";
+      button.textContent = reply;
+      button.type = "button"; // Prevent form submission
+
+      // Use addEventListener instead of onclick
+      button.addEventListener("click", async () => {
+        await handleQuickReply(reply);
+      });
+
+      buttonsContainer.appendChild(button);
+    });
+
+    quickRepliesContainer.style.display = "block";
+
+    // Auto-hide after first message
+    messageCount++;
+  }
+}
+
+/**
+ * Hide quick replies
+ */
+function hideQuickReplies() {
+  quickRepliesContainer.style.display = "none";
+}
+
+/**
+ * Handle quick reply click - sends message directly
+ */
+async function handleQuickReply(text) {
+  // Prevent if already processing
+  if (isProcessing) return;
+
+  // Validate input
+  if (!text || !text.trim()) return;
+
+  // Hide quick replies
+  hideQuickReplies();
+
+  // Add user message to chat
+  await addMessage(text, true, false);
+
+  // Set processing state
+  setProcessing(true);
+
+  try {
+    // Send message to API
+    const botResponse = await sendMessage(text);
+
+    // Simulate typing delay for better UX
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // Add bot response to chat with typing animation
+    await addMessage(botResponse, false, true);
+  } catch (error) {
+    // Show error message
+    await addMessage(
+      "Maaf, terjadi kesalahan. Silakan coba lagi.",
+      false,
+      false
+    );
+  } finally {
+    // Reset processing state
+    setProcessing(false);
+
+    // Focus back to input
+    userInput.focus();
+  }
+}
+
+/**
+ * Create typing animation effect
+ */
+async function typeText(element, text, speed = 30) {
+  element.textContent = "";
+  let i = 0;
+
+  return new Promise((resolve) => {
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        scrollToBottom();
+      } else {
+        clearInterval(interval);
+        resolve();
+      }
+    }, speed);
+  });
+}
+
+/**
  * Create message element
  */
-function createMessageElement(content, isUser = false) {
+function createMessageElement(content, isUser = false, useTyping = false) {
   const messageDiv = document.createElement("div");
   messageDiv.className = `message ${isUser ? "user-message" : "bot-message"}`;
 
@@ -87,27 +204,102 @@ function createMessageElement(content, isUser = false) {
   messageBubble.className = "message-bubble";
 
   // Format content: handle line breaks
-  const formattedContent = content
-    .split("\n")
-    .map((line) => {
-      if (line.trim() === "") return "";
-      return `<p>${escapeHtml(line)}</p>`;
-    })
-    .join("");
+  const lines = content.split("\n").filter((line) => line.trim() !== "");
 
-  messageBubble.innerHTML = formattedContent;
+  if (useTyping && !isUser) {
+    // Create paragraphs for typing animation
+    lines.forEach((line) => {
+      const p = document.createElement("p");
+      messageBubble.appendChild(p);
+    });
+  } else {
+    // Regular rendering
+    const formattedContent = lines
+      .map((line) => `<p>${escapeHtml(line)}</p>`)
+      .join("");
+    messageBubble.innerHTML = formattedContent;
+  }
+
+  const messageFooter = document.createElement("div");
+  messageFooter.className = "message-footer";
 
   const messageTime = document.createElement("span");
   messageTime.className = "message-time";
   messageTime.textContent = getCurrentTime();
 
+  messageFooter.appendChild(messageTime);
+
+  // Add reactions for bot messages
+  if (!isUser) {
+    const reactionsDiv = document.createElement("div");
+    reactionsDiv.className = "message-reactions";
+
+    const reactions = ["👍", "❤️", "🎉"];
+    reactions.forEach((emoji) => {
+      const btn = document.createElement("button");
+      btn.className = "reaction-btn";
+      btn.setAttribute("data-reaction", emoji);
+      btn.textContent = emoji;
+      btn.title = getReactionTitle(emoji);
+      btn.onclick = () => handleReaction(btn);
+      reactionsDiv.appendChild(btn);
+    });
+
+    messageFooter.appendChild(reactionsDiv);
+  }
+
   messageContent.appendChild(messageBubble);
-  messageContent.appendChild(messageTime);
+  messageContent.appendChild(messageFooter);
 
   messageDiv.appendChild(avatar);
   messageDiv.appendChild(messageContent);
 
-  return messageDiv;
+  return { element: messageDiv, bubble: messageBubble, lines };
+}
+
+/**
+ * Get reaction title
+ */
+function getReactionTitle(emoji) {
+  const titles = {
+    "👍": "Helpful",
+    "❤️": "Love it",
+    "🎉": "Awesome",
+  };
+  return titles[emoji] || "";
+}
+
+/**
+ * Handle reaction click
+ */
+function handleReaction(button) {
+  button.classList.toggle("active");
+
+  // Create floating emoji effect
+  const emoji = document.createElement("div");
+  emoji.textContent = button.getAttribute("data-reaction");
+  emoji.style.position = "fixed";
+  emoji.style.fontSize = "24px";
+  emoji.style.pointerEvents = "none";
+  emoji.style.zIndex = "10000";
+
+  const rect = button.getBoundingClientRect();
+  emoji.style.left = rect.left + "px";
+  emoji.style.top = rect.top + "px";
+
+  document.body.appendChild(emoji);
+
+  // Animate
+  emoji.animate(
+    [
+      { transform: "translateY(0) scale(1)", opacity: 1 },
+      { transform: "translateY(-100px) scale(1.5)", opacity: 0 },
+    ],
+    {
+      duration: 1000,
+      easing: "ease-out",
+    }
+  ).onfinish = () => emoji.remove();
 }
 
 /**
@@ -122,16 +314,28 @@ function escapeHtml(text) {
 /**
  * Add message to chat
  */
-function addMessage(content, isUser = false) {
-  const messageElement = createMessageElement(content, isUser);
-  chatMessages.appendChild(messageElement);
+async function addMessage(content, isUser = false, useTyping = false) {
+  const { element, bubble, lines } = createMessageElement(
+    content,
+    isUser,
+    useTyping
+  );
+  chatMessages.appendChild(element);
 
   // Trigger animation
   setTimeout(() => {
-    messageElement.setAttribute("data-animate", "true");
+    element.setAttribute("data-animate", "true");
   }, 10);
 
   scrollToBottom();
+
+  // Typing animation for bot messages
+  if (useTyping && !isUser) {
+    const paragraphs = bubble.querySelectorAll("p");
+    for (let i = 0; i < Math.min(lines.length, paragraphs.length); i++) {
+      await typeText(paragraphs[i], lines[i], 20);
+    }
+  }
 }
 
 /**
@@ -204,8 +408,11 @@ async function handleSubmit(e) {
   // Clear input
   userInput.value = "";
 
+  // Hide quick replies after first message
+  hideQuickReplies();
+
   // Add user message to chat
-  addMessage(message, true);
+  await addMessage(message, true, false);
 
   // Set processing state
   setProcessing(true);
@@ -215,18 +422,49 @@ async function handleSubmit(e) {
     const botResponse = await sendMessage(message);
 
     // Simulate typing delay for better UX
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-    // Add bot response to chat
-    addMessage(botResponse, false);
+    // Add bot response to chat with typing animation
+    await addMessage(botResponse, false, true);
   } catch (error) {
     // Show error message
-    addMessage("Maaf, terjadi kesalahan. Silakan coba lagi.", false);
+    await addMessage(
+      "Maaf, terjadi kesalahan. Silakan coba lagi.",
+      false,
+      false
+    );
   } finally {
     // Reset processing state
     setProcessing(false);
 
     // Focus back to input
+    userInput.focus();
+  }
+}
+
+/**
+ * Handle refresh button
+ */
+function handleRefresh() {
+  if (
+    confirm(
+      "Apakah Anda yakin ingin memulai percakapan baru? Riwayat chat akan dihapus."
+    )
+  ) {
+    // Clear all messages except welcome
+    const messages = chatMessages.querySelectorAll(".message");
+    messages.forEach((msg, index) => {
+      if (index > 0) {
+        // Keep first welcome message
+        msg.remove();
+      }
+    });
+
+    // Reset state
+    messageCount = 0;
+    showQuickReplies();
+
+    // Focus input
     userInput.focus();
   }
 }
@@ -242,6 +480,10 @@ function init() {
   // Add event listeners
   chatForm.addEventListener("submit", handleSubmit);
 
+  if (refreshButton) {
+    refreshButton.addEventListener("click", handleRefresh);
+  }
+
   // Focus input on load
   userInput.focus();
 
@@ -253,7 +495,22 @@ function init() {
     }
   });
 
-  console.log("🤖 Chatbot initialized successfully!");
+  // Show quick replies on first load
+  setTimeout(() => {
+    showQuickReplies();
+  }, 1000);
+
+  // Add input animation
+  userInput.addEventListener("input", () => {
+    if (userInput.value.length > 0) {
+      sendButton.style.transform = "scale(1.1)";
+    } else {
+      sendButton.style.transform = "scale(1)";
+    }
+  });
+
+  console.log("🤖 Enhanced Chatbot initialized successfully!");
+  console.log("✨ Animations and interactions enabled!");
 }
 
 // Run initialization when DOM is ready
