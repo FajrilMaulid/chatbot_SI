@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Chatbot SI</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/static/css/admin-styles.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>🤖 Admin Panel</h2>
+        <p id="adminUsername">Admin</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="overview">
+          <span class="icon">📊</span>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="nav-item" data-page="chat-logs">
+          <span class="icon">💬</span>
+          <span>Chat Logs</span>
+        </a>
+        <a href="#" class="nav-item" data-page="manage-intents">
+          <span class="icon">🎯</span>
+          <span>Manage Intents</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" id="logoutBtn">
+          <span class="icon">🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="dashboard-header">
+        <h1 id="pageTitle">Dashboard Overview</h1>
+        <div class="header-actions">
+          <span class="welcome-text" id="welcomeText">Welcome back!</span>
+        </div>
+      </header>
+
+      <!-- Overview Page -->
+      <div class="page-content" id="overview-page">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">💬</div>
+            <div class="stat-info">
+              <h3>Total Conversations</h3>
+              <p class="stat-number" id="totalConversations">0</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-info">
+              <h3>Total Intents</h3>
+              <p class="stat-number" id="totalIntents">0</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-info">
+              <h3>Total Patterns</h3>
+              <p class="stat-number" id="totalPatterns">0</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">💡</div>
+            <div class="stat-info">
+              <h3>Today's Chats</h3>
+              <p class="stat-number" id="todayConversations">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Quick Actions</h2>
+          <div class="quick-actions">
+            <button class="action-btn" onclick="navigateTo('chat-logs')">
+              View Chat Logs
+            </button>
+            <button class="action-btn" onclick="navigateTo('manage-intents')">
+              Manage Intents
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Logs Page -->
+      <div class="page-content hidden" id="chat-logs-page">
+        <div class="page-controls">
+          <input
+            type="text"
+            id="searchChatLogs"
+            placeholder="Search conversations..."
+            class="search-input"
+          />
+          <button class="btn-primary" onclick="loadChatLogs()">Refresh</button>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Session ID</th>
+                <th>User Message</th>
+                <th>Bot Response</th>
+                <th>Intent</th>
+              </tr>
+            </thead>
+            <tbody id="chatLogsBody">
+              <tr>
+                <td colspan="5" class="loading-cell">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="chatLogsPagination"></div>
+      </div>
+
+      <!-- Manage Intents Page -->
+      <div class="page-content hidden" id="manage-intents-page">
+        <div class="page-controls">
+          <button class="btn-primary" onclick="showCreateIntentDialog()">
+            + Add New Intent
+          </button>
+          <button class="btn-secondary" onclick="loadIntents()">Refresh</button>
+        </div>
+
+        <div id="intentsContainer" class="intents-container">
+          <div class="loading-cell">Loading intents...</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Create Intent Dialog -->
+    <div class="modal" id="createIntentModal">
+      <div class="modal-content">
+        <h2>Create New Intent</h2>
+        <form id="createIntentForm">
+          <div class="form-group">
+            <label>Intent Name</label>
+            <input type="text" id="newIntentName" required />
+          </div>
+          <div class="form-group">
+            <label>Tag</label>
+            <input type="text" id="newIntentTag" />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="closeModal('createIntentModal')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Intent Dialog -->
+    <div class="modal" id="editIntentModal">
+      <div class="modal-content">
+        <h2>Edit Intent</h2>
+        <form id="editIntentForm">
+          <input type="hidden" id="editIntentId" />
+          <div class="form-group">
+            <label>Intent Name</label>
+            <input type="text" id="editIntentName" required />
+          </div>
+          <div class="form-group">
+            <label>Tag</label>
+            <input type="text" id="editIntentTag" />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="closeModal('editIntentModal')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Pattern Dialog -->
+    <div class="modal" id="addPatternModal">
+      <div class="modal-content">
+        <h2>Add Pattern</h2>
+        <form id="addPatternForm">
+          <input type="hidden" id="patternIntentId" />
+          <div class="form-group">
+            <label>Pattern Text</label>
+            <input
+              type="text"
+              id="newPatternText"
+              required
+              placeholder="e.g., apa itu sistem informasi?"
+            />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="closeModal('addPatternModal')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Response Dialog -->
+    <div class="modal" id="addResponseModal">
+      <div class="modal-content">
+        <h2>Add Response</h2>
+        <form id="addResponseForm">
+          <input type="hidden" id="responseIntentId" />
+          <div class="form-group">
+            <label>Response Text</label>
+            <textarea id="newResponseText" required rows="4"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="closeModal('addResponseModal')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/static/js/admin-app.js"></script>
+  </body>
+</html>

@@ -1,217 +1,251 @@
-# 🤖 Chatbot SI dengan Groq API
+# 🤖 Chatbot SI - Sistem Informasi IPI Garut
 
-Chatbot Program Studi Sistem Informasi dengan dukungan Groq API untuk respons yang lebih intelligent dan bervariasi.
+Chatbot cerdas untuk menjawab pertanyaan seputar Program Studi Sistem Informasi dengan AI-powered responses dan admin panel lengkap.
 
-## 🚀 Quick Start
+## ✨ Features
 
-### 1. Install Dependencies
+- 🤖 **AI-Powered Chatbot** dengan Groq API integration
+- 🎯 **Multi-Intent Detection** - Jawab pertanyaan majemuk sekaligus
+- 🔍 **Topic Filtering** - Fokus pada pertanyaan akademik SI
+- 📊 **Admin Panel** - Manage intents, patterns, responses
+- 📈 **Chat Logs** - Track semua percakapan
+- 🔒 **Security Features** - Rate limiting, input validation, logging
+- 🎨 **Modern UI** - Glassmorphism design dengan dark mode
+
+## 🚀 Quick Start (Automated)
+
+### Option 1: One-Click Setup (Recommended)
 
 ```bash
-pip install -r requirements.txt
+# 1. Clone repository
+git clone https://github.com/your-username/chatbot_SI.git
+cd chatbot_SI
+
+# 2. Run automated setup
+python setup.py
 ```
 
-### 2. Setup Groq API Key (Optional but Recommended)
+Setup script akan:
 
-Groq API memberikan chatbot kemampuan untuk menjawab pertanyaan kompleks dengan lebih baik.
+- ✅ Install semua dependencies
+- ✅ Create database
+- ✅ Run migration
+- ✅ Setup .env file
+- ✅ Add sample data
+- ✅ Verify installation
 
-#### Cara Mendapatkan API Key:
+### Option 2: Manual Setup
 
-1. Buka: https://console.groq.com
-2. Sign up/Login (gratis!)
-3. Create API Key
-4. Copy API key (format: `gsk_...`)
+```bash
+# 1. Clone repository
+git clone https://github.com/your-username/chatbot_SI.git
+cd chatbot_SI
 
-#### Setup .env File:
+# 2. Create virtual environment (optional)
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# atau
+venv\Scripts\activate  # Windows
 
-1. Copy file `.env.example` ke `.env`:
+# 3. Install dependencies
+pip install -r requirements.txt
 
-   ```bash
-   copy .env.example .env
-   ```
+# 4. Setup environment variables
+copy .env.example .env  # Windows
+# atau
+cp .env.example .env  # Linux/Mac
 
-2. Edit file `.env`, tambahkan API key:
-   ```env
-   GROQ_API_KEY=gsk_your_actual_api_key_here
-   GROQ_MODEL=llama-3.3-70b-versatile
-   CONFIDENCE_THRESHOLD=0.7
-   ENABLE_GROQ=true
-   ```
+# Edit .env dengan database credentials Anda
 
-**📖 Detail lengkap:** Lihat [GROQ_SETUP.md](GROQ_SETUP.md)
+# 5. Create database
+mysql -u root -p
+CREATE DATABASE chatbot_si;
+exit;
 
-### 3. Jalankan Server
+# 6. Run migration
+python scripts/migration_script.py
+
+# 7. (Optional) Add sample data
+python scripts/add_sample_chats.py
+```
+
+## ▶️ Run Application
 
 ```bash
 python app.py
 ```
 
-Buka browser: **http://localhost:5000**
+**Access:**
 
-## ✨ Fitur
+- Chatbot: http://localhost:5000
+- Admin Panel: http://localhost:5000/admin
+  - Username: `admin`
+  - Password: `admin123` ⚠️ **CHANGE THIS!**
 
-### Hybrid Response System
+## 📋 Requirements
 
-- **Local ML Model** (Cepat ⚡)
-
-  - Untuk pertanyaan FAQ umum
-  - Response time: instant
-  - Confidence > 70%
-
-- **Groq API** (Intelligent 🧠)
-  - Untuk pertanyaan kompleks/baru
-  - Response yang natural dan bervariasi
-  - Conversation context aware
-
-### Features:
-
-- ✅ **Smart Routing**: Otomatis pakai local atau API based on confidence
-- ✅ **Response Caching**: Pertanyaan sama lebih cepat
-- ✅ **Conversation Memory**: Bot ingat context percakapan
-- ✅ **Fallback System**: Tetap jalan walau tanpa API
-- ✅ **Session Management**: Conversation history per user
-
-## 🎯 Cara Kerja
-
-```
-User Question
-    ↓
-Local ML Prediction (Confidence Score)
-    ↓
-Confidence > 70%?
-    ↓ YES → Use Local Answer (Instant)
-    ↓ NO  → Use Groq API (Intelligent)
-         ↓
-    Response + Cache
-         ↓
-    User
-```
+- Python 3.8+
+- MySQL 5.7+ atau MariaDB 10.2+
+- pip (Python package manager)
 
 ## 🔧 Configuration
 
-Edit file `.env` untuk customize:
+### Database Setup
 
-```env
-# Groq API
-GROQ_API_KEY=your_key_here
-GROQ_MODEL=llama-3.3-70b-versatile    # Model selection
-GROQ_TEMPERATURE=0.7                   # Creativity (0-1)
-GROQ_MAX_TOKENS=1024                   # Response length
+Edit `.env` file:
 
-# Chatbot Behavior
-CONFIDENCE_THRESHOLD=0.7               # Routing threshold
-ENABLE_GROQ=true                       # Enable/disable API
-ENABLE_CACHING=true                    # Cache responses
-CACHE_TTL=3600                         # Cache lifetime (seconds)
+```bash
+MYSQL_HOST=localhost
+MYSQL_USER=root
+MYSQL_PASSWORD=your_password
+MYSQL_DATABASE=chatbot_si
 ```
 
-## 📊 Testing
+### Groq API (Optional)
 
-### Test Local ML (Fast):
+Untuk fitur AI enhancement, daftar di [Groq Console](https://console.groq.com):
 
-- "apa itu sistem informasi?"
-- "mata kuliah apa saja?"
-- "prospek kerja SI"
-
-### Test Groq API (Intelligent):
-
-- "Jelaskan perbedaan detail SI dan Teknik Informatika"
-- "Apa keunggulan lulusan SI untuk industri fintech?"
-- "Bagaimana prospek karir data analyst untuk lulusan SI?"
-
-### Test Conversation Context:
-
-```
-User: "Apa itu SI?"
-Bot: [jawaban tentang SI]
-User: "Berapa biaya kuliahnya?"
-Bot: [paham "nya" = SI dari context]
+```bash
+GROQ_API_KEY=your_api_key_here
+ENABLE_GROQ=true
 ```
 
-## 🛠️ Troubleshooting
+### Secret Key
 
-**Groq tidak aktif:**
+Generate secret key untuk Flask sessions:
 
-- Cek `ENABLE_GROQ=true` di `.env`
-- Cek API key valid
-- Restart server
-
-**Response lambat:**
-
-- Caching akan mempercepat pertanyaan repeatedly
-- Groq biasanya <1 detik
-
-**Error database:**
-
-- Pastikan MySQL running
-- Database `chatbot_si` exists
-- Table `chat_logs` exists
-
-## 📁 Struktur Project
-
-```
-chatbot_si/
-├── app.py                 # Flask server
-├── chatbot_core.py        # ML + Groq logic
-├── static/                # Frontend files
-│   ├── index.html
-│   ├── css/styles.css
-│   └── js/app.js
-├── data/
-│   └── intents_ml.json   # Training data
-├── .env                   # Config (git ignored)
-├── .env.example           # Config template
-├── requirements.txt       # Dependencies
-├── GROQ_SETUP.md         # Setup guide
-└── README.md             # This file
+```bash
+python -c "import os; print(os.urandom(24).hex())"
 ```
 
-## 🎨 Frontend
+Tambahkan ke `.env`:
 
-Modern dark mode interface dengan:
+```bash
+SECRET_KEY=your_generated_secret_key
+```
 
-- Glassmorphism effects
-- Smooth animations
-- SVG icons
-- Responsive design
+## 📁 Project Structure
 
-## 🚀 Deployment
+```
+chatbot_SI/
+├── api/              # Flask blueprints (routes)
+├── core/             # Chatbot core logic (6 modules)
+├── config/           # Configuration management
+├── models/           # Database operations
+├── utils/            # Security utilities
+├── scripts/          # Standalone scripts
+├── tests/            # Test files
+├── docs/             # Documentation
+├── data/             # Training data
+├── static/           # Frontend files
+├── logs/             # Application logs
+├── setup.py          # Automated setup script
+└── app.py            # Main application
+```
 
-Chatbot ini siap untuk di-deploy ke production!
+See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for details.
 
-### Quick Deploy ke Railway (Recommended):
+## 🛠️ Useful Scripts
 
-Lihat panduan singkat: **[RAILWAY_QUICKSTART.md](RAILWAY_QUICKSTART.md)**
+```bash
+# Run migration
+python scripts/migration_script.py
 
-### Deployment Lengkap:
+# Fix database schema
+python scripts/fix_chat_logs_schema.py
 
-Untuk panduan lengkap deployment ke berbagai platform (Railway, Render, PythonAnywhere):
+# Add sample data
+python scripts/add_sample_chats.py
 
-- **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Panduan lengkap semua platform
-- **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Checklist sebelum deploy
+# Run tests
+pytest tests/
+```
 
-### Platform yang Didukung:
+## 📚 Documentation
 
-- ✅ Railway.app ($5/bulan) - **Recommended**
-- ✅ Render.com (FREE tier available)
-- ✅ PythonAnywhere (FREE tier available)
-- ✅ DigitalOcean, AWS, Google Cloud
+- [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) - Detailed project organization
+- [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) - Deployment instructions
+- [docs/GROQ_SETUP.md](docs/GROQ_SETUP.md) - Groq API setup guide
+- [docs/RAILWAY_QUICKSTART.md](docs/RAILWAY_QUICKSTART.md) - Deploy to Railway
 
-## ⚙️ API Endpoints
+## 🔒 Security Features
 
-- `GET /` - Main chat interface
-- `POST /api/chat` - Send message
-- `POST /api/clear-history` - Clear conversation
-- `GET /api/health` - Health check
+- **Rate Limiting** - Proteksi brute force
+- **Input Validation** - Sanitasi input user
+- **Security Headers** - XSS, CSRF protection
+- **Password Hashing** - Bcrypt untuk admin password
+- **Session Security** - HTTPOnly cookies
+- **Comprehensive Logging** - Track security events
+
+## 🎯 Default Admin Credentials
+
+⚠️ **IMPORTANT**: Change after first login!
+
+- Username: `admin`
+- Password: `admin123`
+
+Change via admin panel or update database directly.
+
+## 🌐 Deployment
+
+### Railway.app (Recommended)
+
+1. Push to GitHub
+2. Connect to Railway
+3. Add MySQL database addon
+4. Set environment variables
+5. Deploy!
+
+See [docs/RAILWAY_QUICKSTART.md](docs/RAILWAY_QUICKSTART.md)
+
+### Other Platforms
+
+- **Render.com** - See [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md)
+- **Heroku** - Use MySQL ClearDB addon
+- **VPS** - Nginx + Gunicorn setup
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+pytest tests/
+
+# Run specific test
+python tests/test_chatbot_filtering.py
+
+# Run with coverage
+pytest --cov=. tests/
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
 ## 📝 License
 
-Educational project untuk Program Studi Sistem Informasi.
+This project is licensed under the MIT License.
 
-## 🆘 Support
+## 👥 Authors
 
-- **Setup Groq API:** Lihat [GROQ_SETUP.md](GROQ_SETUP.md)
-- **Deployment:** Lihat [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+- Fajril Maulid - Initial work
+
+## 🙏 Acknowledgments
+
+- Groq API for AI enhancement
+- Flask framework
+- scikit-learn for ML model
+- Institut Pendidikan Indonesia (IPI) Garut
+
+## 📞 Support
+
+- GitHub Issues: [Report bugs](https://github.com/your-username/chatbot_SI/issues)
+- Email: your.email@example.com
+- Documentation: [Wiki](https://github.com/your-username/chatbot_SI/wiki)
 
 ---
 
-**Made with ❤️ for Sistem Informasi Students**
+**Made with ❤️ for Program Studi Sistem Informasi IPI Garut**

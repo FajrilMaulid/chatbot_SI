@@ -8,3 +8,7 @@ groq
 python-dotenv
 cachetools
 gunicorn
+Flask-Session
+Werkzeug
+Flask-Limiter
+Flask-Talisman

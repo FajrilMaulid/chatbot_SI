@@ -1,143 +1,122 @@
-from flask import Flask, request, jsonify, send_from_directory, session
+"""
+Chatbot SI - Main Application
+------------------------------
+Flask application with modular architecture.
+"""
+
+from flask import Flask, send_from_directory
 from flask_cors import CORS
-from chatbot_core import initialize_chatbot, get_bot_response
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_talisman import Talisman
 import os
-from datetime import timedelta
+
+# Import configuration
+from config import Config
+
+# Import core chatbot
+from core import initialize_chatbot
+
+# Import API blueprints
+from api import chat_bp, admin_bp, init_chat_routes, init_admin_routes
+
+# Import security utilities
+from utils.logger import log_rate_limit_exceeded
+from utils.security import get_client_ip
+
+# ==========================================
+# APP INITIALIZATION
+# ==========================================
 
 app = Flask(__name__, static_folder='static')
-app.secret_key = os.urandom(24)  # For session management
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=2)
+app.config.from_object(Config)
 
-CORS(app)  # Enable CORS untuk development
+# Enable CORS
+CORS(app)
 
-# Inisialisasi chatbot saat aplikasi dimulai
-print("Menginisialisasi chatbot...")
+# Security Headers (Talisman) - Only in production
+if Config.FLASK_ENV == 'production':
+    Talisman(app, 
+             force_https=True,
+             strict_transport_security=True,
+             content_security_policy={
+                 'default-src': "'self'",
+                 'script-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+                 'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+                 'font-src': ["'self'", "https://fonts.gstatic.com"],
+             })
+
+# Rate Limiting
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=[Config.RATELIMIT_DEFAULT],
+    storage_uri=Config.RATELIMIT_STORAGE_URL,
+)
+
+# Apply rate limits to blueprints
+limiter.limit("30 per minute")(chat_bp.route('/api/chat', methods=['POST']))
+limiter.limit("5 per 15 minutes")(admin_bp.route('/api/admin/login', methods=['POST']))
+
+# Custom rate limit error handler
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    from flask import request, jsonify
+    log_rate_limit_exceeded(get_client_ip(request), request.endpoint)
+    return jsonify({
+        'error': 'Rate limit exceeded. Please try again later.',
+        'status': 'error'
+    }), 429
+
+# ==========================================
+# CHATBOT INITIALIZATION
+# ==========================================
+
+print("Initializing chatbot...")
 db_connection, cursor, model, responses_dict, knowledge_base = initialize_chatbot()
 
 if model is None:
-    print("ERROR: Gagal menginisialisasi chatbot. Periksa file JSON dan database.")
+    print("ERROR: Failed to initialize chatbot. Check JSON file and database.")
     exit(1)
 
-print("Chatbot berhasil diinisialisasi!")
+print("Chatbot initialized successfully!")
+
+# Initialize blueprints with chatbot components
+init_chat_routes(model, responses_dict, knowledge_base, cursor, db_connection)
+init_admin_routes(cursor, db_connection)
+
+# ==========================================
+# REGISTER BLUEPRINTS
+# ==========================================
+
+app.register_blueprint(chat_bp)
+app.register_blueprint(admin_bp)
+
+# ==========================================
+# MAIN ROUTES
+# ==========================================
 
 @app.route('/')
 def index():
-    """Serve halaman utama"""
+    """Serve main chatbot page"""
     return send_from_directory('static', 'index.html')
 
-@app.route('/api/chat', methods=['POST'])
-def chat():
-    """
-    Endpoint API untuk menerima pesan dari user dan mengembalikan response bot
-    Supports conversation history via session
-    """
-    try:
-        data = request.get_json()
-        user_message = data.get('message', '')
-        
-        if not user_message:
-            return jsonify({
-                'error': 'Message is required'
-            }), 400
-        
-        # Get or initialize conversation history from session
-        if 'conversation_history' not in session:
-            session['conversation_history'] = []
-        
-        conversation_history = session['conversation_history']
-        
-        # Dapatkan response dari chatbot with conversation context
-        bot_response = get_bot_response(
-            user_message, 
-            model, 
-            responses_dict,
-            knowledge_base,
-            cursor, 
-            db_connection,
-            conversation_history
-        )
-        
-        # Update conversation history (keep last 10 exchanges)
-        conversation_history.append({
-            'user': user_message,
-            'bot': bot_response
-        })
-        
-        # Keep only last 10 exchanges to prevent session overflow
-        if len(conversation_history) > 10:
-            conversation_history = conversation_history[-10:]
-        
-        session['conversation_history'] = conversation_history
-        session.modified = True  # Mark session as modified
-        
-        return jsonify({
-            'response': bot_response,
-            'status': 'success'
-        })
-    
-    except Exception as e:
-        print(f"Error in chat endpoint: {e}")
-        import traceback
-        traceback.print_exc()
-        return jsonify({
-            'error': 'Internal server error',
-            'status': 'error'
-        }), 500
-
-@app.route('/api/clear-history', methods=['POST'])
-def clear_history():
-    """
-    Clear conversation history
-    """
-    try:
-        session['conversation_history'] = []
-        session.modified = True
-        return jsonify({
-            'status': 'success',
-            'message': 'Conversation history cleared'
-        })
-    except Exception as e:
-        print(f"Error clearing history: {e}")
-        return jsonify({
-            'error': 'Failed to clear history',
-            'status': 'error'
-        }), 500
-
-@app.route('/api/health', methods=['GET'])
-def health():
-    """Health check endpoint"""
-    groq_status = "enabled" if os.getenv('ENABLE_GROQ', 'true').lower() == 'true' else "disabled"
-    
-    return jsonify({
-        'status': 'healthy',
-        'chatbot': 'ready',
-        'groq': groq_status,
-        'session': 'active' if 'conversation_history' in session else 'new'
-    })
+# ==========================================
+# RUN APPLICATION
+# ==========================================
 
 if __name__ == '__main__':
-    # Get port from environment (for Railway, Render, etc.) or default to 5000
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.getenv('PORT', 5000))
+    debug = Config.DEBUG
     
-    # Check if running in production
-    is_production = os.environ.get('FLASK_ENV', 'development') == 'production'
-    
-    print("\n" + "="*50)
-    print("Chatbot SI Server")
-    print("="*50)
-    if is_production:
-        print(f"Environment: PRODUCTION")
-        print(f"Server running on port: {port}")
-    else:
-        print(f"Environment: DEVELOPMENT")
-        print(f"Server berjalan di: http://localhost:{port}")
-        print("Tekan Ctrl+C untuk menghentikan server")
-    print("="*50 + "\n")
+    print(f"\n{'='*50}")
+    print(f"Starting Chatbot SI on port {port}")
+    print(f"Debug mode: {debug}")
+    print(f"Environment: {Config.FLASK_ENV}")
+    print(f"{'='*50}\n")
     
     app.run(
-        debug=not is_production,  # Disable debug in production
-        host='0.0.0.0', 
-        port=port
+        host='0.0.0.0',
+        port=port,
+        debug=debug
     )
-

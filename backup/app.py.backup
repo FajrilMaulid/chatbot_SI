@@ -1,0 +1,458 @@
+from flask import Flask, request, jsonify, send_from_directory, session, redirect
+from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_talisman import Talisman
+from chatbot_core import initialize_chatbot, get_bot_response
+from models import admin_api
+import os
+from datetime import timedelta
+from functools import wraps
+
+# Import security utilities
+from utils.validators import validate_username, validate_password, validate_intent_name, validate_text_input, sanitize_html
+from utils.security import check_password_strength, get_client_ip
+from utils.logger import log_login_attempt, log_logout, log_admin_action, log_security_event, log_rate_limit_exceeded, log_unauthorized_access
+
+app = Flask(__name__, static_folder='static')
+app.secret_key = os.getenv('SECRET_KEY', os.urandom(24))  # For session management
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=2)
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+
+CORS(app)  # Enable CORS untuk development
+
+# Security Headers (Talisman) - Only in production
+if os.getenv('FLASK_ENV') == 'production':
+    Talisman(app, 
+             force_https=True,
+             strict_transport_security=True,
+             content_security_policy={
+                 'default-src': "'self'",
+                 'script-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+                 'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+                 'font-src': ["'self'", "https://fonts.gstatic.com"],
+             })
+
+# Rate Limiting
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["200 per hour"],
+    storage_uri="memory://",
+)
+
+# Custom rate limit error handler
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    log_rate_limit_exceeded(get_client_ip(request), request.endpoint)
+    return jsonify({
+        'error': 'Rate limit exceeded. Please try again later.',
+        'status': 'error'
+    }), 429
+
+
+# Admin authentication decorator
+def require_admin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            log_unauthorized_access(get_client_ip(request), request.endpoint)
+            return jsonify({'error': 'Unauthorized'}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Inisialisasi chatbot saat aplikasi dimulai
+print("Menginisialisasi chatbot...")
+db_connection, cursor, model, responses_dict, knowledge_base = initialize_chatbot()
+
+if model is None:
+    print("ERROR: Gagal menginisialisasi chatbot. Periksa file JSON dan database.")
+    exit(1)
+
+print("Chatbot berhasil diinisialisasi!")
+
+@app.route('/')
+def index():
+    """Serve halaman utama"""
+    return send_from_directory('static', 'index.html')
+
+
+@app.route('/api/chat', methods=['POST'])
+@limiter.limit("30 per minute")
+def chat():
+    """
+    Endpoint API untuk menerima pesan dari user dan mengembalikan response bot
+    Supports conversation history via session
+    """
+    try:
+        data = request.get_json()
+        user_message = data.get('message', '')
+        
+        if not user_message:
+            return jsonify({
+                'error': 'Message is required'
+            }), 400
+        
+        # Get or initialize conversation history from session
+        if 'conversation_history' not in session:
+            session['conversation_history'] = []
+        
+        # Get or create session ID
+        if 'session_id' not in session:
+            import uuid
+            session['session_id'] = str(uuid.uuid4())
+        
+        conversation_history = session['conversation_history']
+        session_id = session['session_id']
+        
+        # Dapatkan response dari chatbot with conversation context
+        bot_response = get_bot_response(
+            user_message, 
+            model, 
+            responses_dict,
+            knowledge_base,
+            cursor, 
+            db_connection,
+            conversation_history
+        )
+        
+        # Log conversation to database
+        try:
+            admin_api.log_chat(
+                cursor, 
+                db_connection, 
+                session_id, 
+                user_message, 
+                bot_response
+            )
+        except Exception as log_error:
+            print(f"Warning: Failed to log chat: {log_error}")
+        
+        # Update conversation history (keep last 10 exchanges)
+        conversation_history.append({
+            'user': user_message,
+            'bot': bot_response
+        })
+        
+        # Keep only last 10 exchanges to prevent session overflow
+        if len(conversation_history) > 10:
+            conversation_history = conversation_history[-10:]
+        
+        session['conversation_history'] = conversation_history
+        session.modified = True  # Mark session as modified
+        
+        return jsonify({
+            'response': bot_response,
+            'status': 'success'
+        })
+    
+    except Exception as e:
+        print(f"Error in chat endpoint: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'error': 'Internal server error',
+            'status': 'error'
+        }), 500
+
+@app.route('/api/clear-history', methods=['POST'])
+def clear_history():
+    """
+    Clear conversation history
+    """
+    try:
+        session['conversation_history'] = []
+        session.modified = True
+        return jsonify({
+            'status': 'success',
+            'message': 'Conversation history cleared'
+        })
+    except Exception as e:
+        print(f"Error clearing history: {e}")
+        return jsonify({
+            'error': 'Failed to clear history',
+            'status': 'error'
+        }), 500
+
+@app.route('/api/health', methods=['GET'])
+def health():
+    """Health check endpoint"""
+    groq_status = "enabled" if os.getenv('ENABLE_GROQ', 'true').lower() == 'true' else "disabled"
+    
+    return jsonify({
+        'status': 'healthy',
+        'chatbot': 'ready',
+        'groq': groq_status,
+        'session': 'active' if 'conversation_history' in session else 'new'
+    })
+
+# ==========================================
+# ADMIN API ENDPOINTS
+# ==========================================
+
+# Clean routes (Laravel-style)
+@app.route('/admin')
+@app.route('/admin/')
+def admin_page():
+    """Admin login page - clean URL"""
+    return send_from_directory('static', 'admin.html')
+
+@app.route('/admin/dashboard')
+@app.route('/admin/dashboard/')
+def admin_dashboard():
+    """Admin dashboard page - clean URL"""
+    if not session.get('admin_logged_in'):
+        return redirect('/admin')
+    return send_from_directory('static', 'admin-dashboard.html')
+
+# Legacy routes for backward compatibility
+@app.route('/admin.html')
+def admin_login_page():
+    """Serve admin login page (legacy URL)"""
+    return redirect('/admin')
+
+@app.route('/admin-dashboard.html')
+def admin_dashboard_page():
+    """Serve admin dashboard page (legacy URL)"""
+    return redirect('/admin/dashboard')
+
+@app.route('/api/admin/login', methods=['POST'])
+def admin_login():
+    """Admin login endpoint"""
+    try:
+        data = request.get_json()
+        username = data.get('username', '')
+        password = data.get('password', '')
+        
+        if not username or not password:
+            return jsonify({'error': 'Username and password required'}), 400
+        
+        # Verify credentials
+        user = admin_api.verify_admin_login(username, password, cursor)
+        
+        if user:
+            session['admin_logged_in'] = True
+            session['admin_user'] = user
+            session.permanent = True
+            
+            # Update last login
+            admin_api.update_last_login(user['id'], cursor, db_connection)
+            
+            return jsonify({
+                'status': 'success',
+                'message': 'Login successful',
+                'user': {'username': user['username']}
+            })
+        else:
+            return jsonify({'error': 'Invalid credentials'}), 401
+    
+    except Exception as e:
+        print(f"Error in admin login: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': 'Internal server error'}), 500
+
+@app.route('/api/admin/logout', methods=['POST'])
+@require_admin
+def admin_logout():
+    """Admin logout endpoint"""
+    session.clear()
+    return jsonify({'status': 'success', 'message': 'Logged out'})
+
+@app.route('/api/admin/check-auth', methods=['GET'])
+def check_auth():
+    """Check if admin is authenticated"""
+    if session.get('admin_logged_in'):
+        return jsonify({
+            'authenticated': True,
+            'user': session.get('admin_user', {})
+        })
+    return jsonify({'authenticated': False})
+
+@app.route('/api/admin/stats', methods=['GET'])
+@require_admin
+def get_stats():
+    """Get dashboard statistics"""
+    try:
+        stats = admin_api.get_stats(cursor)
+        return jsonify({'status': 'success', 'data': stats})
+    except Exception as e:
+        print(f"Error getting stats: {e}")
+        return jsonify({'error': 'Failed to get stats'}), 500
+
+@app.route('/api/admin/chat-logs', methods=['GET'])
+@require_admin
+def get_chat_logs():
+    """Get chat logs with pagination"""
+    try:
+        limit = int(request.args.get('limit', 50))
+        offset = int(request.args.get('offset', 0))
+        search = request.args.get('search', None)
+        
+        result = admin_api.get_all_chat_logs(cursor, limit, offset, search)
+        return jsonify({'status': 'success', 'data': result})
+    except Exception as e:
+        print(f"Error getting chat logs: {e}")
+        return jsonify({'error': 'Failed to get chat logs'}), 500
+
+@app.route('/api/admin/intents', methods=['GET'])
+@require_admin
+def get_intents():
+    """Get all intents with patterns and responses"""
+    try:
+        intents = admin_api.get_all_intents_with_data(cursor)
+        return jsonify({'status': 'success', 'data': intents})
+    except Exception as e:
+        print(f"Error getting intents: {e}")
+        return jsonify({'error': 'Failed to get intents'}), 500
+
+@app.route('/api/admin/intents', methods=['POST'])
+@require_admin
+def create_intent():
+    """Create new intent"""
+    try:
+        data = request.get_json()
+        intent_name = data.get('intent_name', '')
+        tag = data.get('tag', '')
+        
+        if not intent_name:
+            return jsonify({'error': 'Intent name required'}), 400
+        
+        intent_id = admin_api.create_intent(cursor, db_connection, intent_name, tag)
+        return jsonify({
+            'status': 'success',
+            'message': 'Intent created',
+            'id': intent_id
+        })
+    except Exception as e:
+        print(f"Error creating intent: {e}")
+        return jsonify({'error': 'Failed to create intent'}), 500
+
+@app.route('/api/admin/intents/<int:intent_id>', methods=['PUT'])
+@require_admin
+def update_intent(intent_id):
+    """Update intent"""
+    try:
+        data = request.get_json()
+        intent_name = data.get('intent_name', '')
+        tag = data.get('tag', '')
+        
+        if not intent_name:
+            return jsonify({'error': 'Intent name required'}), 400
+        
+        success = admin_api.update_intent(cursor, db_connection, intent_id, intent_name, tag)
+        if success:
+            return jsonify({'status': 'success', 'message': 'Intent updated'})
+        return jsonify({'error': 'Intent not found'}), 404
+    except Exception as e:
+        print(f"Error updating intent: {e}")
+        return jsonify({'error': 'Failed to update intent'}), 500
+
+@app.route('/api/admin/intents/<int:intent_id>', methods=['DELETE'])
+@require_admin
+def delete_intent(intent_id):
+    """Delete intent"""
+    try:
+        success = admin_api.delete_intent(cursor, db_connection, intent_id)
+        if success:
+            return jsonify({'status': 'success', 'message': 'Intent deleted'})
+        return jsonify({'error': 'Intent not found'}), 404
+    except Exception as e:
+        print(f"Error deleting intent: {e}")
+        return jsonify({'error': 'Failed to delete intent'}), 500
+
+@app.route('/api/admin/intents/<int:intent_id>/patterns', methods=['POST'])
+@require_admin
+def add_pattern(intent_id):
+    """Add pattern to intent"""
+    try:
+        data = request.get_json()
+        pattern_text = data.get('pattern_text', '')
+        
+        if not pattern_text:
+            return jsonify({'error': 'Pattern text required'}), 400
+        
+        pattern_id = admin_api.add_pattern(cursor, db_connection, intent_id, pattern_text)
+        return jsonify({
+            'status': 'success',
+            'message': 'Pattern added',
+            'id': pattern_id
+        })
+    except Exception as e:
+        print(f"Error adding pattern: {e}")
+        return jsonify({'error': 'Failed to add pattern'}), 500
+
+@app.route('/api/admin/patterns/<int:pattern_id>', methods=['DELETE'])
+@require_admin
+def delete_pattern(pattern_id):
+    """Delete pattern"""
+    try:
+        success = admin_api.delete_pattern(cursor, db_connection, pattern_id)
+        if success:
+            return jsonify({'status': 'success', 'message': 'Pattern deleted'})
+        return jsonify({'error': 'Pattern not found'}), 404
+    except Exception as e:
+        print(f"Error deleting pattern: {e}")
+        return jsonify({'error': 'Failed to delete pattern'}), 500
+
+@app.route('/api/admin/intents/<int:intent_id>/responses', methods=['POST'])
+@require_admin
+def add_response(intent_id):
+    """Add response to intent"""
+    try:
+        data = request.get_json()
+        response_text = data.get('response_text', '')
+        
+        if not response_text:
+            return jsonify({'error': 'Response text required'}), 400
+        
+        response_id = admin_api.add_response(cursor, db_connection, intent_id, response_text)
+        return jsonify({
+            'status': 'success',
+            'message': 'Response added',
+            'id': response_id
+        })
+    except Exception as e:
+        print(f"Error adding response: {e}")
+        return jsonify({'error': 'Failed to add response'}), 500
+
+@app.route('/api/admin/responses/<int:response_id>', methods=['DELETE'])
+@require_admin
+def delete_response(response_id):
+    """Delete response"""
+    try:
+        success = admin_api.delete_response(cursor, db_connection, response_id)
+        if success:
+            return jsonify({'status': 'success', 'message': 'Response deleted'})
+        return jsonify({'error': 'Response not found'}), 404
+    except Exception as e:
+        print(f"Error deleting response: {e}")
+        return jsonify({'error': 'Failed to delete response'}), 500
+
+if __name__ == '__main__':
+    # Get port from environment (for Railway, Render, etc.) or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Check if running in production
+    is_production = os.environ.get('FLASK_ENV', 'development') == 'production'
+    
+    print("\n" + "="*50)
+    print("Chatbot SI Server")
+    print("="*50)
+    if is_production:
+        print(f"Environment: PRODUCTION")
+        print(f"Server running on port: {port}")
+    else:
+        print(f"Environment: DEVELOPMENT")
+        print(f"Server berjalan di: http://localhost:{port}")
+        print("Tekan Ctrl+C untuk menghentikan server")
+    print("="*50 + "\n")
+    
+    app.run(
+        debug=not is_production,  # Disable debug in production
+        host='0.0.0.0', 
+        port=port
+    )
+
