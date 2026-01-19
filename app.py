@@ -31,8 +31,19 @@ from utils.security import get_client_ip
 app = Flask(__name__, static_folder='static')
 app.config.from_object(Config)
 
-# Enable CORS
-CORS(app)
+# Validate security configuration
+Config.validate_security()
+
+# Enable CORS with environment-aware configuration
+if Config.CORS_ORIGINS == '*':
+    # Development: Allow all origins
+    CORS(app)
+    print("[WARNING] CORS: Allowing all origins (development mode)")
+else:
+    # Production: Restrict to allowed origins
+    CORS(app, origins=Config.CORS_ORIGINS)
+    print(f"[OK] CORS: Restricted to {len(Config.CORS_ORIGINS)} allowed origin(s)")
+
 
 # Security Headers (Talisman) - Only in production
 if Config.FLASK_ENV == 'production':

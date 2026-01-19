@@ -17,6 +17,20 @@ class Config:
     # Flask Configuration
     SECRET_KEY = os.getenv('SECRET_KEY', os.urandom(24))
     
+    # Security validation
+    @classmethod
+    def validate_security(cls):
+        """Validate security configurations"""
+        if isinstance(cls.SECRET_KEY, str) and 'change-this' in cls.SECRET_KEY.lower():
+            import warnings
+            warnings.warn(
+                "[WARNING] You are using a default SECRET_KEY! "
+                "Generate a secure key with: python -c \"from utils.security import generate_secret_key; print(generate_secret_key())\"",
+                UserWarning
+            )
+            return False
+        return True
+    
     # Session Configuration
     SESSION_TYPE = 'filesystem'
     PERMANENT_SESSION_LIFETIME = timedelta(hours=2)
@@ -31,6 +45,12 @@ class Config:
     # Environment
     FLASK_ENV = os.getenv('FLASK_ENV', 'development')
     DEBUG = FLASK_ENV != 'production'
+    
+    # CORS Configuration
+    # Comma-separated list of allowed origins for production
+    # Example: https://yourdomain.com,https://www.yourdomain.com
+    ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS', '').split(',') if os.getenv('ALLOWED_ORIGINS') else []
+    CORS_ORIGINS = ALLOWED_ORIGINS if FLASK_ENV == 'production' else '*'
     
     # Database Configuration (handled in core.database)
     DATABASE_URL = os.getenv('DATABASE_URL')

@@ -6,7 +6,26 @@ Password strength validation, sanitization, and other security functions.
 
 import re
 import hashlib
+import os
+import secrets
 from werkzeug.security import generate_password_hash, check_password_hash
+
+def generate_secret_key(length=32):
+    """
+    Generate a cryptographically secure random SECRET_KEY for Flask.
+    
+    Args:
+        length: Length of the key in bytes (default 32 = 64 hex characters)
+    
+    Returns:
+        str: Cryptographically secure random hex string
+    
+    Example:
+        >>> key = generate_secret_key()
+        >>> len(key)
+        64
+    """
+    return secrets.token_hex(length)
 
 def check_password_strength(password):
     """
@@ -120,7 +139,6 @@ def generate_token(length=32):
     Returns:
         str: Hexadecimal token
     """
-    import secrets
     return secrets.token_hex(length)
 
 def sanitize_filename(filename):
@@ -187,5 +205,3 @@ def get_client_ip(request):
         ip = request.environ.get('REMOTE_ADDR', 'Unknown')
     
     return ip
-
-import os  # Add this import at the top
