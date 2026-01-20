@@ -74,6 +74,9 @@ def get_all_chat_logs(cursor, limit=50, offset=0, search=None):
         search_term = f"%{search}%"
         cursor.execute(query, (search_term, search_term, limit, offset))
         
+        # IMPORTANT: Fetch results BEFORE executing COUNT query
+        rows = cursor.fetchall()
+        
         # Get total count
         cursor.execute(
             "SELECT COUNT(*) FROM chat_logs WHERE user_message LIKE %s OR bot_response LIKE %s",
@@ -89,6 +92,9 @@ def get_all_chat_logs(cursor, limit=50, offset=0, search=None):
         """
         cursor.execute(query, (limit, offset))
         
+        # IMPORTANT: Fetch results BEFORE executing COUNT query
+        rows = cursor.fetchall()
+        
         # Get total count
         cursor.execute("SELECT COUNT(*) FROM chat_logs")
     
@@ -96,7 +102,7 @@ def get_all_chat_logs(cursor, limit=50, offset=0, search=None):
     
     # Format results
     logs = []
-    for row in cursor.fetchall():
+    for row in rows:
         logs.append({
             'id': row[0],
             'session_id': row[1],
