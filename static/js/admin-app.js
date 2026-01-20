@@ -198,6 +198,9 @@ async function loadChatLogs(page = 0) {
       const logs = data.data.logs;
       const total = data.data.total;
 
+      // Update current page state
+      currentChatLogsPage = page;
+
       if (logs.length === 0) {
         tbody.innerHTML =
           '<tr><td colspan="5" class="loading-cell">No conversations found</td></tr>';
