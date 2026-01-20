@@ -34,7 +34,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Setup search
   const searchInput = document.getElementById("searchChatLogs");
   if (searchInput) {
-    searchInput.addEventListener("input", debounce(loadChatLogs, 500));
+    searchInput.addEventListener(
+      "input",
+      debounce(() => {
+        currentChatLogsPage = 0; // Reset to first page on search
+        loadChatLogs(0);
+      }, 500),
+    );
   }
 
   // Setup forms
@@ -208,7 +214,7 @@ async function loadChatLogs(page = 0) {
           <td>${escapeHtml(log.bot_response.substring(0, 100) + (log.bot_response.length > 100 ? "..." : ""))}</td>
           <td>${log.detected_intent || "N/A"}</td>
         </tr>
-      `
+      `,
         )
         .join("");
 
@@ -218,7 +224,7 @@ async function loadChatLogs(page = 0) {
         page,
         total,
         chatLogsPerPage,
-        loadChatLogs
+        loadChatLogs,
       );
     }
   } catch (error) {
@@ -286,7 +292,7 @@ function renderIntents(intents) {
                 <span>${escapeHtml(p.text)}</span>
                 <button class="delete-item-btn" onclick="deletePattern(${p.id})">✕</button>
               </li>
-            `
+            `,
               )
               .join("")}
             ${intent.patterns.length === 0 ? "<li>No patterns yet</li>" : ""}
@@ -305,7 +311,7 @@ function renderIntents(intents) {
                 <span>${escapeHtml(r.text.substring(0, 50) + (r.text.length > 50 ? "..." : ""))}</span>
                 <button class="delete-item-btn" onclick="deleteResponse(${r.id})">✕</button>
               </li>
-            `
+            `,
               )
               .join("")}
             ${intent.responses.length === 0 ? "<li>No responses yet</li>" : ""}
@@ -313,7 +319,7 @@ function renderIntents(intents) {
         </div>
       </div>
     </div>
-  `
+  `,
     )
     .join("");
 }
@@ -372,7 +378,7 @@ function setupForms() {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ intent_name: intentName, tag }),
-          }
+          },
         );
 
         const data = await response.json();
@@ -408,7 +414,7 @@ function setupForms() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ pattern_text: patternText }),
-          }
+          },
         );
 
         const data = await response.json();
@@ -445,7 +451,7 @@ function setupForms() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ response_text: responseText }),
-          }
+          },
         );
 
         const data = await response.json();
@@ -483,7 +489,7 @@ function showEditIntentDialog(intentId) {
 async function deleteIntent(intentId) {
   if (
     !confirm(
-      "Are you sure you want to delete this intent? This will also delete all associated patterns and responses."
+      "Are you sure you want to delete this intent? This will also delete all associated patterns and responses.",
     )
   ) {
     return;
@@ -522,7 +528,7 @@ async function deletePattern(patternId) {
       `${API_BASE}/api/admin/patterns/${patternId}`,
       {
         method: "DELETE",
-      }
+      },
     );
 
     const data = await response.json();
@@ -553,7 +559,7 @@ async function deleteResponse(responseId) {
       `${API_BASE}/api/admin/responses/${responseId}`,
       {
         method: "DELETE",
-      }
+      },
     );
 
     const data = await response.json();
