@@ -37,7 +37,7 @@ def init_db_connection():
                     password=password,
                     database=database,
                     port=int(port),
-                    buffered=True  # Fix: Prevent 'Unread result found' errors
+                    consume_results=True  # Automatically consume unread results
                 )
                 print("[OK] Railway Database Connected")
                 return db_connection
@@ -49,7 +49,7 @@ def init_db_connection():
             user=os.getenv('MYSQL_USER', 'root'),
             password=os.getenv('MYSQL_PASSWORD', ''),
             database=os.getenv('MYSQL_DATABASE', 'chatbot_si'),
-            buffered=True  # Fix: Prevent 'Unread result found' errors
+            consume_results=True  # Automatically consume unread results
         )
         print("[OK] Local Database Connected")
         return db_connection
