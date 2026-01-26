@@ -73,6 +73,23 @@ def admin_login():
     client_ip = get_client_ip(request)
     
     try:
+        # CRITICAL: Check database connection first
+        if _cursor is None or _db_connection is None:
+            error_detail = []
+            if _cursor is None:
+                error_detail.append("Database cursor not initialized")
+            if _db_connection is None:
+                error_detail.append("Database connection not initialized")
+            
+            error_msg = "; ".join(error_detail)
+            print(f"[CRITICAL] Admin login failed: {error_msg}")
+            log_admin_action('system', 'LOGIN_ERROR', f"Database not initialized: {error_msg}", False)
+            
+            return jsonify({
+                'error': 'Database connection error. Please contact administrator.',
+                'details': 'Server configuration issue' if os.getenv('FLASK_ENV') == 'production' else error_msg
+            }), 503  # 503 Service Unavailable
+        
         data = request.get_json()
         username = data.get('username', '').strip()
         password = data.get('password', '')
@@ -85,7 +102,7 @@ def admin_login():
         # Validate username format
         is_valid, error_msg = validate_username(username)
         if not is_valid:
-            log_login_attempt(username, False,client_ip, f'Invalid username format: {error_msg}')
+            log_login_attempt(username, False, client_ip, f'Invalid username format: {error_msg}')
             return jsonify({'error': 'Invalid username format'}), 400
         
         # Verify credentials
@@ -113,8 +130,32 @@ def admin_login():
             log_login_attempt(username, False, client_ip, 'Invalid credentials')
             return jsonify({'error': 'Invalid credentials'}), 401
     
+    
+    except mysql.connector.errors.OperationalError as op_err:
+        # Handle MySQL connection errors specifically (Error 2013, 2006)
+        error_code = op_err.errno if hasattr(op_err, 'errno') else None
+        
+        if error_code in (2013, 2006):
+            # Error 2013: Lost connection to MySQL server during query
+            # Error 2006: MySQL server has gone away
+            error_msg = f"Database connection lost (Error {error_code})"
+            print(f"[CRITICAL] {error_msg}: {op_err}")
+            log_admin_action('system', 'LOGIN_ERROR', 
+                           f"{error_msg}. This usually means MySQL timeout or server restart.", 
+                           False)
+            
+            return jsonify({
+                'error': 'Database connection timeout. Please try again.',
+                'details': 'The server is experiencing connection issues. Please retry your request.'
+            }), 503
+        else:
+            # Other operational errors
+            print(f"[ERROR] MySQL operational error: {op_err}")
+            log_admin_action('system', 'LOGIN_ERROR', f"MySQL error {error_code}: {str(op_err)}", False)
+            return jsonify({'error': 'Database error. Please contact administrator.'}), 500
+    
     except Exception as e:
-        print(f"Error in admin login: {e}")
+        print(f"[ERROR] Unexpected error in admin login: {e}")
         import traceback
         traceback.print_exc()
         log_admin_action('system', 'LOGIN_ERROR', f"Error: {str(e)}", False)

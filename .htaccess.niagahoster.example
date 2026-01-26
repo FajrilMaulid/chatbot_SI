@@ -1,0 +1,61 @@
+# Passenger WSGI Configuration for Niagahoster
+# ==============================================
+# This file tells Passenger how to run your Flask application
+
+PassengerEnabled On
+
+# IMPORTANT: Update these paths with your actual cPanel username
+# You can find your username in cPanel top-right corner
+
+# Path to your application root directory
+PassengerAppRoot /home/YOUR_USERNAME/public_html/chatbot_si
+
+# Startup file (Python entry point)
+PassengerStartupFile passenger_wsgi.py
+
+# Path to Python interpreter in virtualenv
+# Update the version number (3.9) if different
+PassengerPython /home/YOUR_USERNAME/virtualenv/chatbot_si/3.9/bin/python3
+
+# URL Rewriting
+# Redirect all requests to the Flask application
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Don't redirect if accessing static files directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # All other requests go through Passenger
+    RewriteRule . passenger_wsgi.py [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME sniffing
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Allow access to static files
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# Protect sensitive files
+<FilesMatch "^\.env$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.py$">
+    # Only allow passenger_wsgi.py to be accessed
+    Order allow,deny
+    Allow from all
+</FilesMatch>

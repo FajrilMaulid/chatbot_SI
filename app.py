@@ -83,14 +83,60 @@ def ratelimit_handler(e):
 # CHATBOT INITIALIZATION
 # ==========================================
 
+print("="*60)
 print("Initializing chatbot...")
+print("="*60)
+
 db_connection, cursor, model, responses_dict, knowledge_base = initialize_chatbot()
 
+# Validate all critical components
+initialization_failed = False
+error_messages = []
+
+if db_connection is None:
+    error_messages.append("❌ Database connection failed")
+    initialization_failed = True
+else:
+    print("✅ Database connection: OK")
+
+if cursor is None:
+    error_messages.append("❌ Database cursor failed")
+    initialization_failed = True
+else:
+    print("✅ Database cursor: OK")
+
 if model is None:
-    print("ERROR: Failed to initialize chatbot. Check JSON file and database.")
+    error_messages.append("❌ ML model failed to load")
+    initialization_failed = True
+else:
+    print("✅ ML model: OK")
+
+if not responses_dict:
+    error_messages.append("⚠️  Responses dictionary is empty")
+    print("⚠️  Responses dictionary: EMPTY (warning)")
+
+if not knowledge_base:
+    error_messages.append("⚠️  Knowledge base is empty")
+    print("⚠️  Knowledge base: EMPTY (warning)")
+
+if initialization_failed:
+    print("\n" + "="*60)
+    print("INITIALIZATION FAILED")
+    print("="*60)
+    for msg in error_messages:
+        print(msg)
+    print("\n💡 TROUBLESHOOTING STEPS:")
+    print("1. Check database credentials in .env file")
+    print("2. Verify MySQL server is running")
+    print("3. Ensure database 'chatbot_si' exists")
+    print("4. Run: python scripts/migration_script.py")
+    print("5. Check logs/app.log for details")
+    print("="*60)
     exit(1)
 
-print("Chatbot initialized successfully!")
+print("="*60)
+print("✅ Chatbot initialized successfully!")
+print("="*60)
 
 # Initialize blueprints with chatbot components
 init_chat_routes(model, responses_dict, knowledge_base, cursor, db_connection)

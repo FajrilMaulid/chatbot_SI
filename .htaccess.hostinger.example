@@ -1,0 +1,76 @@
+# Hostinger Apache Configuration
+# ================================
+# For Hostinger Shared Hosting with Passenger WSGI
+
+PassengerEnabled On
+
+# IMPORTANT: Update 'u123456789' with your actual Hostinger username
+# You can find this in hPanel → Account Settings
+
+# Path to your application root directory
+PassengerAppRoot /home/u123456789/public_html/chatbot_si
+
+# Startup file (Python entry point)
+PassengerStartupFile passenger_wsgi.py
+
+# Path to Python interpreter in virtualenv
+# Update the username and Python version as needed
+PassengerPython /home/u123456789/virtualenv/chatbot_si/3.9/bin/python3
+
+# URL Rewriting
+# Redirect all requests to the Flask application
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Don't redirect if accessing static files directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # All other requests go through Passenger
+    RewriteRule . passenger_wsgi.py [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Referrer Policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Allow CORS for static files
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+# Protect sensitive files
+<FilesMatch "^\.env$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.py$">
+    # Only allow passenger_wsgi.py to be accessed
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Deny access to hidden files (except .well-known for SSL)
+<FilesMatch "^\.(?!well-known)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Compression for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>

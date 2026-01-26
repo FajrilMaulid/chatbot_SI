@@ -27,18 +27,30 @@ def verify_admin_login(username, password, cursor):
     Returns:
         dict: Admin user data if valid, None otherwise
     """
-    cursor.execute(
-        "SELECT id, username, password_hash FROM admin_users WHERE username = %s",
-        (username,)
-    )
-    user = cursor.fetchone()
-    
-    if user and check_password_hash(user[2], password):
-        return {
-            'id': user[0],
-            'username': user[1]
-        }
-    return None
+    try:
+        # CRITICAL: Validate connection before query
+        if hasattr(cursor, '_connection'):
+            cursor._connection.ping(reconnect=True, attempts=3, delay=1)
+            print("[DB] Connection validated before admin login query")
+        
+        cursor.execute(
+            "SELECT id, username, password_hash FROM admin_users WHERE username = %s",
+            (username,)
+        )
+        user = cursor.fetchone()
+        
+        if user and check_password_hash(user[2], password):
+            return {
+                'id': user[0],
+                'username': user[1]
+            }
+        return None
+        
+    except Exception as e:
+        print(f"[ERROR] Error in verify_admin_login: {e}")
+        import traceback
+        traceback.print_exc()
+        raise  # Re-raise to be caught by admin_routes error handler
 
 def update_last_login(user_id, cursor, db_connection):
     """Update last login timestamp for admin user"""
