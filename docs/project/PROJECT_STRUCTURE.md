@@ -1,54 +1,57 @@
-# 📁 Project Structure Guide
+# 📁 Panduan Struktur Project
 
-## Folder Organization
+## Organisasi Folder
 
 ```
 chatbot_SI/
 │
-├── 📂 api/                     # Flask Blueprints (API Routes)
+├── 📂 api/                     # Flask Blueprints (Route API)
 │   ├── __init__.py
-│   ├── chat_routes.py          # Chat API endpoints
-│   └── admin_routes.py         # Admin panel API endpoints
+│   ├── chat_routes.py          # Endpoint API chat
+│   └── admin_routes.py         # Endpoint API admin panel
 │
-├── 📂 core/                    # Chatbot Core Logic
-│   ├── __init__.py             # Initialize chatbot, exports
-│   ├── database.py             # DB connection & initialization
-│   ├── ml_model.py             # ML training & prediction
-│   ├── groq_client.py          # Groq API integration
-│   ├── filters.py              # Topic filtering & multi-intent
-│   └── response_handler.py     # Main response generation pipeline
+├── 📂 core/                    # Logika Inti Chatbot
+│   ├── __init__.py             # Inisialisasi chatbot, exports
+│   ├── database.py             # Koneksi DB & inisialisasi
+│   ├── ml_model.py             # Training & prediksi ML
+│   ├── groq_client.py          # Integrasi Groq API
+│   ├── filters.py              # Filtering topik & multi-intent
+│   └── response_handler.py     # Pipeline generasi response utama
 │
-├── 📂 config/                  # Configuration
+├── 📂 config/                  # Konfigurasi
 │   ├── __init__.py
-│   └── app_config.py           # Centralized app configuration
+│   └── app_config.py           # Konfigurasi aplikasi terpusat
 │
-├── 📂 models/                  # Database Models & Operations
+├── 📂 models/                  # Model & Operasi Database
 │   ├── __init__.py
-│   └── admin_api.py            # Admin CRUD operations
+│   └── admin_api.py            # Operasi CRUD admin
 │
-├── 📂 utils/                   # Utility Functions & Helpers
+├── 📂 utils/                   # Fungsi Utility & Helpers
 │   ├── __init__.py
-│   ├── validators.py           # Input validation & sanitization
-│   ├── security.py             # Password strength, hashing, IP detection
-│   └── logger.py               # Security & admin logging
+│   ├── validators.py           # Validasi & sanitasi input
+│   ├── security.py             # Kekuatan password, hashing, deteksi IP
+│   └── logger.py               # Logging keamanan & admin
 │
-├── 📂 scripts/                 # Standalone Scripts
-│   ├── migration_script.py     # Database migration
-│   └── chatbot_cli.py          # CLI/Streamlit chatbot (standalone)
+├── 📂 scripts/                 # Script Standalone
+│   ├── migration_script.py     # Migrasi database
+│   ├── chatbot_cli.py          # CLI chatbot (standalone)
+│   ├── add_sample_chats.py     # Tambah data contoh
+│   ├── fix_chat_logs_schema.py # Perbaiki schema
+│   └── test_db_connection.py   # Test koneksi database
 │
-├── 📂 tests/                   # Test Files
+├── 📂 tests/                   # File Test
 │   ├── __init__.py
 │   ├── test_chatbot_filtering.py
 │   ├── test_ipi_data.py
 │   └── test_multi_intent.py
 │
-├── 📂 data/                    # Data Files
-│   └── intents_ml.json         # Chatbot training data
+├── 📂 data/                    # File Data
+│   └── intents_ml.json         # Data training chatbot
 │
-├── 📂 static/                  # Static Files (Frontend)
-│   ├── admin.html              # Admin login page
-│   ├── admin-dashboard.html    # Admin dashboard
-│   ├── index.html              # Main chatbot page
+├── 📂 static/                  # File Statis (Frontend)
+│   ├── admin.html              # Halaman login admin
+│   ├── admin-dashboard.html    # Dashboard admin
+│   ├── index.html              # Halaman chatbot utama
 │   ├── css/
 │   │   ├── styles.css
 │   │   └── admin-styles.css
@@ -58,78 +61,98 @@ chatbot_SI/
 │   │   └── particles.js
 │   └── images/
 │
-├── 📂 logs/                    # Application Logs
-│   ├── security.log            # Login attempts, unauthorized access
-│   ├── admin_actions.log       # Admin CRUD operations
-│   └── app.log                 # General application logs
+├── 📂 logs/                    # Log Aplikasi
+│   ├── security.log            # Percobaan login, akses tidak sah
+│   ├── admin_actions.log       # Operasi CRUD admin
+│   └── app.log                 # Log aplikasi umum
 │
-├── 📂 docs/                    # Documentation
-│   ├── DEPLOYMENT_CHECKLIST.md
-│   ├── DEPLOYMENT_GUIDE.md
-│   ├── GROQ_SETUP.md
-│   └── RAILWAY_QUICKSTART.md
+├── 📂 docs/                    # Dokumentasi
+│   ├── deployment/             # Panduan deployment
+│   ├── guides/                 # Panduan & troubleshooting
+│   └── project/                # Dokumentasi project
 │
-├── 📄 app.py                   # Main Flask Application (120 lines)
-├── 📄 app.py.backup            # Backup of original app.py
-├── 📄 chatbot_core.py          # Original core (can delete after verification)
-├── 📄 requirements.txt         # Python dependencies
-├── 📄 .env                     # Environment variables (not in git)
-├── 📄 .env.example             # Example environment variables
-├── 📄 .gitignore               # Git ignore patterns
-├── 📄 README.md                # Project documentation
-├── 📄 PROJECT_STRUCTURE.md     # This file
-├── 📄 Procfile                 # Deployment configuration
-└── 📄 runtime.txt              # Python version
+├── 📂 .config/                 # Template konfigurasi
+│   ├── .env.example
+│   ├── .htaccess.hostinger.example
+│   └── .htaccess.niagahoster.example
+│
+├── 📂 deployment/              # File deployment
+│   ├── Procfile
+│   ├── passenger_wsgi.py
+│   └── runtime.txt
+│
+├── 📂 installation/            # Script instalasi
+│   ├── INSTALL.bat
+│   └── install.sh
+│
+├── 📂 backup/                  # File backup
+│   ├── README.md
+│   └── code/
+│       ├── app.py.backup
+│       └── chatbot_core.py.old
+│
+├── 📄 app.py                   # Aplikasi Flask Utama
+├── 📄 setup.py                 # Script setup otomatis
+├── 📄 requirements.txt         # Dependencies Python
+├── 📄 .env                     # Environment variables (tidak di git)
+├── 📄 .gitignore               # Pattern git ignore
+├── 📄 README.md                # Dokumentasi project
+├── 📄 INSTALLATION.md          # Panduan instalasi lengkap
+├── 📄 CONTRIBUTING.md          # Panduan kontribusi
+└── 📄 STRUCTURE.md             # File ini
 ```
 
-## 📝 File Descriptions
+## 📝 Deskripsi File
 
-### Core Application
+### Aplikasi Inti
 
-- **app.py** - Main Flask application with simplified structure (120 lines)
-- **chatbot_core.py** - Original monolithic core (can delete after testing)
-- **app.py.backup** - Backup of original app.py before refactoring
+- **app.py** - Aplikasi Flask utama dengan struktur tersederhanakan
+- **setup.py** - Script setup otomatis untuk instalasi
+- **requirements.txt** - Dependencies Python yang dibutuhkan
 
 ### API Blueprints (`api/`)
 
-- **chat_routes.py** - Chat endpoints (`/api/chat`, `/api/clear-history`, `/api/health`)
-- **admin_routes.py** - Admin panel routes (`/admin`, `/api/admin/*`)
+- **chat_routes.py** - Endpoint chat (`/api/chat`, `/api/clear-history`, `/api/health`)
+- **admin_routes.py** - Route admin panel (`/admin`, `/api/admin/*`)
 
-### Core Modules (`core/`)
+### Modul Inti (`core/`)
 
-- **database.py** - Database connection (Railway & local), JSON loading, chat logging
-- **ml_model.py** - ML model training, intent prediction, confidence scoring
-- **groq_client.py** - Groq API client, natural response rephrasing, multi-intent combination
-- **filters.py** - Topic relevance filtering, multi-intent detection
-- **response_handler.py** - Main response pipeline, caching, multi-stage processing
-- ****init**.py** - Package initialization, `initialize_chatbot()` function
+- **database.py** - Koneksi database (Railway & lokal), loading JSON, logging chat
+- **ml_model.py** - Training model ML, prediksi intent, scoring confidence
+- **groq_client.py** - Client Groq API, rephrasing response natural, kombinasi multi-intent
+- **filters.py** - Filtering relevansi topik, deteksi multi-intent
+- **response_handler.py** - Pipeline response utama, caching, proses multi-stage
+- ****init**.py** - Inisialisasi package, fungsi `initialize_chatbot()`
 
-### Configuration (`config/`)
+### Konfigurasi (`config/`)
 
-- **app_config.py** - Centralized configuration class (Flask, security, chatbot settings)
+- **app_config.py** - Class konfigurasi terpusat (Flask, keamanan, pengaturan chatbot)
 
 ### Models (`models/`)
 
-- **admin_api.py** - Admin authentication, CRUD operations for intents/patterns/responses, chat logging
+- **admin_api.py** - Autentikasi admin, operasi CRUD untuk intents/patterns/responses, logging chat
 
 ### Utilities (`utils/`)
 
-- **validators.py** - Input validation (username, password, intent names, sanitization)
-- **security.py** - Password strength checking, hashing, IP detection
-- **logger.py** - Security logging, admin action logging
+- **validators.py** - Validasi input (username, password, nama intent, sanitasi)
+- **security.py** - Pengecekan kekuatan password, hashing, deteksi IP
+- **logger.py** - Logging keamanan, logging aksi admin
 
 ### Scripts (`scripts/`)
 
-- **migration_script.py** - Database migration from JSON to MySQL
-- **chatbot_cli.py** - Standalone CLI chatbot with Streamlit UI
+- **migration_script.py** - Migrasi database dari JSON ke MySQL
+- **chatbot_cli.py** - Chatbot CLI standalone
+- **add_sample_chats.py** - Tambah data contoh untuk testing
+- **fix_chat_logs_schema.py** - Perbaiki schema chat logs
+- **test_db_connection.py** - Test koneksi database
 
 ### Tests (`tests/`)
 
-- **test_chatbot_filtering.py** - Topic filtering tests
-- **test_ipi_data.py** - IPI data tests
-- **test_multi_intent.py** - Multi-intent detection tests
+- **test_chatbot_filtering.py** - Test filtering topik
+- **test_ipi_data.py** - Test data IPI
+- **test_multi_intent.py** - Test deteksi multi-intent
 
-## 🚀 Quick Start
+## 🚀 Mulai Cepat
 
 ### 1. Install dependencies:
 
@@ -143,44 +166,44 @@ pip install -r requirements.txt
 python scripts/migration_script.py
 ```
 
-### 3. Run application:
+### 3. Jalankan aplikasi:
 
 ```bash
 python app.py
 ```
 
-### 4. Access:
+### 4. Akses:
 
 - **Chatbot**: http://localhost:5000
 - **Admin Panel**: http://localhost:5000/admin
 
-## 📦 Import Patterns
+## 📦 Pattern Import
 
-### Importing from core:
+### Import dari core:
 
 ```python
 from core import initialize_chatbot, get_bot_response, groq_client
 ```
 
-### Importing from api:
+### Import dari api:
 
 ```python
 from api import chat_bp, admin_bp, init_chat_routes, init_admin_routes
 ```
 
-### Importing from config:
+### Import dari config:
 
 ```python
 from config import Config
 ```
 
-### Importing from models:
+### Import dari models:
 
 ```python
 from models import admin_api
 ```
 
-### Importing from utils:
+### Import dari utils:
 
 ```python
 from utils.validators import validate_username, validate_password
@@ -188,106 +211,116 @@ from utils.security import check_password_strength, get_client_ip
 from utils.logger import log_login_attempt, log_admin_action
 ```
 
-## Running Scripts
+## Menjalankan Scripts
 
-### Run migration:
+### Jalankan migration:
 
 ```bash
 python scripts/migration_script.py
 ```
 
-### Run CLI chatbot (Streamlit):
+### Jalankan CLI chatbot:
 
 ```bash
-streamlit run scripts/chatbot_cli.py
+python scripts/chatbot_cli.py
 ```
 
-### Run tests:
+### Tambah data contoh:
 
 ```bash
-# Individual test
+python scripts/add_sample_chats.py
+```
+
+### Jalankan tests:
+
+```bash
+# Test individual
 python tests/test_chatbot_filtering.py
 
-# All tests (if pytest installed)
+# Semua tests (jika pytest terinstal)
 pytest tests/
 ```
 
-## 🔒 Security Features Location
+## 🔒 Lokasi Fitur Keamanan
 
 - **Rate Limiting**: app.py (Flask-Limiter)
-- **Input Validation**: utils/validators.py
-- **Password Strength**: utils/security.py
+- **Validasi Input**: utils/validators.py
+- **Kekuatan Password**: utils/security.py
 - **Logging**: utils/logger.py → logs/
 - **Security Headers**: app.py (Flask-Talisman)
 
 ## 📊 Best Practices
 
-### 1. **Models** - Database operations only
+### 1. **Models** - Operasi database saja
 
-- Keep database logic in `models/`
-- Use parameterized queries
-- Handle errors gracefully
+- Simpan logika database di `models/`
+- Gunakan parameterized queries
+- Handle error dengan graceful
 
-### 2. **Utils** - Reusable utility functions
+### 2. **Utils** - Fungsi utility yang reusable
 
-- Common validation logic
-- Security utilities
-- Logging functions
+- Logika validasi umum
+- Utility keamanan
+- Fungsi logging
 
-### 3. **API** - Request handling only
+### 3. **API** - Request handling saja
 
-- Thin controllers
-- Delegate to core/models
-- Return proper HTTP codes
+- Controller tipis
+- Delegasikan ke core/models
+- Return HTTP codes yang proper
 
 ### 4. **Core** - Business logic
 
-- Chatbot intelligence
-- ML processing
-- Response generation
+- Kecerdasan chatbot
+- Proses ML
+- Generasi response
 
-### 5. **Tests** - Keep test coverage high
+### 5. **Tests** - Jaga test coverage tinggi
 
-- Test each module independently
-- Integration tests for workflows
+- Test setiap modul independently
+- Integration tests untuk workflow
 - Mock external dependencies
 
-## 🔄 Adding New Features
+## 🔄 Menambah Fitur Baru
 
-### Need to add a new chat endpoint?
+### Perlu tambah endpoint chat baru?
 
-→ Add to `api/chat_routes.py`
+→ Tambahkan ke `api/chat_routes.py`
 
-### Need to modify ML logic?
+### Perlu modifikasi logika ML?
 
 → Edit `core/ml_model.py`
 
-### Need to change Groq integration?
+### Perlu ubah integrasi Groq?
 
 → Edit `core/groq_client.py`
 
-### Need to add admin feature?
+### Perlu tambah fitur admin?
 
-→ Add to `api/admin_routes.py`
+→ Tambahkan ke `api/admin_routes.py`
 
-### Need to update config?
+### Perlu update config?
 
 → Edit `config/app_config.py`
 
-### Need to add validation?
+### Perlu tambah validasi?
 
-→ Add to `utils/validators.py`
+→ Tambahkan ke `utils/validators.py`
 
-### Need to check logs?
+### Perlu cek logs?
 
-→ View `logs/` folder files
+→ Lihat file di folder `logs/`
 
-## 📈 Architecture Benefits
+## 📈 Manfaat Arsitektur
 
-- ✅ Modular & organized
-- ✅ Single responsibility per module
-- ✅ Easy to test independently
-- ✅ Easy to maintain and extend
-- ✅ Scalable architecture
+- ✅ Modular & terorganisir
+- ✅ Single responsibility per modul
+- ✅ Mudah di-test independently
+- ✅ Mudah di-maintain dan extend
+- ✅ Arsitektur scalable
 - ✅ Industry best practices
-- ✅ Clear separation of concerns
+- ✅ Separation of concerns yang jelas
+
+---
+
+**Dibuat dengan ❤️ untuk Program Studi Sistem Informasi IPI Garut**

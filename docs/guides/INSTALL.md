@@ -1,32 +1,32 @@
-# 🚀 Quick Installation Guide
+# 🚀 Panduan Instalasi Cepat
 
-## One-Click Install (Recommended)
+## Instalasi One-Click (Direkomendasikan)
 
 ### Windows
 
 ```bash
-# Double-click atau run di terminal:
-INSTALL.bat
+# Double-click atau jalankan di terminal:
+installation\INSTALL.bat
 ```
 
 ### Linux/Mac
 
 ```bash
-chmod +x install.sh
-./install.sh
+chmod +x installation/install.sh
+./installation/install.sh
 ```
 
 ---
 
-## Manual Installation
+## Instalasi Manual
 
-### Prerequisites
+### Persyaratan
 
 - ✅ Python 3.8+
 - ✅ MySQL 5.7+ / MariaDB 10.2+
 - ✅ pip
 
-### Steps
+### Langkah-langkah
 
 ```bash
 # 1. Clone repository
@@ -35,27 +35,27 @@ cd chatbot_SI
 
 # 2. Setup Python
 python setup.py
-# Script will handle everything automatically!
+# Script akan menghandle semuanya secara otomatis!
 
-# 3. Start application
+# 3. Mulai aplikasi
 python app.py
 ```
 
 ---
 
-## Quick Verification
+## Verifikasi Cepat
 
-After installation, check:
+Setelah instalasi, cek:
 
-1. ✅ `.env` file exists
-2. ✅ Database `chatbot_si` created
-3. ✅ Tables migrated
-4. ✅ Admin user exists
+1. ✅ File `.env` ada
+2. ✅ Database `chatbot_si` dibuat
+3. ✅ Tabel sudah dimigrate
+4. ✅ User admin sudah ada
 
 Test:
 
 ```bash
-# Visit
+# Kunjungi
 http://localhost:5000
 
 # Admin panel
@@ -71,44 +71,44 @@ Password: admin123
 ### "MySQL connection failed"
 
 ```bash
-# Check MySQL is running
+# Cek MySQL berjalan
 # Windows:
 sc query MySQL
 
 # Linux:
 sudo systemctl status mysql
 
-# Start if not running:
+# Mulai jika belum berjalan:
 sudo systemctl start mysql
 ```
 
 ### "Module not found"
 
 ```bash
-# Reinstall dependencies
+# Install ulang dependencies
 pip install -r requirements.txt
 ```
 
 ### "Database already exists"
 
 ```bash
-# Drop and recreate (WARNING: destroys data)
+# Drop dan buat ulang (WARNING: menghapus data)
 mysql -u root -p
 DROP DATABASE chatbot_si;
 CREATE DATABASE chatbot_si;
 exit;
 
-# Re-run migration
+# Jalankan ulang migration
 python scripts/migration_script.py
 ```
 
-### Port 5000 already in use
+### Port 5000 sudah digunakan
 
 ```bash
-# Change PORT in .env
+# Ganti PORT di .env
 PORT=8000
 
-# Or stop other process using port 5000
+# Atau matikan proses lain yang menggunakan port 5000
 # Windows:
 netstat -ano | findstr :5000
 taskkill /PID <process_id> /F
@@ -120,23 +120,23 @@ kill -9 <process_id>
 
 ---
 
-## Configuration Files
+## File Konfigurasi
 
-### `.env` - Main configuration
+### `.env` - Konfigurasi utama
 
 ```bash
 # Database
 MYSQL_HOST=localhost
 MYSQL_USER=root
-MYSQL_PASSWORD=your_password
+MYSQL_PASSWORD=password_anda
 MYSQL_DATABASE=chatbot_si
 
 # Flask
-SECRET_KEY=generate-with-python-os-urandom
+SECRET_KEY=generate-dengan-python-os-urandom
 FLASK_ENV=development
 
-# Groq (optional)
-GROQ_API_KEY=your_groq_key
+# Groq (opsional)
+GROQ_API_KEY=groq_key_anda
 ```
 
 ### Generate SECRET_KEY
@@ -147,45 +147,47 @@ python -c "import os; print(os.urandom(24).hex())"
 
 ---
 
-## Next Steps After Install
+## Langkah Setelah Install
 
-1. **Change admin password**
-   - Login to `/admin`
-   - Change default password `admin123`
+1. **Ganti password admin**
+   - Login ke `/admin`
+   - Ganti password default `admin123`
 
-2. **Configure Groq API** (optional)
-   - Get key: https://console.groq.com
-   - Add to `.env`
+2. **Konfigurasi Groq API** (opsional)
+   - Dapatkan key: https://console.groq.com
+   - Tambahkan ke `.env`
 
-3. **Customize data**
+3. **Kustomisasi data**
    - Edit `data/intents_ml.json`
-   - Run migration: `python scripts/migration_script.py`
+   - Jalankan migration: `python scripts/migration_script.py`
 
-4. **Deploy** (optional)
-   - See `docs/DEPLOYMENT_GUIDE.md`
+4. **Deploy** (opsional)
+   - Lihat `docs/deployment/DEPLOYMENT_GUIDE.md`
 
 ---
 
-## Scripts Reference
+## Referensi Scripts
 
-| Script                            | Purpose                       |
+| Script                            | Kegunaan                      |
 | --------------------------------- | ----------------------------- |
-| `setup.py`                        | Automated full setup          |
-| `INSTALL.bat`                     | Windows one-click installer   |
-| `install.sh`                      | Linux/Mac one-click installer |
+| `setup.py`                        | Setup otomatis lengkap        |
+| `installation/INSTALL.bat`        | Windows one-click installer   |
+| `installation/install.sh`         | Linux/Mac one-click installer |
 | `scripts/migration_script.py`     | Database migration            |
-| `scripts/fix_chat_logs_schema.py` | Fix schema issues             |
-| `scripts/add_sample_chats.py`     | Add test data                 |
+| `scripts/fix_chat_logs_schema.py` | Perbaiki masalah schema       |
+| `scripts/add_sample_chats.py`     | Tambah data test              |
 
 ---
 
-## Support
+## Dukungan
 
-- 📖 Full guide: [README.md](README.md)
-- 🏗️ Structure: [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
-- 🚀 Deploy: [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md)
+- 📖 Panduan lengkap: [INSTALLATION.md](../../INSTALLATION.md)
+- 🏗️ Struktur: [PROJECT_STRUCTURE.md](../project/PROJECT_STRUCTURE.md)
+- 🚀 Deploy: [DEPLOYMENT_GUIDE.md](../deployment/DEPLOYMENT_GUIDE.md)
 - 🐛 Issues: [GitHub Issues](https://github.com/your-username/chatbot_SI/issues)
 
 ---
 
-**Installation time: ~2-5 minutes** ⚡
+**Waktu instalasi: ~2-5 menit** ⚡
+
+> 💡 **Untuk panduan instalasi lengkap dengan troubleshooting detail dan panduan platform-spesifik, lihat [INSTALLATION.md](../../INSTALLATION.md)**
