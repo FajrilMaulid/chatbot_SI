@@ -1,4 +1,4 @@
-# 📦 Installation Guide - Chatbot SI
+# 📦 Panduan Instalasi - Chatbot SI
 
 <div align="center">
 
@@ -9,43 +9,43 @@
 [![Flask](https://img.shields.io/badge/Flask-2.3%2B-black?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[🚀 Quick Start](#-quick-start-recommended) • [🔧 Manual Install](#-manual-installation) • [🐛 Troubleshooting](#-troubleshooting) • [📚 Documentation](#-documentation)
+[🚀 Mulai Cepat](#-mulai-cepat-recommended) • [🔧 Instalasi Manual](#-instalasi-manual) • [🐛 Troubleshooting](#-troubleshooting) • [📚 Dokumentasi](#-dokumentasi)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+## 📋 Daftar Isi
 
-- [Prerequisites](#-prerequisites)
-- [Quick Start (Recommended)](#-quick-start-recommended)
-- [Manual Installation](#-manual-installation)
-- [Configuration](#-configuration)
-- [Verification](#-verification)
-- [Post-Installation](#-post-installation)
+- [Persyaratan Sistem](#-persyaratan-sistem)
+- [Mulai Cepat (Recommended)](#-mulai-cepat-recommended)
+- [Instalasi Manual](#-instalasi-manual)
+- [Konfigurasi](#-konfigurasi)
+- [Verifikasi](#-verifikasi)
+- [Pasca Instalasi](#-pasca-instalasi)
 - [Troubleshooting](#-troubleshooting)
-- [Platform-Specific Guides](#-platform-specific-guides)
-- [Documentation](#-documentation)
+- [Panduan Platform Spesifik](#-panduan-platform-spesifik)
+- [Dokumentasi](#-dokumentasi)
 
 ---
 
-## 🎯 Prerequisites
+## 🎯 Persyaratan Sistem
 
-### Required Software
+### Software yang Dibutuhkan
 
-| Software                | Version       | Purpose             | Download                                                                             |
-| ----------------------- | ------------- | ------------------- | ------------------------------------------------------------------------------------ |
-| **Python**              | 3.8 or higher | Runtime environment | [Download](https://www.python.org/downloads/)                                        |
-| **MySQL** / **MariaDB** | 5.7+ / 10.2+  | Database server     | [MySQL](https://dev.mysql.com/downloads/) / [MariaDB](https://mariadb.org/download/) |
-| **pip**                 | Latest        | Package manager     | Included with Python                                                                 |
-| **Git**                 | Latest        | Version control     | [Download](https://git-scm.com/)                                                     |
+| Software                | Versi                 | Kegunaan           | Download                                                                             |
+| ----------------------- | --------------------- | ------------------ | ------------------------------------------------------------------------------------ |
+| **Python**              | 3.8 atau lebih tinggi | Lingkungan runtime | [Download](https://www.python.org/downloads/)                                        |
+| **MySQL** / **MariaDB** | 5.7+ / 10.2+          | Server database    | [MySQL](https://dev.mysql.com/downloads/) / [MariaDB](https://mariadb.org/download/) |
+| **pip**                 | Terbaru               | Package manager    | Sudah termasuk dengan Python                                                         |
+| **Git**                 | Terbaru               | Version control    | [Download](https://git-scm.com/)                                                     |
 
-### Check Installed Versions
+### Cek Versi yang Terinstal
 
 ```bash
 # Python
 python --version
-# Should show: Python 3.8.x or higher
+# Harus menampilkan: Python 3.8.x atau lebih tinggi
 
 # pip
 pip --version
@@ -57,59 +57,59 @@ mysql --version
 git --version
 ```
 
-### System Requirements
+### Spesifikasi Sistem
 
-- **RAM:** Minimum 2GB (4GB recommended)
-- **Storage:** Minimum 500MB free space
+- **RAM:** Minimum 2GB (Direkomendasikan 4GB)
+- **Storage:** Minimum 500MB ruang kosong
 - **OS:** Windows 10+, Ubuntu 18.04+, macOS 10.15+
 
 ---
 
-## 🚀 Quick Start (Recommended)
+## 🚀 Mulai Cepat (Recommended)
 
-> ⚡ **Estimated Time:** 2-5 minutes
+> ⚡ **Estimasi Waktu:** 2-5 menit
 
-### Option 1: Automated Setup Script
+### Opsi 1: Setup Otomatis
 
-This is the **easiest and fastest** way to install the chatbot.
+Ini adalah cara **termudah dan tercepat** untuk menginstal chatbot.
 
-#### For All Platforms:
+#### Untuk Semua Platform:
 
 ```bash
-# 1. Clone the repository
+# 1. Clone repository
 git clone https://github.com/your-username/chatbot_SI.git
 cd chatbot_SI
 
-# 2. Run automated setup
+# 2. Jalankan setup otomatis
 python setup.py
 ```
 
-The `setup.py` script will automatically:
+Script `setup.py` akan otomatis:
 
-- ✅ Check system requirements
-- ✅ Install Python dependencies
-- ✅ Create database and tables
-- ✅ Setup `.env` configuration
-- ✅ Create admin user
-- ✅ Add sample data
-- ✅ Verify installation
+- ✅ Mengecek persyaratan sistem
+- ✅ Menginstal dependencies Python
+- ✅ Membuat database dan tabel
+- ✅ Setup konfigurasi `.env`
+- ✅ Membuat user admin
+- ✅ Menambahkan data contoh
+- ✅ Verifikasi instalasi
 
-#### For Windows (One-Click):
+#### Untuk Windows (One-Click):
 
 ```bash
-# Double-click or run in terminal
+# Double-click atau jalankan di terminal
 installation\INSTALL.bat
 ```
 
-#### For Linux/Mac (One-Click):
+#### Untuk Linux/Mac (One-Click):
 
 ```bash
-# Make executable and run
+# Buat executable dan jalankan
 chmod +x installation/install.sh
 ./installation/install.sh
 ```
 
-### Option 2: Quick Manual Setup
+### Opsi 2: Setup Manual Cepat
 
 ```bash
 # 1. Clone repository
@@ -121,87 +121,87 @@ pip install -r requirements.txt
 
 # 3. Setup environment
 cp .config/.env.example .env
-# Edit .env with your database credentials
+# Edit .env dengan kredensial database Anda
 
-# 4. Create database
+# 4. Buat database
 mysql -u root -p -e "CREATE DATABASE chatbot_si;"
 
-# 5. Run migration
+# 5. Jalankan migration
 python scripts/migration_script.py
 
-# 6. Start application
+# 6. Mulai aplikasi
 python app.py
 ```
 
 ---
 
-## 🔧 Manual Installation
+## 🔧 Instalasi Manual
 
-> 📝 **For advanced users** who want full control over the installation process.
+> 📝 **Untuk pengguna advanced** yang ingin kontrol penuh atas proses instalasi.
 
-### Step 1: Clone Repository
+### Langkah 1: Clone Repository
 
 ```bash
 git clone https://github.com/your-username/chatbot_SI.git
 cd chatbot_SI
 ```
 
-### Step 2: Create Virtual Environment (Recommended)
+### Langkah 2: Buat Virtual Environment (Direkomendasikan)
 
-Using a virtual environment keeps your project dependencies isolated.
+Menggunakan virtual environment menjaga dependencies project tetap terisolasi.
 
 #### Windows:
 
 ```bash
-# Create virtual environment
+# Buat virtual environment
 python -m venv venv
 
-# Activate
+# Aktifkan
 venv\Scripts\activate
 ```
 
 #### Linux/Mac:
 
 ```bash
-# Create virtual environment
+# Buat virtual environment
 python3 -m venv venv
 
-# Activate
+# Aktifkan
 source venv/bin/activate
 ```
 
-You should see `(venv)` in your terminal prompt after activation.
+Anda akan melihat `(venv)` di prompt terminal setelah aktivasi.
 
-### Step 3: Install Dependencies
+### Langkah 3: Install Dependencies
 
 ```bash
-# Upgrade pip first
+# Upgrade pip terlebih dahulu
 pip install --upgrade pip
 
-# Install all requirements
+# Install semua requirements
 pip install -r requirements.txt
 ```
 
-**Dependencies that will be installed:**
+**Dependencies yang akan diinstal:**
 
 - Flask - Web framework
 - Flask-Cors - Cross-origin resource sharing
 - mysql-connector-python - MySQL database connector
 - scikit-learn - Machine learning library
 - python-dotenv - Environment variable management
-- groq - Groq API client (optional)
+- groq - Groq API client (opsional)
 
-### Step 4: Setup Environment Configuration
+### Langkah 4: Setup Konfigurasi Environment
 
 ```bash
-# Copy example configuration
+# Copy konfigurasi contoh
 cp .config/.env.example .env
 
-# Windows alternative
+# Alternatif Windows
 copy .config\.env.example .env
 ```
 
-**Edit `.env` file** with your preferred text editor:
+**Edit file `.env`** dengan text editor pilihan Anda:
 
 ```bash
 # Linux/Mac
@@ -211,28 +211,28 @@ nano .env
 notepad .env
 ```
 
-**Required configuration:**
+**Konfigurasi yang diperlukan:**
 
 ```env
-# Database Configuration
+# Konfigurasi Database
 MYSQL_HOST=localhost
 MYSQL_USER=root
-MYSQL_PASSWORD=your_mysql_password_here
+MYSQL_PASSWORD=password_mysql_anda_disini
 MYSQL_DATABASE=chatbot_si
 MYSQL_PORT=3306
 
-# Flask Configuration
-SECRET_KEY=generate_random_secret_key_here
+# Konfigurasi Flask
+SECRET_KEY=generate_random_secret_key_disini
 FLASK_ENV=development
 DEBUG=True
 PORT=5000
 
-# Admin Configuration
+# Konfigurasi Admin
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin123
 
-# Groq API (Optional - for AI enhancement)
-GROQ_API_KEY=your_groq_api_key_here
+# Groq API (Opsional - untuk peningkatan AI)
+GROQ_API_KEY=groq_api_key_anda_disini
 ENABLE_GROQ=false
 ```
 
@@ -242,81 +242,81 @@ ENABLE_GROQ=false
 python -c "import os; print(os.urandom(24).hex())"
 ```
 
-Copy the output and paste it as your `SECRET_KEY` value.
+Copy output dan paste sebagai value `SECRET_KEY` Anda.
 
-### Step 5: Setup Database
+### Langkah 5: Setup Database
 
-#### Create Database
+#### Buat Database
 
-**Using MySQL CLI:**
+**Menggunakan MySQL CLI:**
 
 ```bash
-# Login to MySQL
+# Login ke MySQL
 mysql -u root -p
 
-# Create database
+# Buat database
 CREATE DATABASE chatbot_si CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-# Verify database created
+# Verifikasi database dibuat
 SHOW DATABASES;
 
-# Exit MySQL
+# Keluar dari MySQL
 exit;
 ```
 
-**Using MySQL Workbench:**
+**Menggunakan MySQL Workbench:**
 
-1. Open MySQL Workbench
-2. Connect to your local MySQL server
-3. Click "Create Schema" button
-4. Name: `chatbot_si`
+1. Buka MySQL Workbench
+2. Koneksi ke MySQL server lokal Anda
+3. Klik tombol "Create Schema"
+4. Nama: `chatbot_si`
 5. Charset: `utf8mb4`
 6. Collation: `utf8mb4_unicode_ci`
-7. Click "Apply"
+7. Klik "Apply"
 
-#### Run Database Migration
+#### Jalankan Database Migration
 
 ```bash
-# Create all tables and initial data
+# Buat semua tabel dan data awal
 python scripts/migration_script.py
 ```
 
-**Migration will create:**
+**Migration akan membuat:**
 
-- `intents` - Intent patterns and responses
-- `chat_logs` - Chat conversation history
-- `admin_users` - Admin panel users
+- `intents` - Pattern intent dan responses
+- `chat_logs` - Histori percakapan chat
+- `admin_users` - User admin panel
 
-#### (Optional) Add Sample Data
+#### (Opsional) Tambahkan Data Contoh
 
 ```bash
-# Add test chat logs for demonstration
+# Tambah log chat untuk demonstrasi
 python scripts/add_sample_chats.py
 ```
 
-### Step 6: Test Database Connection
+### Langkah 6: Test Koneksi Database
 
 ```bash
-# Verify database connectivity
+# Verifikasi konektivitas database
 python scripts/test_db_connection.py
 ```
 
-You should see:
+Anda akan melihat:
 
 ```
-✅ Database connection successful!
-✅ Found X intents in database
-✅ Found X admin users
+✅ Koneksi database berhasil!
+✅ Ditemukan X intents di database
+✅ Ditemukan X admin users
 ```
 
-### Step 7: Start Application
+### Langkah 7: Mulai Aplikasi
 
 ```bash
-# Start Flask development server
+# Mulai Flask development server
 python app.py
 ```
 
-You should see:
+Anda akan melihat:
 
 ```
  * Running on http://127.0.0.1:5000
@@ -325,97 +325,97 @@ You should see:
 
 ---
 
-## ⚙️ Configuration
+## ⚙️ Konfigurasi
 
-### Environment Variables Reference
+### Referensi Environment Variables
 
 ```env
 # ===================================
-# DATABASE CONFIGURATION
+# KONFIGURASI DATABASE
 # ===================================
-MYSQL_HOST=localhost              # MySQL server host
-MYSQL_USER=root                   # MySQL username
-MYSQL_PASSWORD=your_password      # MySQL password (CHANGE THIS!)
-MYSQL_DATABASE=chatbot_si         # Database name
-MYSQL_PORT=3306                   # MySQL port (default: 3306)
+MYSQL_HOST=localhost              # Host server MySQL
+MYSQL_USER=root                   # Username MySQL
+MYSQL_PASSWORD=password_anda      # Password MySQL (GANTI INI!)
+MYSQL_DATABASE=chatbot_si         # Nama database
+MYSQL_PORT=3306                   # Port MySQL (default: 3306)
 
 # ===================================
-# FLASK CONFIGURATION
+# KONFIGURASI FLASK
 # ===================================
-SECRET_KEY=your_secret_key_here   # Flask session secret (GENERATE NEW!)
-FLASK_ENV=development             # development or production
-DEBUG=True                        # Enable debug mode (False in production)
-PORT=5000                         # Application port
+SECRET_KEY=secret_key_anda_disini # Flask session secret (GENERATE BARU!)
+FLASK_ENV=development             # development atau production
+DEBUG=True                        # Enable debug mode (False di production)
+PORT=5000                         # Port aplikasi
 
 # ===================================
-# ADMIN CONFIGURATION
+# KONFIGURASI ADMIN
 # ===================================
-ADMIN_USERNAME=admin              # Default admin username
-ADMIN_PASSWORD=admin123           # Default admin password (CHANGE THIS!)
+ADMIN_USERNAME=admin              # Username admin default
+ADMIN_PASSWORD=admin123           # Password admin default (GANTI INI!)
 
 # ===================================
-# GROQ API (OPTIONAL)
+# GROQ API (OPSIONAL)
 # ===================================
-GROQ_API_KEY=                     # Your Groq API key
-ENABLE_GROQ=false                 # Enable AI enhancement (true/false)
-GROQ_MODEL=mixtral-8x7b-32768     # Groq model to use
+GROQ_API_KEY=                     # API key Groq Anda
+ENABLE_GROQ=false                 # Enable peningkatan AI (true/false)
+GROQ_MODEL=mixtral-8x7b-32768     # Model Groq yang digunakan
 
 # ===================================
 # LOGGING
 # ===================================
 LOG_LEVEL=INFO                    # DEBUG, INFO, WARNING, ERROR, CRITICAL
-LOG_TO_FILE=True                  # Save logs to file
+LOG_TO_FILE=True                  # Simpan logs ke file
 
 # ===================================
-# SECURITY
+# KEAMANAN
 # ===================================
 RATE_LIMIT_ENABLED=True           # Enable rate limiting
-MAX_LOGIN_ATTEMPTS=5              # Max failed login attempts
-SESSION_TIMEOUT=3600              # Session timeout in seconds
+MAX_LOGIN_ATTEMPTS=5              # Maksimal percobaan login gagal
+SESSION_TIMEOUT=3600              # Timeout session dalam detik
 ```
 
-### Configuration Files Structure
+### Struktur File Konfigurasi
 
 ```
 chatbot_SI/
-├── .env                          # Your active configuration (git-ignored)
+├── .env                          # Konfigurasi aktif Anda (git-ignored)
 ├── .config/
-│   ├── .env.example              # Template configuration
+│   ├── .env.example              # Template konfigurasi
 │   ├── .htaccess.hostinger.example
 │   └── .htaccess.niagahoster.example
 ```
 
 ---
 
-## ✅ Verification
+## ✅ Verifikasi
 
-### 1. Check File Structure
+### 1. Cek Struktur File
 
 ```bash
-# Verify all essential files exist
+# Verifikasi semua file essential ada
 ls -la  # Linux/Mac
 dir     # Windows
 ```
 
-You should have:
+Anda harus memiliki:
 
-- ✅ `.env` file
-- ✅ `venv/` folder (if using virtual environment)
-- ✅ All folders: `api/`, `core/`, `models/`, etc.
+- ✅ File `.env`
+- ✅ Folder `venv/` (jika menggunakan virtual environment)
+- ✅ Semua folder: `api/`, `core/`, `models/`, dll.
 
 ### 2. Test Database
 
 ```bash
-# Login to MySQL
+# Login ke MySQL
 mysql -u root -p
 
-# Use database
+# Gunakan database
 USE chatbot_si;
 
-# Show tables
+# Tampilkan tabel
 SHOW TABLES;
 
-# Should show:
+# Harus menampilkan:
 # +------------------------+
 # | Tables_in_chatbot_si   |
 # +------------------------+
@@ -424,13 +424,13 @@ SHOW TABLES;
 # | intents                |
 # +------------------------+
 
-# Exit
+# Keluar
 exit;
 ```
 
-### 3. Test Application
+### 3. Test Aplikasi
 
-**A. Start Server:**
+**A. Mulai Server:**
 
 ```bash
 python app.py
@@ -438,104 +438,104 @@ python app.py
 
 **B. Test Endpoints:**
 
-Open your browser and visit:
+Buka browser Anda dan kunjungi:
 
-1. **Main Chatbot:** http://localhost:5000
-   - You should see the chatbot interface
-   - Try sending a message: "Apa itu Sistem Informasi?"
+1. **Chatbot Utama:** http://localhost:5000
+   - Anda akan melihat interface chatbot
+   - Coba kirim pesan: "Apa itu Sistem Informasi?"
 
-2. **Admin Login:** http://localhost:5000/admin
+2. **Login Admin:** http://localhost:5000/admin
    - Username: `admin`
    - Password: `admin123`
-   - You should be able to login
+   - Anda harus bisa login
 
-3. **Admin Dashboard:** http://localhost:5000/admin/dashboard
-   - Should show statistics
-   - Should show recent chat logs
+3. **Dashboard Admin:** http://localhost:5000/admin/dashboard
+   - Harus menampilkan statistik
+   - Harus menampilkan log chat terbaru
 
-**C. Test Chat Functionality:**
+**C. Test Fungsi Chat:**
 
 ```bash
-# In a new terminal, test with CLI
+# Di terminal baru, test dengan CLI
 python scripts/chatbot_cli.py
 
-# Type some questions:
+# Ketik beberapa pertanyaan:
 # > Apa itu Sistem Informasi?
 # > Siapa ketua HIMASIFOR?
 # > Berapa biaya kuliah?
 ```
 
-### 4. Check Logs
+### 4. Cek Logs
 
 ```bash
-# View application logs
+# Lihat application logs
 cat logs/app.log           # Linux/Mac
 type logs\app.log          # Windows
 
-# View security logs
+# Lihat security logs
 cat logs/security.log      # Linux/Mac
 type logs\security.log     # Windows
 ```
 
 ---
 
-## 🎓 Post-Installation
+## 🎓 Pasca Instalasi
 
-### 1. ⚠️ Change Default Credentials
+### 1. ⚠️ Ganti Kredensial Default
 
-**IMPORTANT:** Change default admin password immediately!
+**PENTING:** Ganti password admin default segera!
 
-#### Option A: Via Admin Panel
+#### Opsi A: Via Admin Panel
 
-1. Login to http://localhost:5000/admin
-2. Go to Settings or Profile
-3. Change password from `admin123` to a strong password
+1. Login ke http://localhost:5000/admin
+2. Pergi ke Settings atau Profile
+3. Ganti password dari `admin123` ke password yang kuat
 
-#### Option B: Via Database
+#### Opsi B: Via Database
 
 ```bash
 mysql -u root -p chatbot_si
 
-# Update admin password (will be hashed by application)
-UPDATE admin_users SET password = 'your_new_password_here' WHERE username = 'admin';
+# Update password admin (akan di-hash oleh aplikasi)
+UPDATE admin_users SET password = 'password_baru_anda' WHERE username = 'admin';
 exit;
 ```
 
-### 2. 🔑 Configure Groq API (Optional)
+### 2. 🔑 Konfigurasi Groq API (Opsional)
 
-Groq API enhances chatbot responses with AI.
+Groq API meningkatkan response chatbot dengan AI.
 
-1. **Get API Key:**
-   - Visit: https://console.groq.com
+1. **Dapatkan API Key:**
+   - Kunjungi: https://console.groq.com
    - Sign up / Login
    - Generate API key
 
-2. **Add to `.env`:**
+2. **Tambahkan ke `.env`:**
 
    ```env
-   GROQ_API_KEY=gsk_your_actual_key_here
+   GROQ_API_KEY=gsk_key_asli_anda_disini
    ENABLE_GROQ=true
    ```
 
 3. **Test:**
    ```bash
-   # Ask a complex question
-   # The chatbot should provide more detailed AI-enhanced answers
+   # Tanyakan pertanyaan kompleks
+   # Chatbot harus memberikan jawaban yang lebih detail dengan AI
    ```
 
-See detailed setup: [docs/guides/GROQ_SETUP.md](docs/guides/GROQ_SETUP.md)
+Lihat setup detail: [docs/guides/GROQ_SETUP.md](docs/guides/GROQ_SETUP.md)
 
-### 3. 📝 Customize Training Data
+### 3. 📝 Kustomisasi Training Data
 
-**Edit intents file:**
+**Edit file intents:**
 
 ```bash
-# Open training data
+# Buka training data
 nano data/intents_ml.json  # Linux/Mac
 notepad data\intents_ml.json  # Windows
 ```
 
-**Add your own intents, patterns, and responses:**
+**Tambahkan intents, patterns, dan responses Anda sendiri:**
 
 ```json
 {
@@ -543,35 +543,35 @@ notepad data\intents_ml.json  # Windows
     {
       "tag": "greeting",
       "patterns": ["hi", "hello", "halo"],
-      "responses": ["Hello! How can I help you?"]
+      "responses": ["Halo! Apa yang bisa saya bantu?"]
     }
   ]
 }
 ```
 
-**Re-run migration to update database:**
+**Jalankan ulang migration untuk update database:**
 
 ```bash
 python scripts/migration_script.py
 ```
 
-### 4. 🧪 Run Tests
+### 4. 🧪 Jalankan Tests
 
 ```bash
-# Run all tests
+# Jalankan semua tests
 pytest tests/
 
-# Run specific test
+# Jalankan test spesifik
 python tests/test_chatbot_filtering.py
 
-# Run with coverage
+# Jalankan dengan coverage
 pytest --cov=. tests/
 ```
 
-### 5. 📊 Monitor Application
+### 5. 📊 Monitor Aplikasi
 
 ```bash
-# Check logs in real-time
+# Cek logs secara real-time
 tail -f logs/app.log          # Linux/Mac
 Get-Content logs\app.log -Wait  # Windows PowerShell
 
@@ -583,85 +583,85 @@ tail -f logs/security.log     # Linux/Mac
 
 ## 🐛 Troubleshooting
 
-### Common Issues and Solutions
+### Masalah Umum dan Solusi
 
 #### 1. ❌ "MySQL connection refused"
 
-**Problem:** Cannot connect to MySQL database
+**Masalah:** Tidak bisa koneksi ke MySQL database
 
-**Solutions:**
+**Solusi:**
 
 ```bash
-# Check if MySQL is running
+# Cek apakah MySQL berjalan
 # Windows:
 sc query MySQL80
-# If not running:
+# Jika tidak berjalan:
 net start MySQL80
 
 # Linux:
 sudo systemctl status mysql
-# If not running:
+# Jika tidak berjalan:
 sudo systemctl start mysql
 
 # Mac:
 brew services list
-# If not running:
+# Jika tidak berjalan:
 brew services start mysql
 ```
 
-**Check credentials:**
+**Cek kredensial:**
 
 ```bash
-# Test MySQL connection
+# Test koneksi MySQL
 mysql -u root -p
 
-# If login fails, reset password:
-# See MySQL documentation for password reset
+# Jika login gagal, reset password:
+# Lihat dokumentasi MySQL untuk reset password
 ```
 
 #### 2. ❌ "Module not found" / "No module named 'flask'"
 
-**Problem:** Python dependencies not installed
+**Masalah:** Dependencies Python tidak terinstal
 
-**Solutions:**
+**Solusi:**
 
 ```bash
-# Make sure virtual environment is activated
-# You should see (venv) in your prompt
+# Pastikan virtual environment sudah diaktifkan
+# Anda harus melihat (venv) di prompt
 
-# Reinstall all dependencies
+# Install ulang semua dependencies
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# If still failing, try:
+# Jika masih gagal, coba:
 pip install --force-reinstall -r requirements.txt
 ```
 
 #### 3. ❌ "Database 'chatbot_si' doesn't exist"
 
-**Problem:** Database not created
+**Masalah:** Database belum dibuat
 
-**Solution:**
+**Solusi:**
 
 ```bash
-# Create database
+# Buat database
 mysql -u root -p -e "CREATE DATABASE chatbot_si CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-# Run migration
+# Jalankan migration
 python scripts/migration_script.py
 ```
 
 #### 4. ❌ "Port 5000 already in use"
 
-**Problem:** Another application is using port 5000
+**Masalah:** Aplikasi lain menggunakan port 5000
 
-**Solutions:**
+**Solusi:**
 
 ```bash
-# Option 1: Change port in .env
+# Opsi 1: Ganti port di .env
 PORT=8000
 
-# Option 2: Find and kill process using port 5000
+# Opsi 2: Cari dan matikan proses yang menggunakan port 5000
 # Windows:
 netstat -ano | findstr :5000
 taskkill /PID <process_id> /F
@@ -673,19 +673,19 @@ kill -9 <process_id>
 
 #### 5. ❌ "Access denied for user 'root'@'localhost'"
 
-**Problem:** MySQL credentials incorrect
+**Masalah:** Kredensial MySQL salah
 
-**Solution:**
+**Solusi:**
 
 ```bash
-# Update .env with correct credentials
-MYSQL_USER=your_actual_username
-MYSQL_PASSWORD=your_actual_password
+# Update .env dengan kredensial yang benar
+MYSQL_USER=username_asli_anda
+MYSQL_PASSWORD=password_asli_anda
 
-# Or create new MySQL user
+# Atau buat user MySQL baru
 mysql -u root -p
 
-CREATE USER 'chatbot_user'@'localhost' IDENTIFIED BY 'strong_password';
+CREATE USER 'chatbot_user'@'localhost' IDENTIFIED BY 'password_kuat';
 GRANT ALL PRIVILEGES ON chatbot_si.* TO 'chatbot_user'@'localhost';
 FLUSH PRIVILEGES;
 exit;
@@ -693,93 +693,93 @@ exit;
 
 #### 6. ❌ "Secret key must be set"
 
-**Problem:** SECRET_KEY not configured in .env
+**Masalah:** SECRET_KEY tidak dikonfigurasi di .env
 
-**Solution:**
+**Solusi:**
 
 ```bash
-# Generate new secret key
+# Generate secret key baru
 python -c "import os; print(os.urandom(24).hex())"
 
-# Add to .env
-SECRET_KEY=<paste_generated_key_here>
+# Tambahkan ke .env
+SECRET_KEY=<paste_generated_key_disini>
 ```
 
-#### 7. ❌ "Template not found" errors
+#### 7. ❌ Error "Template not found"
 
-**Problem:** Flask cannot find HTML templates
+**Masalah:** Flask tidak menemukan template HTML
 
-**Solution:**
+**Solusi:**
 
 ```bash
-# Make sure you're running from project root
+# Pastikan Anda menjalankan dari project root
 cd chatbot_SI
 python app.py
 
-# Check static/ folder exists with HTML files
-ls static/  # Should show: index.html, admin.html, etc.
+# Cek folder static/ ada dengan file HTML
+ls static/  # Harus menampilkan: index.html, admin.html, dll.
 ```
 
-#### 8. ❌ "CORS policy" errors in browser console
+#### 8. ❌ Error "CORS policy" di browser console
 
-**Problem:** Cross-origin requests blocked
+**Masalah:** Cross-origin requests diblokir
 
-**Solution:**
+**Solusi:**
 
-Already configured in the app, but if issues persist:
+Sudah dikonfigurasi di app, tapi jika masih ada masalah:
 
 ```bash
-# Check Flask-Cors is installed
+# Cek Flask-Cors terinstal
 pip install flask-cors
 
-# Verify in app.py
-# CORS(app) should be present
+# Verifikasi di app.py
+# CORS(app) harus ada
 ```
 
-#### 9. ❌ Migration script errors
+#### 9. ❌ Error pada migration script
 
-**Problem:** Database migration fails
+**Masalah:** Database migration gagal
 
-**Solution:**
+**Solusi:**
 
 ```bash
-# Drop and recreate database (WARNING: Destroys all data!)
+# Drop dan buat ulang database (WARNING: Menghapus semua data!)
 mysql -u root -p
 
 DROP DATABASE IF EXISTS chatbot_si;
 CREATE DATABASE chatbot_si CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 exit;
 
-# Re-run migration
+# Jalankan ulang migration
 python scripts/migration_script.py
 ```
 
-#### 10. ❌ Groq API not working
+#### 10. ❌ Groq API tidak bekerja
 
-**Problem:** Groq API returns errors
+**Masalah:** Groq API mengembalikan error
 
-**Solutions:**
+**Solusi:**
 
 ```bash
-# Check API key is valid
-# Visit: https://console.groq.com
+# Cek API key valid
+# Kunjungi: https://console.groq.com
 
-# Verify .env configuration
+# Verifikasi konfigurasi .env
 GROQ_API_KEY=gsk_...
 ENABLE_GROQ=true
 
-# Check internet connection
-# Groq API requires internet access
+# Cek koneksi internet
+# Groq API membutuhkan akses internet
 
-# Disable Groq temporarily
+# Nonaktifkan Groq sementara
 ENABLE_GROQ=false
 ```
 
-### Getting More Help
+### Mendapatkan Bantuan Lebih Lanjut
 
-If you're still experiencing issues:
+Jika Anda masih mengalami masalah:
 
-1. **Check Logs:**
+1. **Cek Logs:**
 
    ```bash
    cat logs/app.log
@@ -793,43 +793,43 @@ If you're still experiencing issues:
    LOG_LEVEL=DEBUG
    ```
 
-3. **Search Issues:**
+3. **Cari Issues:**
    - GitHub Issues: https://github.com/your-username/chatbot_SI/issues
 
-4. **Create New Issue:**
-   - Include: Error message, logs, OS, Python version
-   - Include: Steps to reproduce
+4. **Buat Issue Baru:**
+   - Sertakan: Pesan error, logs, OS, versi Python
+   - Sertakan: Langkah-langkah untuk mereproduksi
 
 ---
 
-## 💻 Platform-Specific Guides
+## 💻 Panduan Platform Spesifik
 
 ### Windows
 
-#### Using Anaconda
+#### Menggunakan Anaconda
 
 ```bash
-# Create conda environment
+# Buat conda environment
 conda create -n chatbot python=3.11
 conda activate chatbot
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Continue with normal installation steps
+# Lanjutkan dengan langkah instalasi normal
 ```
 
-#### Using XAMPP MySQL
+#### Menggunakan XAMPP MySQL
 
 ```bash
-# Start XAMPP Control Panel
-# Start MySQL service
+# Mulai XAMPP Control Panel
+# Start service MySQL
 
 # Update .env
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3306
 MYSQL_USER=root
-MYSQL_PASSWORD=    # Usually empty in XAMPP
+MYSQL_PASSWORD=    # Biasanya kosong di XAMPP
 ```
 
 ### Linux (Ubuntu/Debian)
@@ -846,7 +846,7 @@ sudo apt install mysql-server
 # Secure installation
 sudo mysql_secure_installation
 
-# Start MySQL
+# Mulai MySQL
 sudo systemctl start mysql
 sudo systemctl enable mysql
 ```
@@ -854,7 +854,7 @@ sudo systemctl enable mysql
 #### Install Python 3.11
 
 ```bash
-# Add PPA
+# Tambah PPA
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 
@@ -867,10 +867,10 @@ sudo apt install python3-pip
 
 ### macOS
 
-#### Using Homebrew
+#### Menggunakan Homebrew
 
 ```bash
-# Install Homebrew (if not installed)
+# Install Homebrew (jika belum terinstal)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Install Python
@@ -886,100 +886,100 @@ mysql_secure_installation
 
 ---
 
-## 📚 Documentation
+## 📚 Dokumentasi
 
-### Quick Links
+### Link Cepat
 
-- 📖 [README.md](README.md) - Project overview
-- 🏗️ [STRUCTURE.md](STRUCTURE.md) - Project structure
-- 🔧 [Configuration Guide](docs/guides/GROQ_SETUP.md) - Groq API setup
-- 🔒 [Security Guide](docs/guides/SECURITY_GUIDE.md) - Security best practices
-- 🚀 [Deployment Guide](docs/deployment/DEPLOYMENT_GUIDE.md) - Deploy to production
+- 📖 [README.md](README.md) - Overview project
+- 🏗️ [STRUCTURE.md](STRUCTURE.md) - Struktur project
+- 🔧 [Panduan Konfigurasi](docs/guides/GROQ_SETUP.md) - Setup Groq API
+- 🔒 [Panduan Keamanan](docs/guides/SECURITY_GUIDE.md) - Best practices keamanan
+- 🚀 [Panduan Deployment](docs/deployment/DEPLOYMENT_GUIDE.md) - Deploy ke production
 
-### Deployment Guides
+### Panduan Deployment
 
-- [Railway](docs/deployment/RAILWAY_QUICKSTART.md) - Deploy to Railway
-- [Hostinger](docs/deployment/HOSTINGER_DEPLOYMENT.md) - Deploy to Hostinger
-- [Niagahoster](docs/deployment/NIAGAHOSTER_DEPLOYMENT.md) - Deploy to Niagahoster
+- [Railway](docs/deployment/RAILWAY_QUICKSTART.md) - Deploy ke Railway
+- [Hostinger](docs/deployment/HOSTINGER_DEPLOYMENT.md) - Deploy ke Hostinger
+- [Niagahoster](docs/deployment/NIAGAHOSTER_DEPLOYMENT.md) - Deploy ke Niagahoster
 
-### Troubleshooting Guides
+### Panduan Troubleshooting
 
-- [Admin Panel Issues](docs/guides/ADMIN_PANEL_FIX_GUIDE.md)
+- [Masalah Admin Panel](docs/guides/ADMIN_PANEL_FIX_GUIDE.md)
 - [MySQL Timeout](docs/guides/MYSQL_TIMEOUT_FIX.md)
 
 ---
 
-## 🔗 Useful Commands
+## 🔗 Command Berguna
 
 ```bash
-# Start application
+# Mulai aplikasi
 python app.py
 
-# Run in background (Linux/Mac)
+# Jalankan di background (Linux/Mac)
 nohup python app.py &
 
-# Run migration
+# Jalankan migration
 python scripts/migration_script.py
 
-# Add sample data
+# Tambah data contoh
 python scripts/add_sample_chats.py
 
-# Test database connection
+# Test koneksi database
 python scripts/test_db_connection.py
 
-# Interactive chatbot CLI
+# Chatbot CLI interaktif
 python scripts/chatbot_cli.py
 
-# Run tests
+# Jalankan tests
 pytest tests/
 
-# Check Python version
+# Cek versi Python
 python --version
 
-# Check installed packages
+# Cek package terinstal
 pip list
 
-# Update all packages
+# Update semua packages
 pip install --upgrade -r requirements.txt
 ```
 
 ---
 
-## 🎉 Success!
+## 🎉 Berhasil!
 
-If you've reached this point and your chatbot is running, congratulations! 🎊
+Jika Anda sudah sampai di sini dan chatbot Anda berjalan, selamat! 🎊
 
-**Next Steps:**
+**Langkah Selanjutnya:**
 
-1. ✅ Change default admin password
-2. ✅ Customize intents in `data/intents_ml.json`
-3. ✅ Configure Groq API for better responses
-4. ✅ Read [Security Guide](docs/guides/SECURITY_GUIDE.md)
-5. ✅ Deploy to production (see [Deployment Guide](docs/deployment/DEPLOYMENT_GUIDE.md))
+1. ✅ Ganti password admin default
+2. ✅ Kustomisasi intents di `data/intents_ml.json`
+3. ✅ Konfigurasi Groq API untuk response yang lebih baik
+4. ✅ Baca [Panduan Keamanan](docs/guides/SECURITY_GUIDE.md)
+5. ✅ Deploy ke production (lihat [Panduan Deployment](docs/deployment/DEPLOYMENT_GUIDE.md))
 
 ---
 
-## 📞 Support
+## 📞 Dukungan
 
 - 🐛 **Issues:** [GitHub Issues](https://github.com/your-username/chatbot_SI/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/your-username/chatbot_SI/discussions)
+- 💬 **Diskusi:** [GitHub Discussions](https://github.com/your-username/chatbot_SI/discussions)
 - 📧 **Email:** your.email@example.com
 - 📖 **Wiki:** [Project Wiki](https://github.com/your-username/chatbot_SI/wiki)
 
 ---
 
-## 📄 License
+## 📄 Lisensi
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Project ini dilisensikan di bawah MIT License - lihat file [LICENSE](LICENSE) untuk detail.
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for Program Studi Sistem Informasi IPI Garut**
+**Dibuat dengan ❤️ untuk Program Studi Sistem Informasi IPI Garut**
 
-⭐ Star this repo if you find it helpful!
+⭐ Star repo ini jika Anda merasa terbantu!
 
-[⬆ Back to Top](#-installation-guide---chatbot-si)
+[⬆ Kembali ke Atas](#-panduan-instalasi---chatbot-si)
 
 </div>

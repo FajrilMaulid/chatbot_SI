@@ -1,96 +1,96 @@
-# 🤝 Contributing to Chatbot SI
+# 🤝 Berkontribusi pada Chatbot SI
 
-First off, thank you for considering contributing to Chatbot SI! It's people like you that make this chatbot better for everyone.
+Terima kasih telah mempertimbangkan untuk berkontribusi pada Chatbot SI! Orang-orang seperti Anda yang membuat chatbot ini menjadi lebih baik untuk semua orang.
 
-## 📋 Table of Contents
+## 📋 Daftar Isi
 
-- [Code of Conduct](#code-of-conduct)
-- [How Can I Contribute?](#how-can-i-contribute)
-- [Development Setup](#development-setup)
-- [Pull Request Process](#pull-request-process)
-- [Coding Standards](#coding-standards)
-- [Project Structure](#project-structure)
+- [Kode Etik](#kode-etik)
+- [Bagaimana Saya Bisa Berkontribusi?](#bagaimana-saya-bisa-berkontribusi)
+- [Setup Development](#setup-development)
+- [Proses Pull Request](#proses-pull-request)
+- [Standar Coding](#standar-coding)
+- [Struktur Project](#struktur-project)
 
-## 📜 Code of Conduct
+## 📜 Kode Etik
 
-This project and everyone participating in it is governed by respect and professionalism. By participating, you are expected to uphold this code.
+Project ini dan setiap orang yang berpartisipasi di dalamnya diatur oleh rasa hormat dan profesionalisme. Dengan berpartisipasi, Anda diharapkan untuk menjunjung tinggi kode etik ini.
 
-## 🎯 How Can I Contribute?
+## 🎯 Bagaimana Saya Bisa Berkontribusi?
 
-### Reporting Bugs
+### Melaporkan Bug
 
-Before creating bug reports, please check existing issues. When you create a bug report, include as many details as possible:
+Sebelum membuat laporan bug, silakan cek issues yang sudah ada. Ketika membuat laporan bug, sertakan sebanyak mungkin detail:
 
-**Bug Report Template:**
+**Template Laporan Bug:**
 
 ```markdown
-**Describe the bug**
-A clear description of what the bug is.
+**Deskripsi bug**
+Deskripsi yang jelas tentang apa bug-nya.
 
-**To Reproduce**
-Steps to reproduce the behavior:
+**Cara Mereproduksi**
+Langkah-langkah untuk mereproduksi perilaku:
 
-1. Go to '...'
-2. Click on '....'
-3. See error
+1. Pergi ke '...'
+2. Klik pada '....'
+3. Lihat error
 
-**Expected behavior**
-What you expected to happen.
+**Perilaku yang diharapkan**
+Apa yang Anda harapkan terjadi.
 
-**Screenshots**
-If applicable, add screenshots.
+**Screenshot**
+Jika applicable, tambahkan screenshot.
 
 **Environment:**
 
-- OS: [e.g. Windows 11]
-- Python Version: [e.g. 3.11]
-- MySQL Version: [e.g. 8.0]
+- OS: [mis. Windows 11]
+- Versi Python: [mis. 3.11]
+- Versi MySQL: [mis. 8.0]
 ```
 
-### Suggesting Enhancements
+### Menyarankan Peningkatan
 
-Enhancement suggestions are tracked as GitHub issues. When creating an enhancement suggestion, include:
+Saran peningkatan dilacak sebagai GitHub issues. Ketika membuat saran peningkatan, sertakan:
 
-- **Clear title and description**
-- **Current behavior vs. proposed behavior**
-- **Why this enhancement would be useful**
-- **Possible implementation approach**
+- **Judul dan deskripsi yang jelas**
+- **Perilaku saat ini vs. perilaku yang diusulkan**
+- **Mengapa peningkatan ini akan berguna**
+- **Pendekatan implementasi yang mungkin**
 
 ### Pull Requests
 
-1. **Fork the repo** and create your branch from `main`
-2. **Make your changes** following our coding standards
-3. **Test your changes** thoroughly
-4. **Update documentation** if needed
-5. **Submit a pull request**
+1. **Fork repo** dan buat branch Anda dari `main`
+2. **Buat perubahan Anda** mengikuti standar coding kami
+3. **Test perubahan Anda** secara menyeluruh
+4. **Update dokumentasi** jika diperlukan
+5. **Submit pull request**
 
-## 🔧 Development Setup
+## 🔧 Setup Development
 
-### 1. Fork and Clone
+### 1. Fork dan Clone
 
 ```bash
-# Fork the repository on GitHub, then:
-git clone https://github.com/YOUR-USERNAME/chatbot_SI.git
+# Fork repository di GitHub, kemudian:
+git clone https://github.com/USERNAME-ANDA/chatbot_SI.git
 cd chatbot_SI
 ```
 
-### 2. Create a Branch
+### 2. Buat Branch
 
 ```bash
-# Create a feature branch
-git checkout -b feature/your-feature-name
+# Buat feature branch
+git checkout -b feature/nama-fitur-anda
 
-# Or a bugfix branch
-git checkout -b fix/bug-description
+# Atau bugfix branch
+git checkout -b fix/deskripsi-bug
 ```
 
 ### 3. Setup Development Environment
 
 ```bash
-# Create virtual environment
+# Buat virtual environment
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# or
+# atau
 venv\Scripts\activate  # Windows
 
 # Install dependencies
@@ -103,110 +103,110 @@ pip install pytest pytest-cov black flake8
 ### 4. Setup Database
 
 ```bash
-# Create test database
+# Buat test database
 mysql -u root -p -e "CREATE DATABASE chatbot_si_dev;"
 
-# Copy env file
+# Copy file env
 cp .config/.env.example .env
 
-# Update .env with development database
+# Update .env dengan development database
 MYSQL_DATABASE=chatbot_si_dev
 
-# Run migration
+# Jalankan migration
 python scripts/migration_script.py
 ```
 
-### 5. Run Tests
+### 5. Jalankan Tests
 
 ```bash
-# Run all tests
+# Jalankan semua tests
 pytest tests/
 
-# Run with coverage
+# Jalankan dengan coverage
 pytest --cov=. tests/
 
-# Run specific test
+# Jalankan test spesifik
 pytest tests/test_chatbot_filtering.py
 ```
 
-## 🔄 Pull Request Process
+## 🔄 Proses Pull Request
 
-### Before Submitting
+### Sebelum Submit
 
-- [ ] Code follows project style guidelines
-- [ ] All tests pass
-- [ ] New tests added for new features
-- [ ] Documentation updated
-- [ ] No merge conflicts
-- [ ] Commit messages are clear
+- [ ] Code mengikuti panduan style project
+- [ ] Semua tests lolos
+- [ ] Tests baru ditambahkan untuk fitur baru
+- [ ] Dokumentasi diupdate
+- [ ] Tidak ada merge conflicts
+- [ ] Commit messages jelas
 
-### PR Title Format
+### Format Judul PR
 
 ```
-type(scope): short description
+type(scope): deskripsi singkat
 
-Examples:
-feat(chatbot): add sentiment analysis
-fix(admin): resolve login timeout issue
-docs(readme): update installation guide
-style(ui): improve responsive design
-refactor(core): optimize database queries
-test(filters): add topic filtering tests
+Contoh:
+feat(chatbot): tambah analisis sentimen
+fix(admin): perbaiki masalah login timeout
+docs(readme): update panduan instalasi
+style(ui): tingkatkan responsive design
+refactor(core): optimasi query database
+test(filters): tambah tests topic filtering
 ```
 
-### PR Description Template
+### Template Deskripsi PR
 
 ```markdown
-## Description
+## Deskripsi
 
-Brief description of changes made.
+Deskripsi singkat tentang perubahan yang dibuat.
 
-## Type of Change
+## Jenis Perubahan
 
 - [ ] Bug fix
-- [ ] New feature
+- [ ] Fitur baru
 - [ ] Breaking change
-- [ ] Documentation update
+- [ ] Update dokumentasi
 
 ## Testing
 
-Describe how you tested your changes.
+Jelaskan bagaimana Anda menguji perubahan Anda.
 
-## Screenshots
+## Screenshot
 
-If applicable, add screenshots.
+Jika applicable, tambahkan screenshot.
 
 ## Checklist
 
-- [ ] Code follows style guidelines
-- [ ] Self-reviewed code
-- [ ] Commented complex code
-- [ ] Updated documentation
-- [ ] No new warnings
-- [ ] Added tests
-- [ ] All tests pass
+- [ ] Code mengikuti panduan style
+- [ ] Self-review code
+- [ ] Komentar pada code yang kompleks
+- [ ] Update dokumentasi
+- [ ] Tidak ada warning baru
+- [ ] Tambah tests
+- [ ] Semua tests lolos
 ```
 
-## 💻 Coding Standards
+## 💻 Standar Coding
 
-### Python Style Guide
+### Panduan Style Python
 
-We follow [PEP 8](https://pep8.org/) with some modifications:
+Kami mengikuti [PEP 8](https://pep8.org/) dengan beberapa modifikasi:
 
 ```python
-# Good: Clear variable names
+# Baik: Nama variabel yang jelas
 def calculate_response_confidence(intent_score, topic_score):
     return (intent_score + topic_score) / 2
 
-# Bad: Unclear variable names
+# Buruk: Nama variabel tidak jelas
 def calc(x, y):
     return (x + y) / 2
 ```
 
-### File Organization
+### Organisasi File
 
 ```python
-# Import order:
+# Urutan import:
 # 1. Standard library
 import os
 import sys
@@ -222,17 +222,17 @@ from core.database import Database
 from models.admin_api import AdminAPI
 ```
 
-### Code Formatting
+### Formatting Code
 
 ```bash
-# Use Black for formatting (line length 88)
+# Gunakan Black untuk formatting (panjang baris 88)
 black .
 
-# Use flake8 for linting
+# Gunakan flake8 untuk linting
 flake8 .
 ```
 
-### Naming Conventions
+### Konvensi Penamaan
 
 - **Files:** `lowercase_with_underscores.py`
 - **Classes:** `PascalCase`
@@ -240,19 +240,19 @@ flake8 .
 - **Constants:** `UPPER_CASE`
 - **Variables:** `snake_case`
 
-### Documentation
+### Dokumentasi
 
 ```python
 def process_compound_question(question: str, intents: list) -> dict:
     """
-    Process a compound question containing multiple intents.
+    Proses pertanyaan majemuk yang mengandung beberapa intents.
 
     Args:
-        question (str): The user's compound question
-        intents (list): List of detected intents with confidence scores
+        question (str): Pertanyaan majemuk dari user
+        intents (list): List intents yang terdeteksi dengan confidence scores
 
     Returns:
-        dict: Combined response with metadata
+        dict: Response gabungan dengan metadata
 
     Example:
         >>> process_compound_question(
@@ -261,25 +261,25 @@ def process_compound_question(question: str, intents: list) -> dict:
         ... )
         {'response': '...', 'intents': [...]}
     """
-    # Implementation
+    # Implementasi
     pass
 ```
 
-### Comments
+### Komentar
 
 ```python
-# Good: Explain WHY, not WHAT
-# Calculate weighted average to prioritize recent responses
+# Baik: Jelaskan MENGAPA, bukan APA
+# Hitung rata-rata tertimbang untuk memprioritaskan response terbaru
 weighted_score = (recent_score * 0.7) + (overall_score * 0.3)
 
-# Bad: Just describes what code does
-# Multiply recent_score by 0.7 and add to overall_score times 0.3
+# Buruk: Hanya mendeskripsikan apa yang code lakukan
+# Kalikan recent_score dengan 0.7 dan tambahkan ke overall_score kali 0.3
 weighted_score = (recent_score * 0.7) + (overall_score * 0.3)
 ```
 
-## 📂 Project Structure
+## 📂 Struktur Project
 
-Understanding the project structure helps you contribute effectively:
+Memahami struktur project membantu Anda berkontribusi secara efektif:
 
 ```
 chatbot_SI/
@@ -296,32 +296,32 @@ chatbot_SI/
 ├── utils/            # Utility functions
 ├── static/           # Frontend files
 ├── tests/            # Test files
-└── docs/             # Documentation
+└── docs/             # Dokumentasi
 ```
 
-### Where to Make Changes
+### Dimana Membuat Perubahan
 
-**Adding new features:**
+**Menambah fitur baru:**
 
-- Chatbot logic → `core/`
+- Logic chatbot → `core/`
 - API endpoints → `api/`
-- Database models → `models/`
+- Model database → `models/`
 - Frontend → `static/`
 
-**Fixing bugs:**
+**Memperbaiki bugs:**
 
-- Check logs in `logs/` first
-- Related files based on error trace
+- Cek logs di `logs/` terlebih dahulu
+- File terkait berdasarkan error trace
 
-**Improving docs:**
+**Meningkatkan docs:**
 
-- General docs → `docs/`
-- Installation → `INSTALLATION.md`
-- API docs → `docs/api/` (create if needed)
+- Docs umum → `docs/`
+- Instalasi → `INSTALLATION.md`
+- API docs → `docs/api/` (buat jika diperlukan)
 
-## ✅ Testing Guidelines
+## ✅ Panduan Testing
 
-### Writing Tests
+### Menulis Tests
 
 ```python
 # tests/test_your_feature.py
@@ -329,7 +329,7 @@ import pytest
 from core.your_module import your_function
 
 def test_your_function_basic():
-    """Test basic functionality."""
+    """Test fungsionalitas dasar."""
     result = your_function("input")
     assert result == "expected_output"
 
@@ -341,18 +341,18 @@ def test_your_function_edge_case():
 
 ### Test Coverage
 
-Aim for:
+Target untuk:
 
 - **Core modules:** 80%+ coverage
 - **Critical paths:** 90%+ coverage
-- **New features:** 100% coverage
+- **Fitur baru:** 100% coverage
 
 ```bash
-# Check coverage
+# Cek coverage
 pytest --cov=core --cov-report=html tests/
 ```
 
-## 🐛 Debugging Tips
+## 🐛 Tips Debugging
 
 ### Enable Debug Mode
 
@@ -362,7 +362,7 @@ DEBUG=True
 LOG_LEVEL=DEBUG
 ```
 
-### Check Logs
+### Cek Logs
 
 ```bash
 # Application logs
@@ -372,10 +372,10 @@ tail -f logs/app.log
 tail -f logs/security.log
 ```
 
-### Use Python Debugger
+### Gunakan Python Debugger
 
 ```python
-# Add to your code
+# Tambahkan ke code Anda
 import pdb; pdb.set_trace()
 ```
 
@@ -393,41 +393,41 @@ import pdb; pdb.set_trace()
 
 ### Types
 
-- `feat`: New feature
+- `feat`: Fitur baru
 - `fix`: Bug fix
-- `docs`: Documentation
+- `docs`: Dokumentasi
 - `style`: Formatting
-- `refactor`: Code restructuring
-- `test`: Adding tests
+- `refactor`: Restructuring code
+- `test`: Menambah tests
 - `chore`: Maintenance
 
-### Examples
+### Contoh
 
 ```bash
-feat(chatbot): add multi-intent detection
+feat(chatbot): tambah multi-intent detection
 
-- Implemented compound question parsing
-- Added intent combination logic
-- Updated response handler
+- Implementasi parsing pertanyaan majemuk
+- Tambah logic kombinasi intent
+- Update response handler
 
 Closes #123
 ```
 
-## 🎉 Recognition
+## 🎉 Pengakuan
 
-Contributors will be:
+Kontributor akan:
 
-- Listed in project README
-- Mentioned in release notes
-- Given credit in commit history
+- Dicantumkan di project README
+- Disebutkan di release notes
+- Diberi kredit di commit history
 
-## 📞 Getting Help
+## 📞 Mendapatkan Bantuan
 
-- **Questions:** [GitHub Discussions](https://github.com/your-username/chatbot_SI/discussions)
-- **Chat:** [Join our Discord](#) (if available)
+- **Pertanyaan:** [GitHub Discussions](https://github.com/your-username/chatbot_SI/discussions)
+- **Chat:** [Join Discord kami](#) (jika tersedia)
 - **Email:** your.email@example.com
 
-## 📚 Additional Resources
+## 📚 Sumber Daya Tambahan
 
 - [Python Style Guide](https://pep8.org/)
 - [Flask Best Practices](https://flask.palletsprojects.com/en/latest/patterns/)
@@ -435,8 +435,8 @@ Contributors will be:
 
 ---
 
-## 🙏 Thank You!
+## 🙏 Terima Kasih!
 
-Your contributions make this project better. We appreciate your time and effort!
+Kontribusi Anda membuat project ini lebih baik. Kami menghargai waktu dan usaha Anda!
 
-**Happy Coding!** 🚀
+**Selamat Coding!** 🚀
