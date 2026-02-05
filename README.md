@@ -2,61 +2,61 @@
 
 <div align="center">
 
-Chatbot cerdas untuk menjawab pertanyaan seputar Program Studi Sistem Informasi dengan AI-powered responses dan admin panel lengkap.
+Chatbot cerdas untuk menjawab pertanyaan seputar Program Studi Sistem Informasi dengan respons bertenaga AI dan panel admin lengkap.
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3%2B-black?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-5.7%2B-orange?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[🚀 Quick Start](#-quick-start-automated) • [📦 Full Installation Guide](INSTALLATION.md) • [📚 Documentation](#-documentation) • [🚀 Deploy](#-deployment)
+[🚀 Mulai Cepat](#-mulai-cepat-otomatis) • [📦 Panduan Instalasi Lengkap](INSTALLATION.md) • [📚 Dokumentasi](#-dokumentasi) • [🚀 Deploy](#-deployment)
 
 </div>
 
 ---
 
-## ✨ Features
+## ✨ Fitur
 
-- 🤖 **AI-Powered Chatbot** dengan Groq API integration
-- 🎯 **Multi-Intent Detection** - Jawab pertanyaan majemuk sekaligus
-- 🔍 **Topic Filtering** - Fokus pada pertanyaan akademik SI
-- 📊 **Admin Panel** - Manage intents, patterns, responses
-- 📈 **Chat Logs** - Track semua percakapan
-- 🔒 **Security Features** - Rate limiting, input validation, logging
-- 🎨 **Modern UI** - Glassmorphism design dengan dark mode
+- 🤖 **Chatbot Bertenaga AI** dengan integrasi Groq API
+- 🎯 **Deteksi Multi-Intent** - Jawab pertanyaan majemuk sekaligus
+- 🔍 **Filter Topik** - Fokus pada pertanyaan akademik SI
+- 📊 **Panel Admin** - Kelola intents, pola, dan respons
+- 📈 **Log Percakapan** - Lacak semua percakapan
+- 🔒 **Fitur Keamanan** - Pembatasan rate, validasi input, logging
+- 🎨 **UI Modern** - Desain glassmorphism dengan mode gelap
 
-## 🚀 Quick Start (Automated)
+## 🚀 Mulai Cepat (Otomatis)
 
-> 📖 **For detailed installation instructions with troubleshooting and platform-specific guides, see [INSTALLATION.md](INSTALLATION.md)**
+> 📖 **Untuk instruksi instalasi lengkap dengan troubleshooting dan panduan khusus platform, lihat [INSTALLATION.md](INSTALLATION.md)**
 
-### Option 1: One-Click Setup (Recommended)
+### Opsi 1: Setup Satu Klik (Rekomendasi)
 
 ```bash
 # 1. Clone repository
 git clone https://github.com/your-username/chatbot_SI.git
 cd chatbot_SI
 
-# 2. Run automated setup
+# 2. Jalankan setup otomatis
 python setup.py
 ```
 
-Setup script akan:
+Script setup akan:
 
 - ✅ Install semua dependencies
-- ✅ Create database
-- ✅ Run migration
-- ✅ Setup .env file
-- ✅ Add sample data
-- ✅ Verify installation
+- ✅ Buat database
+- ✅ Jalankan migration
+- ✅ Setup file .env
+- ✅ Tambah data contoh
+- ✅ Verifikasi instalasi
 
-### Option 2: Manual Setup
+### Opsi 2: Setup Manual
 
 ```bash
 # 1. Clone repository
 git clone https://github.com/your-username/chatbot_SI.git
 cd chatbot_SI
 
-# 2. Create virtual environment (optional)
+# 2. Buat virtual environment (opsional)
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # atau
@@ -70,58 +70,58 @@ copy .config\.env.example .env  # Windows
 # atau
 cp .config/.env.example .env  # Linux/Mac
 
-# Edit .env dengan database credentials Anda
+# Edit .env dengan kredensial database Anda
 
-# 5. Create database
+# 5. Buat database
 mysql -u root -p
 CREATE DATABASE chatbot_si;
 exit;
 
-# 6. Run migration
+# 6. Jalankan migration
 python scripts/migration_script.py
 
-# 7. (Optional) Add sample data
+# 7. (Opsional) Tambah data contoh
 python scripts/add_sample_chats.py
 ```
 
-## ▶️ Run Application
+## ▶️ Jalankan Aplikasi
 
 ```bash
 python app.py
 ```
 
-**Access:**
+**Akses:**
 
 - Chatbot: http://localhost:5000
-- Admin Panel: http://localhost:5000/admin
+- Panel Admin: http://localhost:5000/admin
   - Username: `admin`
-  - Password: `admin123` ⚠️ **CHANGE THIS!**
+  - Password: `admin123` ⚠️ **UBAH INI!**
 
-## 📋 Requirements
+## 📋 Persyaratan
 
 - Python 3.8+
 - MySQL 5.7+ atau MariaDB 10.2+
 - pip (Python package manager)
 
-## 🔧 Configuration
+## 🔧 Konfigurasi
 
-### Database Setup
+### Setup Database
 
-Edit `.env` file:
+Edit file `.env`:
 
 ```bash
 MYSQL_HOST=localhost
 MYSQL_USER=root
-MYSQL_PASSWORD=your_password
+MYSQL_PASSWORD=password_anda
 MYSQL_DATABASE=chatbot_si
 ```
 
-### Groq API (Optional)
+### Groq API (Opsional)
 
-Untuk fitur AI enhancement, daftar di [Groq Console](https://console.groq.com):
+Untuk fitur peningkatan AI, daftar di [Groq Console](https://console.groq.com):
 
 ```bash
-GROQ_API_KEY=your_api_key_here
+GROQ_API_KEY=api_key_anda_disini
 ENABLE_GROQ=true
 ```
 
@@ -136,159 +136,159 @@ python -c "import os; print(os.urandom(24).hex())"
 Tambahkan ke `.env`:
 
 ```bash
-SECRET_KEY=your_generated_secret_key
+SECRET_KEY=secret_key_yang_di_generate
 ```
 
-## 📁 Project Structure
+## 📁 Struktur Proyek
 
 ```
 chatbot_SI/
 ├── .config/          # Template konfigurasi (.env.example, .htaccess)
 ├── api/              # Flask blueprints (routes)
 ├── backup/           # File backup (code/)
-├── config/           # Configuration management
-├── core/             # Chatbot core logic (6 modules)
-├── data/             # Training data
+├── config/           # Manajemen konfigurasi
+├── core/             # Logika inti chatbot (6 modul)
+├── data/             # Data training
 ├── deployment/       # File deployment (Procfile, passenger_wsgi.py)
 ├── docs/             # Dokumentasi (deployment/, guides/, project/)
 ├── installation/     # Script instalasi (INSTALL.bat, install.sh)
-├── logs/             # Application logs
-├── models/           # Database operations
-├── scripts/          # Standalone scripts
-├── static/           # Frontend files
-├── tests/            # Test files
-├── utils/            # Security utilities
-├── setup.py          # Automated setup script
-└── app.py            # Main application
+├── logs/             # Log aplikasi
+├── models/           # Operasi database
+├── scripts/          # Script standalone
+├── static/           # File frontend
+├── tests/            # File tes
+├── utils/            # Utilitas keamanan
+├── setup.py          # Script setup otomatis
+└── app.py            # Aplikasi utama
 ```
 
-See [PROJECT_STRUCTURE.md](docs/project/PROJECT_STRUCTURE.md) for details.
+Lihat [PROJECT_STRUCTURE.md](docs/project/PROJECT_STRUCTURE.md) untuk detail.
 
-## 🛠️ Useful Scripts
+## 🛠️ Script Berguna
 
 ```bash
-# Run migration
+# Jalankan migration
 python scripts/migration_script.py
 
-# Fix database schema
+# Perbaiki skema database
 python scripts/fix_chat_logs_schema.py
 
-# Add sample data
+# Tambah data contoh
 python scripts/add_sample_chats.py
 
-# Run tests
+# Jalankan tes
 pytest tests/
 ```
 
-## 📚 Documentation
+## 📚 Dokumentasi
 
-**Installation:**
+**Instalasi:**
 
-- [📦 INSTALLATION.md](INSTALLATION.md) - **Complete installation guide** (Recommended)
-- [docs/guides/INSTALL.md](docs/guides/INSTALL.md) - Quick installation reference
+- [📦 INSTALLATION.md](INSTALLATION.md) - **Panduan instalasi lengkap** (Rekomendasi)
+- [docs/guides/INSTALL.md](docs/guides/INSTALL.md) - Referensi instalasi cepat
 
-**Project & Setup:**
+**Proyek & Setup:**
 
-- [docs/project/PROJECT_STRUCTURE.md](docs/project/PROJECT_STRUCTURE.md) - Detailed project organization
-- [docs/guides/GROQ_SETUP.md](docs/guides/GROQ_SETUP.md) - Groq API setup guide
-- [docs/guides/SECURITY_GUIDE.md](docs/guides/SECURITY_GUIDE.md) - Security best practices
+- [docs/project/PROJECT_STRUCTURE.md](docs/project/PROJECT_STRUCTURE.md) - Organisasi proyek detail
+- [docs/guides/GROQ_SETUP.md](docs/guides/GROQ_SETUP.md) - Panduan setup Groq API
+- [docs/guides/SECURITY_GUIDE.md](docs/guides/SECURITY_GUIDE.md) - Praktik terbaik keamanan
 
 **Deployment:**
 
-- [docs/deployment/DEPLOYMENT_GUIDE.md](docs/deployment/DEPLOYMENT_GUIDE.md) - General deployment instructions
-- [docs/deployment/RAILWAY_QUICKSTART.md](docs/deployment/RAILWAY_QUICKSTART.md) - Deploy to Railway
-- [docs/deployment/HOSTINGER_DEPLOYMENT.md](docs/deployment/HOSTINGER_DEPLOYMENT.md) - Deploy to Hostinger
-- [docs/deployment/NIAGAHOSTER_DEPLOYMENT.md](docs/deployment/NIAGAHOSTER_DEPLOYMENT.md) - Deploy to Niagahoster
+- [docs/deployment/DEPLOYMENT_GUIDE.md](docs/deployment/DEPLOYMENT_GUIDE.md) - Instruksi deployment umum
+- [docs/deployment/RAILWAY_QUICKSTART.md](docs/deployment/RAILWAY_QUICKSTART.md) - Deploy ke Railway
+- [docs/deployment/HOSTINGER_DEPLOYMENT.md](docs/deployment/HOSTINGER_DEPLOYMENT.md) - Deploy ke Hostinger
+- [docs/deployment/NIAGAHOSTER_DEPLOYMENT.md](docs/deployment/NIAGAHOSTER_DEPLOYMENT.md) - Deploy ke Niagahoster
 
 **Troubleshooting:**
 
-- [docs/guides/ADMIN_PANEL_FIX_GUIDE.md](docs/guides/ADMIN_PANEL_FIX_GUIDE.md) - Fix admin panel issues
-- [docs/guides/MYSQL_TIMEOUT_FIX.md](docs/guides/MYSQL_TIMEOUT_FIX.md) - Fix MySQL timeout issues
+- [docs/guides/ADMIN_PANEL_FIX_GUIDE.md](docs/guides/ADMIN_PANEL_FIX_GUIDE.md) - Perbaiki masalah panel admin
+- [docs/guides/MYSQL_TIMEOUT_FIX.md](docs/guides/MYSQL_TIMEOUT_FIX.md) - Perbaiki masalah timeout MySQL
 
-## 🔒 Security Features
+## 🔒 Fitur Keamanan
 
-- **Rate Limiting** - Proteksi brute force
-- **Input Validation** - Sanitasi input user
-- **Security Headers** - XSS, CSRF protection
-- **Password Hashing** - Bcrypt untuk admin password
-- **Session Security** - HTTPOnly cookies
-- **Comprehensive Logging** - Track security events
+- **Pembatasan Rate** - Proteksi brute force
+- **Validasi Input** - Sanitasi input pengguna
+- **Header Keamanan** - Proteksi XSS, CSRF
+- **Password Hashing** - Bcrypt untuk password admin
+- **Keamanan Session** - Cookie HTTPOnly
+- **Logging Komprehensif** - Lacak peristiwa keamanan
 
-## 🎯 Default Admin Credentials
+## 🎯 Kredensial Admin Default
 
-⚠️ **IMPORTANT**: Change after first login!
+⚠️ **PENTING**: Ubah setelah login pertama kali!
 
 - Username: `admin`
 - Password: `admin123`
 
-Change via admin panel or update database directly.
+Ubah melalui panel admin atau update database secara langsung.
 
 ## 🌐 Deployment
 
-### Railway.app (Recommended)
+### Railway.app (Rekomendasi)
 
-1. Push to GitHub
-2. Connect to Railway
-3. Add MySQL database addon
+1. Push ke GitHub
+2. Hubungkan ke Railway
+3. Tambah addon database MySQL
 4. Set environment variables
 5. Deploy!
 
-See [docs/deployment/RAILWAY_QUICKSTART.md](docs/deployment/RAILWAY_QUICKSTART.md)
+Lihat [docs/deployment/RAILWAY_QUICKSTART.md](docs/deployment/RAILWAY_QUICKSTART.md)
 
-### Other Platforms
+### Platform Lain
 
-- **Render.com** - See [docs/deployment/DEPLOYMENT_GUIDE.md](docs/deployment/DEPLOYMENT_GUIDE.md)
-- **Heroku** - Use MySQL ClearDB addon
-- **VPS** - Nginx + Gunicorn setup
+- **Render.com** - Lihat [docs/deployment/DEPLOYMENT_GUIDE.md](docs/deployment/DEPLOYMENT_GUIDE.md)
+- **Heroku** - Gunakan addon MySQL ClearDB
+- **VPS** - Setup Nginx + Gunicorn
 
 ## 🧪 Testing
 
 ```bash
-# Run all tests
+# Jalankan semua tes
 pytest tests/
 
-# Run specific test
+# Jalankan tes tertentu
 python tests/test_chatbot_filtering.py
 
-# Run with coverage
+# Jalankan dengan coverage
 pytest --cov=. tests/
 ```
 
-## 🤝 Contributing
+## 🤝 Kontribusi
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+Kami menerima kontribusi! Silakan lihat [Panduan Kontribusi](CONTRIBUTING.md) kami untuk detail.
 
-**Quick Start:**
+**Mulai Cepat:**
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
+1. Fork repository
+2. Buat feature branch (`git checkout -b feature/FiturKeren`)
+3. Commit perubahan (`git commit -m 'Tambah FiturKeren'`)
+4. Push ke branch (`git push origin feature/FiturKeren`)
+5. Buka Pull Request
 
-For detailed guidelines, coding standards, and development setup, read [CONTRIBUTING.md](CONTRIBUTING.md).
+Untuk panduan detail, standar coding, dan setup pengembangan, baca [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## 📝 License
+## 📝 Lisensi
 
-This project is licensed under the MIT License.
+Proyek ini dilisensikan di bawah Lisensi MIT.
 
-## 👥 Authors
+## 👥 Pembuat
 
-- Fajril Maulid - Initial work
+- Fajril Maulid - Karya awal
 
-## 🙏 Acknowledgments
+## 🙏 Penghargaan
 
-- Groq API for AI enhancement
-- Flask framework
-- scikit-learn for ML model
+- Groq API untuk peningkatan AI
+- Framework Flask
+- scikit-learn untuk model ML
 - Institut Pendidikan Indonesia (IPI) Garut
 
-## 📞 Support
+## 📞 Dukungan
 
-- GitHub Issues: [Report bugs](https://github.com/your-username/chatbot_SI/issues)
+- GitHub Issues: [Laporkan bug](https://github.com/your-username/chatbot_SI/issues)
 - Email: your.email@example.com
-- Documentation: [Wiki](https://github.com/your-username/chatbot_SI/wiki)
+- Dokumentasi: [Wiki](https://github.com/your-username/chatbot_SI/wiki)
 
 ---
 
-**Made with ❤️ for Program Studi Sistem Informasi IPI Garut**
+**Dibuat dengan ❤️ untuk Program Studi Sistem Informasi IPI Garut**
