@@ -1,6 +1,7 @@
 # Environment variables (sensitive data)
 .env
 .env.local
+.config/.env
 
 # Python cache
 __pycache__/

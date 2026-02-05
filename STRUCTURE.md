@@ -5,15 +5,21 @@
 ```
 chatbot_SI/
 │
+├── 📂 .config/                 # Configuration Templates ✨ NEW
+│   ├── .env.example            # Environment variables template
+│   ├── .htaccess.hostinger.example
+│   └── .htaccess.niagahoster.example
+│
 ├── 📂 api/                     # API Routes (Flask Blueprints)
 │   ├── __init__.py
 │   ├── chat_routes.py
 │   └── admin_routes.py
 │
-├── 📂 backup/                  # Legacy/backup files ✨ NEW
+├── 📂 backup/                  # Legacy/backup files ✨ UPDATED
 │   ├── README.md
-│   ├── chatbot_core.py.old     # Original monolithic core
-│   └── app.py.backup           # Original app.py
+│   └── code/                   # Code backups
+│       ├── chatbot_core.py.old
+│       └── app.py.backup
 │
 ├── 📂 config/                  # Configuration
 │   ├── __init__.py
@@ -30,13 +36,33 @@ chatbot_SI/
 ├── 📂 data/                    # Training Data
 │   └── intents_ml.json
 │
-├── 📂 docs/                    # Documentation ✨ UPDATED
-│   ├── DEPLOYMENT_CHECKLIST.md
-│   ├── DEPLOYMENT_GUIDE.md
-│   ├── GROQ_SETUP.md
-│   ├── RAILWAY_QUICKSTART.md
-│   ├── PROJECT_STRUCTURE.md    # ✨ Moved here
-│   └── INSTALL.md              # ✨ Moved here
+├── 📂 deployment/              # Deployment Files ✨ NEW
+│   ├── Procfile                # Railway/Heroku deployment
+│   ├── passenger_wsgi.py       # Shared hosting (cPanel)
+│   └── runtime.txt             # Python version
+│
+├── 📂 docs/                    # Documentation ✨ REORGANIZED
+│   ├── deployment/             # Deployment guides
+│   │   ├── DEPLOYMENT_GUIDE.md
+│   │   ├── DEPLOYMENT_CHECKLIST.md
+│   │   ├── HOSTINGER_DEPLOYMENT.md
+│   │   ├── NIAGAHOSTER_DEPLOYMENT.md
+│   │   ├── RAILWAY_DEPLOYMENT.md
+│   │   ├── RAILWAY_QUICKSTART.md
+│   │   └── RAILWAY_FIX.md
+│   ├── guides/                 # Setup & troubleshooting
+│   │   ├── INSTALL.md
+│   │   ├── GROQ_SETUP.md
+│   │   ├── ADMIN_PANEL_FIX_GUIDE.md
+│   │   ├── MYSQL_TIMEOUT_FIX.md
+│   │   └── SECURITY_GUIDE.md
+│   └── project/                # Project documentation
+│       ├── PROJECT_STRUCTURE.md
+│       └── LAPORAN_PROYEK_CHATBOT_SI.md
+│
+├── 📂 installation/            # Installation Scripts ✨ NEW
+│   ├── INSTALL.bat             # Windows installer
+│   └── install.sh              # Linux/Mac installer
 │
 ├── 📂 logs/                    # Application Logs
 │   ├── security.log
@@ -51,7 +77,8 @@ chatbot_SI/
 │   ├── migration_script.py
 │   ├── fix_chat_logs_schema.py
 │   ├── add_sample_chats.py
-│   └── chatbot_cli.py
+│   ├── chatbot_cli.py
+│   └── test_db_connection.py
 │
 ├── 📂 static/                  # Frontend Files
 │   ├── admin.html
@@ -74,78 +101,101 @@ chatbot_SI/
 │   └── logger.py
 │
 ├── 📄 .env                     # Environment variables (not in git)
-├── 📄 .env.example             # Environment template
-├── 📄 .gitignore               # Git ignore patterns ✨ UPDATED
-├── 📄 app.py                   # Main application (simplified)
-├── 📄 INSTALL.bat              # Windows installer ✨ NEW
-├── 📄 install.sh               # Linux/Mac installer ✨ NEW
-├── 📄 Procfile                 # Deployment config
-├── 📄 README.md                # Main documentation ✨ UPDATED
+├── 📄 .gitignore               # Git ignore patterns
+├── 📄 app.py                   # Main application
+├── 📄 README.md                # Main documentation
+├── 📄 STRUCTURE.md             # This file - Project structure overview
 ├── 📄 requirements.txt         # Python dependencies
-├── 📄 runtime.txt              # Python version
-└── 📄 setup.py                 # Automated setup script ✨ NEW
+└── 📄 setup.py                 # Automated setup script
 ```
 
-## Changes Made
+## Changes Made (NEW REORGANIZATION)
 
-### ✅ Organized Legacy Files
+### ✅ Created .config/ Folder
 
-- Moved `chatbot_core.py` → `backup/chatbot_core.py.old`
-- Moved `app.py.backup` → `backup/app.py. backup`
-- Created `backup/README.md` explaining purpose
+- Moved `.env.example` → `.config/.env.example`
+- Moved `.htaccess.hostinger.example` → `.config/.htaccess.hostinger.example`
+- Moved `.htaccess.niagahoster.example` → `.config/.htaccess.niagahoster.example`
+- All configuration templates in one place
 
-### ✅ Organized Documentation
+### ✅ Created deployment/ Folder
 
-- Moved `PROJECT_STRUCTURE.md` → `docs/PROJECT_STRUCTURE.md`
-- Moved `INSTALL.md` → `docs/INSTALL.md`
-- All docs now in one place
+- Moved `Procfile` → `deployment/Procfile`
+- Moved `passenger_wsgi.py` → `deployment/passenger_wsgi.py`
+- Moved `runtime.txt` → `deployment/runtime.txt`
+- All deployment files organized separately
 
-### ✅ Updated .gitignore
+### ✅ Created installation/ Folder
 
-- Added `backup/` folder
-- Added more file patterns
-- Better organized
+- Moved `INSTALL.bat` → `installation/INSTALL.bat`
+- Moved `install.sh` → `installation/install.sh`
+- Installation scripts in dedicated folder
+
+### ✅ Reorganized backup/ Folder
+
+- Moved `app.py.backup` → `backup/code/app.py.backup`
+- Moved `chatbot_core.py.old` → `backup/code/chatbot_core.py.old`
+- Better structured backup organization
+
+### ✅ Reorganized docs/ Folder (3 Subfolders)
+
+**docs/deployment/** - 7 deployment guides:
+
+- DEPLOYMENT_GUIDE.md, DEPLOYMENT_CHECKLIST.md
+- HOSTINGER_DEPLOYMENT.md, NIAGAHOSTER_DEPLOYMENT.md
+- RAILWAY_DEPLOYMENT.md, RAILWAY_QUICKSTART.md, RAILWAY_FIX.md
+
+**docs/guides/** - 5 setup & troubleshooting guides:
+
+- INSTALL.md, GROQ_SETUP.md
+- ADMIN_PANEL_FIX_GUIDE.md, MYSQL_TIMEOUT_FIX.md, SECURITY_GUIDE.md
+
+**docs/project/** - 2 project documentation:
+
+- PROJECT_STRUCTURE.md, LAPORAN_PROYEK_CHATBOT_SI.md
 
 ### ✅ Clean Root Directory
 
-**Before:** 15 files in root
-**After:** 10 files in root (67% cleaner!)
+**Before:** 15 files in root  
+**After:** 6 files in root (60% cleaner!)
 
 ## Root Files (Essential Only)
 
 | File               | Purpose             | Type      |
 | ------------------ | ------------------- | --------- |
 | `app.py`           | Main application    | Essential |
-| `setup.py`         | Installation script | Installer |
-| `INSTALL.bat`      | Windows installer   | Installer |
-| `install.sh`       | Linux/Mac installer | Installer |
+| `setup.py`         | Installation script | Essential |
 | `README.md`        | Main documentation  | Doc       |
-| `.env.example`     | Config template     | Config    |
+| `STRUCTURE.md`     | Project structure   | Doc       |
+| `.env`             | Environment config  | Config    |
 | `.gitignore`       | Git config          | Config    |
 | `requirements.txt` | Dependencies        | Config    |
-| `Procfile`         | Deployment          | Config    |
-| `runtime.txt`      | Python version      | Config    |
+
+**All other files organized in dedicated folders!** ✨
 
 **All organized and clean!** ✨
 
 ## Folder Summary
 
-| Folder     | Files | Purpose           |
-| ---------- | ----- | ----------------- |
-| `api/`     | 3     | Route handlers    |
-| `backup/`  | 3     | Legacy files      |
-| `config/`  | 2     | App configuration |
-| `core/`    | 6     | Chatbot logic     |
-| `data/`    | 1     | Training data     |
-| `docs/`    | 6     | Documentation     |
-| `logs/`    | 0-3   | Runtime logs      |
-| `models/`  | 2     | Database ops      |
-| `scripts/` | 4     | Utility scripts   |
-| `static/`  | 10+   | Frontend          |
-| `tests/`   | 4     | Unit tests        |
-| `utils/`   | 4     | Utilities         |
+| Folder          | Files | Purpose                      |
+| --------------- | ----- | ---------------------------- |
+| `.config/`      | 3     | Configuration templates      |
+| `api/`          | 3     | Route handlers               |
+| `backup/code/`  | 2     | Code backups                 |
+| `config/`       | 2     | App configuration            |
+| `core/`         | 6     | Chatbot logic                |
+| `data/`         | 1     | Training data                |
+| `deployment/`   | 3     | Deployment files             |
+| `docs/`         | 14    | Documentation (3 subfolders) |
+| `installation/` | 2     | Installation scripts         |
+| `logs/`         | 0-3   | Runtime logs                 |
+| `models/`       | 2     | Database ops                 |
+| `scripts/`      | 5     | Utility scripts              |
+| `static/`       | 10+   | Frontend                     |
+| `tests/`        | 4     | Unit tests                   |
+| `utils/`        | 4     | Utilities                    |
 
-**Total: 12 folders, organized by purpose**
+**Total: 15 folders, organized by purpose**
 
 ## Benefits
 
